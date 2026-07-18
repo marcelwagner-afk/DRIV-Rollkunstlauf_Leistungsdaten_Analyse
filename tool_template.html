@@ -139,8 +139,8 @@ tr.click:focus-visible{outline:2px solid var(--s1);outline-offset:-2px}
 let DB = /*__SEED__*/;
 const KADER = /*__KADER__*/;
 const TYPEN=[['WM','Weltmeisterschaft'],['EM','Europameisterschaft'],['WC-EU','World Cup Europa'],['WC-SA','World Cup Südamerika'],['WC-F','World Cup Finale'],['CoE','Europa Cup'],['IGC','Int. Deutschland-Pokal'],['IL','Interland Cup'],['National','National (DM / Ranglistenwettbewerb)'],['Sonstige','Sonstiger Wettbewerb']];
-const VERSION='3.5';
-const METHODIK_VERSION='1.3'; // 3-Jahres-Referenzkurven, 80-%-Regel, Rückstand Platz 1–3, Vereins-/Verbands-Zählung
+const VERSION='3.6';
+const METHODIK_VERSION='1.4'; // 3-Jahres-Referenzkurven, 80-%-Regel, Rückstand Platz 1–3, Vereins-Zählung, Basis-TES int. vor nat.
 const BUILD='/*__BUILD__*/';
 const GRUPPE_DIS={ // Gruppen-Anzeige je Disziplin-Bereich (Festlegung Marcel)
  'Anne Sophie Schiefer':{'Kürlaufen':'DRIV 1 Kür'},
@@ -171,15 +171,15 @@ const GLOSS={
  total:['Gesamtwertung','Offizieller Endstand laut Protokoll. Kontrollgleichung: TES + PCS = Gesamt.'],
  bench:['Historischer Referenzwert','Durchschnitt je Platzierung über die letzten 3 ausgetragenen Jahre eines Wettbewerbstyps, wobei je Jahr nur die ersten 80 % des platzierten Feldes einfließen (methodische Festlegung dieses Dashboards, kein offizieller Standard). Referenzwerte sind historische Vergleichswerte – keine Ziel-, Mindest- oder Nominierungswerte.'],
  benchpct:['% des Referenzwerts Platz 3','Eigener TES geteilt durch den historischen Durchschnittswert von Platz 3. 100 % bedeutet, dass der TES dem historischen Durchschnittswert von Platz 3 entspricht.'],
- prog:['Rechnerische Prognose auf Basis historischer Referenzwerte','Die Prognose vergleicht den besten vollständigen TES 2026 mit den historischen Referenzkurven (letzte 3 Jahre) – nur für Wettbewerbe, bei denen die Klasse startberechtigt ist (WM nur Junioren/Senioren, EM ab Cadets, Europa Cup EC und Interland IL für alle Klassen). „>n“ = unterhalb des letzten gewerteten Platzes. Sie ist eine rein rechnerische, datenbasierte Ableitung aus historischen Wettkampfergebnissen: keine Garantie, keine Vorhersage eines tatsächlichen Ergebnisses, keine sportfachliche Bewertung, kein Mindestwert und kein offizielles Nominierungskriterium. Nicht berücksichtigt: Trainingsentwicklung, gesundheitliche Umstände, Technikqualität, Tagesform, Wertungsrichterbesetzung, taktische Entscheidungen.'],
+ prog:['Rechnerische Prognose auf Basis historischer Referenzwerte','Die Prognose vergleicht den Basis-TES 2026 (vorrangig der beste internationale Wert; ohne internationalen Start ersatzweise der beste nationale, gekennzeichnet) mit den historischen Referenzkurven (letzte 3 Jahre) – nur für Wettbewerbe, bei denen die Klasse startberechtigt ist (WM nur Junioren/Senioren, EM ab Cadets, Europa Cup EC und Interland IL für alle Klassen). „>n“ = unterhalb des letzten gewerteten Platzes. Sie ist eine rein rechnerische, datenbasierte Ableitung aus historischen Wettkampfergebnissen: keine Garantie, keine Vorhersage eines tatsächlichen Ergebnisses, keine sportfachliche Bewertung, kein Mindestwert und kein offizielles Nominierungskriterium. Nicht berücksichtigt: Trainingsentwicklung, gesundheitliche Umstände, Technikqualität, Tagesform, Wertungsrichterbesetzung, taktische Entscheidungen.'],
  trend:['Trend','Bester vollständiger TES 2026 minus bester vollständiger TES 2025 derselben Disziplin (Veränderung in Punkten). Ohne Vorjahreswert: Verlauf innerhalb der Saison (erster → letzter vollständiger Wert). ▲/▼ beschreiben ausschließlich die rechnerische Richtung der Veränderung, keine sportfachliche Bewertung. Bei Klassenwechsel andere Programm-Faktoren möglich.'],
  avg:['Durchschnitt (Ø)','Arithmetisches Mittel der verfügbaren Jahre je Platzierung.'],
  median:['Median','Mittlerer Wert der sortierten Reihe – robuster gegen Ausreißer als der Durchschnitt.'],
- best:['Bester TES 2026','Höchster vollständiger TES des Jahres 2026, unabhängig von der Quelle: (int.) = internationaler Start, (nat.) = nationaler Start (formatgleich).'],
+ best:['Basis-TES (int. vor nat.)','Grundlage für Prognosen und Rückstände: der höchste vollständige INTERNATIONALE TES der Saison. Nur wenn kein internationaler Start vorliegt, wird ersatzweise der beste nationale Wert verwendet – stets gekennzeichnet mit (nat.). Grund: Nationale Wertungsgerichte sind nicht einheitlich besetzt; nationale Werte können daher vom internationalen Niveau abweichen. Internationale Einordnungen werden deshalb vorrangig aus internationalen Werten abgeleitet (methodische Festlegung).'],
  konst:['Konstanz (σ)','Standardabweichung der vollständigen TES-Werte einer Saison – je kleiner, desto konstanter die Leistungen.'],
  starts:['Jahres-Spalten','Alle Starts des Jahres in zeitlicher Reihenfolge: Kurzname des Wettbewerbs, Platzierung, vollständiger TES. Fett = internationaler Start. Details per Mauszeiger.'],
  unvoll:['Unvollständig (¹)','Nicht alle Programm-Protokolle im Datenbestand – der Wert fließt nicht in Referenzwerte, Bestwerte oder Trends ein.'],
- gap:['Rückstand auf Referenz Platz 1–3','Rechnerische Differenz zwischen dem besten vollständigen TES der letzten Saison (bzw. dem besten internationalen PCS) und dem historischen Referenzwert des jeweiligen Platzes (Ø der letzten 3 Jahre, erste 80 % des Feldes). „fehlen x“ = der Wert liegt x Punkte unter dem historischen Durchschnitt dieses Platzes; „✓ erreicht“ = der Wert liegt darauf oder darüber. In der Übersicht wird der höchste startberechtigte Wettbewerbstyp gezeigt (WM vor EM vor Europa Cup vor Interland). Rein rechnerische Vergleichswerte zur Entwicklungs-Orientierung – keine Ziel-, Mindest- oder Nominierungswerte; nicht berücksichtigt: Trainingsentwicklung, Technikqualität, Tagesform, Wertungsrichterbesetzung.']
+ gap:['Rückstand auf Referenz Platz 1–3','Rechnerische Differenz zwischen dem Basis-TES der letzten Saison (vorrangig bester internationaler Wert; ohne internationalen Start ersatzweise national, gekennzeichnet) bzw. dem besten internationalen PCS und dem historischen Referenzwert des jeweiligen Platzes (Ø der letzten 3 Jahre, erste 80 % des Feldes). „fehlen x“ = der Wert liegt x Punkte unter dem historischen Durchschnitt dieses Platzes; „✓ erreicht“ = der Wert liegt darauf oder darüber. In der Übersicht wird der höchste startberechtigte Wettbewerbstyp gezeigt (WM vor EM vor Europa Cup vor Interland). Rein rechnerische Vergleichswerte zur Entwicklungs-Orientierung – keine Ziel-, Mindest- oder Nominierungswerte; nicht berücksichtigt: Trainingsentwicklung, Technikqualität, Tagesform, Wertungsrichterbesetzung.']
 };
 function infoI(key){
   const g=GLOSS[key]; if(!g)return document.createTextNode('');
@@ -780,6 +780,19 @@ function projText(dis,klasse,gender,tes){
   });
   return parts.join(' · ')||'–';
 }
+/* Basis für internationale Prognosen/Rückstände: vorrangig bester internationaler TES der Saison,
+   nur ohne internationalen Start der beste nationale Wert (stets gekennzeichnet). Grund: nationale
+   Wertungsgerichte sind nicht einheitlich besetzt – internationale Einordnungen daher vorrangig
+   aus internationalen Werten (methodische Festlegung v1.4). */
+function progBasis(rows,y){
+  let bi=null,bn=null;
+  rows.forEach(r=>{
+    if(r.tes==null||r.tesOk===false||!r.datum.startsWith(y))return;
+    if(r.herkunft==='international'){ if(!bi||r.tes>bi.tes)bi=r; }
+    else { if(!bn||r.tes>bn.tes)bn=r; }
+  });
+  return bi||bn;
+}
 /* ---- Rückstand auf Referenz Platz 1–3 (rein rechnerisch) ---- */
 function gapData(dis,klasse,gender,tesVal,pcsVal){
   const out=[];
@@ -817,7 +830,7 @@ function topGapShort(dis,klasse,gender,tesVal){
 function gapBox(rel){
   const ys=[...new Set(rel.filter(r=>r.tes!=null&&r.tesOk!==false).map(r=>r.datum.slice(0,4)))].sort();
   const y=ys[ys.length-1]; if(!y)return null;
-  let bT=null; rel.forEach(r=>{if(r.tes!=null&&r.tesOk!==false&&r.datum.startsWith(y)&&(bT==null||r.tes>bT.tes))bT=r;});
+  const bT=progBasis(rel,y);
   if(!bT)return null;
   let bP=null; rel.forEach(r=>{if(r.pcs!=null&&r.tesOk!==false&&r.herkunft==='international'&&r.datum.startsWith(y)&&(bP==null||r.pcs>bP.pcs))bP=r;});
   const data=gapData(bT.dis,bT.klasse,bT.gender,bT.tes,bP?bP.pcs:null);
@@ -825,7 +838,7 @@ function gapBox(rel){
   const bx=el('div');
   const h=el('p','statline','Entwicklungs-Orientierung: rechnerischer Abstand zu den Referenzwerten für Platz 1–3 (Saison '+y+')');
   h.append(infoI('gap')); bx.append(h);
-  bx.append(el('p','sec','Basis: bester vollständiger TES '+y+' = '+fmt(bT.tes)+' ('+bT.ev+', '+bT.klasse+(bT.gender?' '+bT.gender:'')+')'+(bP?(' · bester internationaler PCS '+y+' = '+fmt(bP.pcs)+' ('+bP.ev+')'):' · kein internationaler PCS-Wert in der Saison – PCS-Abstand daher nicht berechenbar')+'.'));
+  bx.append(el('p','sec','Basis: bester vollständiger '+(bT.herkunft==='international'?'internationaler':'nationaler')+' TES '+y+' = '+fmt(bT.tes)+' ('+bT.ev+', '+bT.klasse+(bT.gender?' '+bT.gender:'')+')'+(bT.herkunft!=='international'?' – kein internationaler Start in der Saison, daher nationaler Wert (Vorsicht: Wertungsgerichte nicht einheitlich)':'')+(bP?(' · bester internationaler PCS '+y+' = '+fmt(bP.pcs)+' ('+bP.ev+')'):' · kein internationaler PCS-Wert in der Saison – PCS-Abstand daher nicht berechenbar')+'.'));
   const tb=el('table');const th=el('tr');
   [['Wettbewerb',null],['Platz',null],['Referenz TES Ø (n)','bench'],['Abstand TES','gap'],['Referenz PCS Ø (int.)','pcs'],['Abstand PCS','gap']].forEach(([x,g2])=>th.append(thI(x,g2)));tb.append(th);
   let smallN=false;
@@ -921,7 +934,7 @@ function renderKader(){
     c2.append(el('h2',null,(dis==='Kürlaufen'?'Kürlaufen (Einzel)':dis)+' ('+es.length+')'));
     const tb=el('table');const th=el('tr');
     tb.className='ovtab';
-    [['Athlet/in',null],['Klasse',null],['2023','starts'],['2024','starts'],['2025','starts'],['2026','starts'],['Bester TES 2026','best'],['Prognose (EM · WM · EC · IL)','prog'],['Rückstand Platz 3','gap'],['Trend','trend']].forEach(([x,g])=>th.append(thI(x,g)));tb.append(th);
+    [['Athlet/in',null],['Klasse',null],['2023','starts'],['2024','starts'],['2025','starts'],['2026','starts'],['Basis-TES 2026 (int. vor nat.)','best'],['Prognose (EM · WM · EC · IL)','prog'],['Rückstand Platz 3','gap'],['Trend','trend']].forEach(([x,g])=>th.append(thI(x,g)));tb.append(th);
     let lastBlock=null;
     es.forEach(e=>{
       const block=OLDER.has(e.klasse)?0:1;
@@ -971,8 +984,7 @@ function renderKader(){
         }
         tr.append(td);
       });
-      let bRef=null;
-      e.rel.forEach(r=>{if(r.tes!=null&&r.tesOk!==false&&r.datum.startsWith('2026')&&(bRef==null||r.tes>bRef.tes))bRef=r;});
+      const bRef=progBasis(e.rel,'2026');
       tr.append(el('td','num',bRef?fmt(bRef.tes)+(bRef.herkunft==='international'?' (int.)':' (nat.)'):'–'));
       tr.append(el('td','prog',bRef?projShort(bRef.dis,bRef.klasse,bRef.gender,bRef.tes):'–'));
       tr.append(el('td','sec',bRef?topGapShort(bRef.dis,bRef.klasse,bRef.gender,bRef.tes):'–'));
@@ -997,7 +1009,7 @@ function renderKader(){
     c2.append(tb);
     main.append(c2);
   });
-  main.append(Object.assign(el('p','note'),{textContent:'Reihenfolge: je Disziplin erst die Klassen Senioren–Cadets, danach Espoir/Minis/Tots; Klasse = zuletzt gelaufene Klasse in der Disziplin. Jahres-Spalten: alle Starts chronologisch mit Platzierung und vollständigem TES (fett = international; blau = beste Platzierung des Jahres; ohne TES-Angabe = Segment-Summe unvollständig; Details per Mauszeiger). Prognose: rechnerische Platzierung des besten TES 2026 gegen die 3-Jahres-Referenzkurven – EM = Europameisterschaft, WM = Weltmeisterschaft, EC = Europa Cup, IL = Interland Cup; „>n“ = unterhalb des letzten gewerteten Platzes; Prognose = rechnerische Prognose auf Basis historischer Referenzwerte (Details per ⓘ), nur für startberechtigte Wettbewerbe (WM nur Junioren/Senioren, EM ab Cadets, Europa Cup/Interland alle Klassen); maßgeblich ist immer die Startkategorie des jeweiligen Jahres; nationale TES sind formatgleich (Kennzeichnung „nat.“ in der TES-Spalte). Athleten erscheinen nur in den Disziplinen, in denen sie in ihrer letzten aktiven Saison gestartet sind (strikte Trennung; frühere Disziplinen bleiben im Athletenprofil sichtbar). Mehrfachstarter – z. B. Solotanz + Kürlaufen in derselben Saison – erscheinen je Disziplin getrennt ausgewertet, inkl. Einzel/Paar-Trennung. TES-Trend: bester vollständiger TES 2026 vs. 2025 in der Disziplin. Rückstand Platz 3: rechnerische Differenz des besten TES 2026 zum historischen Referenzwert von Platz 3 des höchsten startberechtigten Wettbewerbstyps (WM vor EM vor EC vor IL); „fehlen x“ = x Punkte unter dem Referenzwert, „✓“ = erreicht; Details und Platz 1–2 im Athletenprofil (Details per ⓘ).'}));
+  main.append(Object.assign(el('p','note'),{textContent:'Reihenfolge: je Disziplin erst die Klassen Senioren–Cadets, danach Espoir/Minis/Tots; Klasse = zuletzt gelaufene Klasse in der Disziplin. Jahres-Spalten: alle Starts chronologisch mit Platzierung und vollständigem TES (fett = international; blau = beste Platzierung des Jahres; ohne TES-Angabe = Segment-Summe unvollständig; Details per Mauszeiger). Prognose: rechnerische Platzierung des Basis-TES 2026 gegen die 3-Jahres-Referenzkurven; Basis-TES = bester internationaler TES 2026, nur ohne internationalen Start ersatzweise der beste nationale Wert (Kennzeichnung „nat.“ – nationale Wertungsgerichte sind nicht einheitlich besetzt, daher Vorrang internationaler Werte) – EM = Europameisterschaft, WM = Weltmeisterschaft, EC = Europa Cup, IL = Interland Cup; „>n“ = unterhalb des letzten gewerteten Platzes; Prognose = rechnerische Prognose auf Basis historischer Referenzwerte (Details per ⓘ), nur für startberechtigte Wettbewerbe (WM nur Junioren/Senioren, EM ab Cadets, Europa Cup/Interland alle Klassen); maßgeblich ist immer die Startkategorie des jeweiligen Jahres; nationale TES sind formatgleich (Kennzeichnung „nat.“ in der TES-Spalte). Athleten erscheinen nur in den Disziplinen, in denen sie in ihrer letzten aktiven Saison gestartet sind (strikte Trennung; frühere Disziplinen bleiben im Athletenprofil sichtbar). Mehrfachstarter – z. B. Solotanz + Kürlaufen in derselben Saison – erscheinen je Disziplin getrennt ausgewertet, inkl. Einzel/Paar-Trennung. TES-Trend: bester vollständiger TES 2026 vs. 2025 in der Disziplin. Rückstand Platz 3: rechnerische Differenz des besten TES 2026 zum historischen Referenzwert von Platz 3 des höchsten startberechtigten Wettbewerbstyps (WM vor EM vor EC vor IL); „fehlen x“ = x Punkte unter dem Referenzwert, „✓“ = erreicht; Details und Platz 1–2 im Athletenprofil (Details per ⓘ).'}));
 }
 /* ---- Athletenprofil ---- */
 
@@ -1205,10 +1217,9 @@ function renderProfilA(name){
     const years=[...new Set(rel.map(r=>r.datum.slice(0,4)))].sort();
     if(years.length){
       const tbY=el('table');const thY=el('tr');
-      [['Jahr',null],['Klasse',null],['Bester TES (vollständig)','tes'],['Quelle',null],['Beste Platzierung int.',null],['Beste Platzierung nat.',null],['Rechnerische Prognose (hist. Referenzkurven)','prog']].forEach(([x,g])=>thY.append(thI(x,g)));tbY.append(thY);
+      [['Jahr',null],['Klasse',null],['Basis-TES (int. vor nat.)','best'],['Quelle',null],['Beste Platzierung int.',null],['Beste Platzierung nat.',null],['Rechnerische Prognose (hist. Referenzkurven)','prog']].forEach(([x,g])=>thY.append(thI(x,g)));tbY.append(thY);
       years.forEach(y=>{
-        let best=null;
-        rel.forEach(r=>{if(r.datum.startsWith(y)&&r.tes!=null&&r.tesOk!==false&&(best==null||r.tes>best.tes))best=r;});
+        const best=progBasis(rel,y);
         const yr=rel.filter(r=>r.datum.startsWith(y)&&r.platz!=null);
         let bi=null,bn=null;
         yr.forEach(r=>{
@@ -1229,7 +1240,7 @@ function renderProfilA(name){
       });
       const bx=el('div');bx.append(el('p','statline','Referenzwert-Verlauf – bester TES je Jahr im internationalen Vergleich:'));
       bx.append(tbY);
-      bx.append(el('p','note','Einordnung jeweils gegen die aktuellen internationalen Referenzkurven (Ø je Platz, letzte 3 Jahre, erste 80 % des Feldes) der Klasse, in der der Jahres-Bestwert erzielt wurde – so ist die Entwicklung über Klassenwechsel hinweg am heutigen internationalen Niveau ablesbar. Nationale TES sind formatgleich (RollArt) und daher direkt vergleichbar; Components fließen nur international ein.'));
+      bx.append(el('p','note','Einordnung jeweils gegen die aktuellen internationalen Referenzkurven (Ø je Platz, letzte 3 Jahre, erste 80 % des Feldes) der Klasse, in der der Jahres-Basiswert erzielt wurde – so ist die Entwicklung über Klassenwechsel hinweg am heutigen internationalen Niveau ablesbar. Basis-TES: vorrangig der beste internationale Wert des Jahres; nur ohne internationalen Start der beste nationale (Spalte „Quelle“). Nationale TES sind formatgleich (RollArt), können aber wegen nicht einheitlich besetzter Wertungsgerichte vom internationalen Niveau abweichen; Components fließen nur international ein.'));
       card.append(bx);
     }
     const pts=rel.filter(r=>r.tes!=null&&r.tesOk!==false).map(r=>({x:new Date(r.datum).getTime(),y:r.tes,sub:r.ev}));
@@ -1397,8 +1408,8 @@ function renderVergleich(){
   addRow('Beste Gesamtwertung',r=>fmt(bestOf(r,x=>x.total)));
   addRow('Podiumsplätze (1–3)',r=>String(r.filter(x=>x.platz!=null&&x.platz<=3).length));
   addRow('Konstanz 2026 (σ TES)',r=>{const v=r.filter(x=>x.tes!=null&&x.tesOk!==false&&x.datum.startsWith('2026')).map(x=>x.tes);if(v.length<3)return '–';const m=v.reduce((a,b)=>a+b,0)/v.length;return fmt(Math.round(Math.sqrt(v.reduce((a,b)=>a+(b-m)*(b-m),0)/v.length)*100)/100);},'num');
-  addRow('Rechnerische Prognose (bester TES 2026, int. oder nat.)',r=>{let b=null;r.forEach(x=>{if(x.tes!=null&&x.tesOk!==false&&x.datum.startsWith('2026')&&(b==null||x.tes>b.tes))b=x;});if(!b)b=bestIntTes(r);return b?projText(b.dis,b.klasse,b.gender,b.tes):'–';},'sec');
-  addRow('Rückstand auf Referenz Platz 3 (höchster startberechtigter Wettbewerb)',r=>{let b=null;r.forEach(x=>{if(x.tes!=null&&x.tesOk!==false&&x.datum.startsWith('2026')&&(b==null||x.tes>b.tes))b=x;});if(!b)b=bestIntTes(r);return b?topGapShort(b.dis,b.klasse,b.gender,b.tes):'–';},'sec');
+  addRow('Rechnerische Prognose (Basis-TES 2026, int. vor nat.)',r=>{let b=progBasis(r,'2026');if(!b)b=bestIntTes(r);return b?projText(b.dis,b.klasse,b.gender,b.tes)+(b.herkunft==='national'?' (Basis nat.)':''):'–';},'sec');
+  addRow('Rückstand auf Referenz Platz 3 (höchster startberechtigter Wettbewerb)',r=>{let b=progBasis(r,'2026');if(!b)b=bestIntTes(r);return b?topGapShort(b.dis,b.klasse,b.gender,b.tes)+(b.herkunft==='national'?' (Basis nat.)':''):'–';},'sec');
   c3.append(tb);
   c3.append(el('p','note','Disziplinen werden strikt getrennt: Athleten mit mehreren Disziplinen erscheinen je Disziplin als eigene Linie und Spalte. Bestwerte über alle Klassen 2023–2026; bei Klassenwechseln Kennzahlen im Kontext des Verlaufs-Charts lesen. Components ausschließlich aus internationalen Wettbewerben. Rein statistische Gegenüberstellung – keine Nominierungsempfehlung.'));
   main.append(c3);
@@ -1551,7 +1562,8 @@ function renderMethodik(){
   mk('Berechnung der technischen Wertung (TES)',[
     'TES = Summe der technischen Element-Wertungen aller Programme abzüglich der Abzüge. Die technische Endpunktzahl wird nicht aus den PDFs übernommen, sondern aus den Programm-Protokollen berechnet und über die Kontrollgleichung TES + PCS = Gesamtwertung gegen den offiziellen Endstand abgesichert.',
     'Beispiel: Kurzprogramm 41,25 − 1,00 = 40,25 · Kür 56,80 − 2,00 = 54,80 → Gesamt-TES 95,05.',
-    'Nationale und internationale TES werden nach derselben rechnerischen RollArt-Struktur ermittelt und sind daher formal bzw. formatseitig vergleichbar. Unterschiede bei Wertungsgerichten, Teilnehmerfeldern und Wettbewerbskontexten bleiben davon unberührt; nationale Werte sind im Dashboard stets als „(nat.)“ gekennzeichnet.']);
+    'Nationale und internationale TES werden nach derselben rechnerischen RollArt-Struktur ermittelt und sind daher formal bzw. formatseitig vergleichbar. Unterschiede bei Wertungsgerichten, Teilnehmerfeldern und Wettbewerbskontexten bleiben davon unberührt; nationale Werte sind im Dashboard stets als „(nat.)“ gekennzeichnet.',
+    'Basis-Regel für internationale Einordnungen (Prognosen, Rückstände) ab Methodik v1.4: Herangezogen wird vorrangig der beste vollständige INTERNATIONALE TES der Saison. Nur wenn kein internationaler Start vorliegt, wird ersatzweise der beste nationale Wert verwendet – deutlich gekennzeichnet. Grund: Nationale Wertungsgerichte sind nicht einheitlich besetzt; national erzielte Punktwerte können systematisch vom internationalen Niveau abweichen und würden Prognosen sonst verzerren.']);
   mk('Berechnung der Components (PCS)',[
     'PCS = Component-Wertung Kurzprogramm + Component-Wertung Kür (bzw. Style Dance + Free Dance). Die je Wettbewerb und Programm geltenden RollArt-Faktoren sind in den offiziellen Component-Werten der Protokolle bereits enthalten und werden unverändert übernommen – der Rechenweg weist die Werte je Programm aus.',
     'Components werden nur aus internationalen Wettbewerben ausgewertet, da nationale Wertungsgerichte nicht einheitlich besetzt sind.']);
@@ -1565,6 +1577,12 @@ function renderMethodik(){
   mk('Vereins- und Verbandsauswertung',[
     'Der Tab „Vereine & Verbände“ zählt Starts, Siege (Platz 1) und Podestplätze (Platz 1–3) je Verein aus der Vereins-Spalte der nationalen Ergebnisprotokolle; der Landesverband stammt aus der Verbandsangabe der Protokolle. Internationale Starts und Podestplätze werden einer Person über ihren zuletzt dokumentierten Verein zugeordnet. Paare mit zwei Vereinen zählen für den erstgenannten Verein.',
     'Diese Zählung ist rein deskriptiv: Sie hängt von Meldezahlen, Feldgrößen und den tatsächlich besuchten Wettbewerben ab und stellt keine Bewertung von Vereins-, Verbands- oder Trainerarbeit dar.']);
+  mk('Rechtsrahmen: Nominierung und Bundesförderung (Stand Juli 2026)',[
+    'Die Nominierung für internationale Meisterschaften (WM/EM) ist ausschließlich Sache des Verbands (DRIV/Sportkommission). Sie kann und darf auch strategische Erwägungen umfassen (z. B. Perspektiv- und Erfahrungsaufbau) – es gibt keine staatlichen Nominierungskriterien.',
+    'Das Bundesministerium des Innern entscheidet über die Förderung von Entsendungen aus Bundesmitteln. Maßgeblich ist das Leistungssportprogramm (LSP) des BMI: Förderfähig sind Athletinnen und Athleten, die „im internationalen Vergleich zur Spitzenklasse zählen und deshalb in internationalen Wettbewerben Endkampfchancen haben“ – oder die „als Nachwuchssportlerinnen und Nachwuchssportler eine deutliche Perspektive aufweisen, um den Anschluss an die internationale Spitzenklasse zu erreichen“. Beide Förderwege sind gleichberechtigt; der zweite ist die Grundlage perspektivisch begründeter Entsendungen.',
+    'Eine offizielle Platzierungsschwelle (etwa „Endkampf = Platz 8“) ist in keinem der Dokumente festgelegt; die Auslegung liegt bei Verband und Fördergeber. Für nichtolympische Sportarten wie Rollkunstlauf gilt ergänzend das DOSB-Konzept „Förderung Nichtolympischer Spitzensport“: Für World-Games-Sportarten sind die World Games verpflichtender Zielwettkampf, im Übrigen die Weltmeisterschaften. Mit dem geplanten Sportfördergesetz (Entwurf 2026, Spitzensport-Agentur) kann sich die Förderlogik ändern.',
+    'Dieses Dashboard nimmt bewusst keine Endkampf- oder Förderfähigkeits-Einordnung einzelner Athletinnen und Athleten vor: Die enthaltenen Prognosen sind rein rechnerische Ableitungen aus historischen Referenzwerten und weder Nominierungs- noch Förderkriterien.',
+    'Quellen: BMI-Leistungssportprogramm (verwaltungsvorschriften-im-internet.de) · DOSB-Konzept Förderung Nichtolympischer Spitzensport 2020 (dosb.de) · BMI-Themenseite Förderung des Spitzensports (bmi.bund.de) · Sportfördergesetz-Entwurf März 2026 (bundesregierung.de).']);
   mk('Grenzen der Datenbasis',[
     'Das Dashboard bildet ausschließlich dokumentierte Wettkampfergebnisse ab. Nicht enthalten sind: Technikqualität im Detail, Trainingsentwicklung, gesundheitliche Umstände, Tagesform-Kontexte sowie taktische oder strategische Erwägungen. Aussagen über künftige Leistungen oder über die Eignung von Athletinnen und Athleten lassen sich aus diesen Daten nicht ableiten.',
     'Bei Klassenwechseln gelten teils unterschiedliche Programm-Faktoren; Jahresvergleiche sind in diesem Kontext zu lesen (Kennzeichnung im Profil).']);

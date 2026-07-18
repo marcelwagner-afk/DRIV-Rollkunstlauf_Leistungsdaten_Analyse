@@ -69,6 +69,28 @@ check('Rückstand: Rechenwert konsistent', gap.manuell !== null && gap.dT === ga
 check('Rückstand: Kurzform plausibel', /^(WM|EM|EC|IL) P\d: (fehlen |✓)/.test(gap.kurz), gap.kurz);
 check('Rückstand: Profil-Box und Übersichts-Spalte vorhanden', gap.boxDa && gap.spalteDa, JSON.stringify({box:gap.boxDa,spalte:gap.spalteDa}));
 
+// 4b2) Basis-Regel: Prognose-Basis ist international, sobald ein internationaler Start vorliegt
+const basis = await p.evaluate(() => {
+  let verletzt = [], geprueft = 0, natFallback = 0;
+  KADER.forEach(kd => {
+    const rows = rowsOf(kd.name);
+    [...new Set(rows.map(r => r.dis))].forEach(dis => {
+      const rel = rows.filter(r => r.dis === dis);
+      const b = progBasis(rel, '2026');
+      if (!b) return;
+      geprueft++;
+      const hatInt = rel.some(r => r.herkunft === 'international' && r.tes != null && r.tesOk !== false && r.datum.startsWith('2026'));
+      if (hatInt && b.herkunft !== 'international') verletzt.push(kd.name + '/' + dis);
+      if (!hatInt) natFallback++;
+    });
+  });
+  const gr = progBasis(rowsOf('Max Grüschow').filter(r => r.dis === 'Kürlaufen'), '2026');
+  return { geprueft, natFallback, verletzt, gr: gr ? gr.herkunft + ' ' + gr.tes : 'fehlt' };
+});
+check('Basis-Regel: int. vor nat. für alle Kader×Disziplin', basis.verletzt.length === 0,
+      basis.geprueft + ' geprüft, ' + basis.natFallback + ' nat.-Fallback, Verstöße: ' + basis.verletzt.join(','));
+check('Basis-Regel: Grüschow-Basis ist international', basis.gr.startsWith('international'), basis.gr);
+
 // 4c) Vereine & Verbände: Zählung konsistent mit Datenbestand
 const ver = await p.evaluate(() => {
   const {list} = vereinsStats();
