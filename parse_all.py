@@ -4,7 +4,7 @@ DIS={'Free Skating':'Kürlaufen','Solo Dance':'Solotanz','Couple Dance':'Rolltan
 KL={'Seniores':'Senioren','Juniores':'Junioren','Youth':'Youth','Cadets':'Cadets','Espoire':'Espoir','Espoir':'Espoir','Minis':'Minis','Tots':'Tots'}
 BAD=('PANEL','JUDGES','RESULT','REVISED','DETAILS','VERIFIED','WORLDSKATE','TECHNICAL','OFFICIAL')
 FULL=re.compile(r'((?:Free Skating|Solo Dance|Couple Dance|Pairs)\s*(?:Ladies|Men)?\s*(?:Seniores|Juniores|Youth|Cadets|Espoire|Espoir|Minis|Tots))\s*(?:-\s*(.+?))?\s*(?:REVISED.*)?$')
-CLUB=r'(?:REV|SC|TV|TGS|VER|VFL|REC|RSV|MTV|PSV|ERC|ERB|RST|FT|SV|OSC|ERV|SF|RRV|1\.|WEDDINGER|WEDDIMGER|NEUKÖLLNER|GÜSTROWER|FREIBURGER|ESCHWEILER|HANAUER|ROLLSCHUHPARADIES|KSG|RRD|TSV|SG|REG|TBV|TUS|NORDHEIMER)'
+CLUB=r'(?:REV|SC|TV|TGS|VER|VFL|REC|RSV|MTV|PSV|ERC|ERB|RST|FT|SV|OSC|ERV|SF|RRV|1\.|WEDDINGER|WEDDIMGER|NEUKÖLLNER|NEUKÖLLER|NEUKÖLNER|GÜSTROWER|FREIBURGER|ESCHWEILER|HANAUER|ROLLSCHUHPARADIES|KSG|RRD|TSV|SG|REG|TBV|TUS|NORDHEIMER|DELMENHORSTER|ALTONAER|REMSCHEIDER)'
 def tcase(n): return ' '.join(w.capitalize() for w in n.title().split())
 _CLUBUP={'REV','SC','TV','TGS','VFL','REC','RSV','MTV','PSV','ERC','ERB','RST','FT','SV','OSC','ERV','SF','RRV','KSG','RRD','TSV','SG','REG','TBV','TUS','RSC','EV','VER','VFR','DJK','ESV'}
 def _capw(w):
@@ -37,7 +37,7 @@ _CLUBFIX={'Weddimger ERC':'Weddinger ERC','FT Freiburh V. 1844':'FT 1844 Freibur
  'SV Dresden-Mitte 1950':'SV Dresden Mitte','TV Walsum-Aldenrade':'TV Walsum Aldenrade 07',
  'TV Walsum-Aldenrade 07':'TV Walsum Aldenrade 07','TV Datteln 09':'TV Datteln',
  'RST Hummetal SC Hameln Hilligsfeld':'RST Hummetal','RST Hummetal SC Hameln-Hilligsfeld':'RST Hummetal',
- '1. Kieler REV S-H':'1. Kieler REV'}
+ '1. Kieler REV S-H':'1. Kieler REV','Neuköller SF':'Neuköllner SF','Neukölner SF':'Neuköllner SF'}
 def splitclub(raw, prefix=''):
     # "ERB BREMEN (BREMEN) GER" → ('ERB Bremen', 'Bremen'); Klammerzusatz = Landesverband
     raw=raw.strip(); lv=None
@@ -98,6 +98,11 @@ def parse_pdf(path, fmt='nation'):
         s=ln.strip()
         # Intermediate-/Breitensport-Kategorien erkennen und getrennt halten (werden nicht ausgewertet)
         if re.match(r'(?:Free Skating|Solo Dance|Couple Dance|Pairs)\s*(?:Ladies|Men)?\s*\w*\s*Intermediate\b',s):
+            catname=s.split(' - ')[0].strip()
+            cat=cats.setdefault('#IGNORE '+catname,{'final':{},'seg':{}})
+            mode=None; lastRow=None; continue
+        # Formations-/Gruppenkategorien (Precision, Quartets, Show) sind keine Einzel-/Paar-Wettbewerbe → nicht auswerten
+        if re.match(r'(?:Precision|Quartets?|Show ?Groups?)\b',s):
             catname=s.split(' - ')[0].strip()
             cat=cats.setdefault('#IGNORE '+catname,{'final':{},'seg':{}})
             mode=None; lastRow=None; continue

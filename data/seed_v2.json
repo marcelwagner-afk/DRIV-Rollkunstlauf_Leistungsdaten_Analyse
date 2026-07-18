@@ -133504,7 +133504,7 @@
       "tesOk": false
      },
      {
-      "name": "Elina Honecker Delmenhorster",
+      "name": "Elina Honecker",
       "nat": "GER",
       "platz": 20,
       "total": 27.48,
@@ -133519,6 +133519,7 @@
         "ded": 0.0
        }
       ],
+      "club": "Delmenhorster TV",
       "lv": "Niedersachsen",
       "tesOk": false
      },
@@ -133590,7 +133591,7 @@
       "tesOk": false
      },
      {
-      "name": "Mila Kobiella Delmenhorster",
+      "name": "Mila Kobiella",
       "nat": "GER",
       "platz": 3,
       "total": 31.37,
@@ -133605,6 +133606,7 @@
         "ded": 0.0
        }
       ],
+      "club": "Delmenhorster TV",
       "lv": "Niedersachsen",
       "tesOk": false
      },
@@ -139434,7 +139436,7 @@
       "tesOk": false
      },
      {
-      "name": "Lena Gwizdowski Delmenhorster",
+      "name": "Lena Gwizdowski",
       "nat": "GER",
       "platz": 21,
       "total": 27.29,
@@ -139449,6 +139451,7 @@
         "ded": 0.0
        }
       ],
+      "club": "Delmenhorster TV",
       "lv": "Niedersachsen",
       "tesOk": false
      },
@@ -139700,7 +139703,7 @@
       "tesOk": false
      },
      {
-      "name": "Mila Kobiella Delmenhorster",
+      "name": "Mila Kobiella",
       "nat": "GER",
       "platz": 12,
       "total": 23.64,
@@ -139715,11 +139718,12 @@
         "ded": 0.0
        }
       ],
+      "club": "Delmenhorster TV",
       "lv": "Niedersachsen",
       "tesOk": false
      },
      {
-      "name": "Liah Maser Delmenhorster",
+      "name": "Liah Maser",
       "nat": "GER",
       "platz": 14,
       "total": 20.63,
@@ -139734,6 +139738,7 @@
         "ded": 0.0
        }
       ],
+      "club": "Delmenhorster TV",
       "lv": "Niedersachsen",
       "tesOk": false
      },
@@ -141148,7 +141153,7 @@
       "tesOk": false
      },
      {
-      "name": "Mila Kobiella Delmenhorster",
+      "name": "Mila Kobiella",
       "nat": "GER",
       "platz": 8,
       "total": 28.67,
@@ -141163,6 +141168,7 @@
         "ded": 0.0
        }
       ],
+      "club": "Delmenhorster TV",
       "lv": "Niedersachsen",
       "tesOk": false
      },
@@ -153418,7 +153424,7 @@
       "abzuege": 1.0
      },
      {
-      "name": "Antonia Maria Plotkowski Altonaer",
+      "name": "Antonia Maria Plotkowski",
       "nat": "GER",
       "platz": 13,
       "total": 45.92,
@@ -153426,6 +153432,7 @@
       "pcs": null,
       "nseg": 0,
       "segs": null,
+      "club": "Altonaer SV",
       "lv": "Hamburg",
       "tesOk": false
      }
@@ -153665,27 +153672,6 @@
       "club": "ERB Bremen",
       "lv": "Bremen",
       "tesOk": false
-     },
-     {
-      "name": "Junioren Dream Team",
-      "nat": "GER",
-      "platz": 1,
-      "total": 37.78,
-      "tes": 17.73,
-      "pcs": 20.05,
-      "nseg": 1,
-      "segs": [
-       {
-        "seg": "Style Dance",
-        "tes": 17.73,
-        "pcs": 20.05,
-        "ded": 0.0
-       }
-      ],
-      "club": "RSV Einbeck",
-      "tesOk": true,
-      "tesRaw": 17.73,
-      "abzuege": 0.0
      }
     ]
    },
@@ -155399,7 +155385,7 @@
       "abzuege": 3.0
      },
      {
-      "name": "Sophie Duiunov Neuköller",
+      "name": "Sophie Duiunov",
       "nat": "GER",
       "platz": 13,
       "total": 33.52,
@@ -155420,6 +155406,7 @@
         "ded": 2.0
        }
       ],
+      "club": "Neuköllner SF",
       "lv": "Berlin",
       "tesOk": true,
       "tesRaw": 20.14,
@@ -157995,38 +157982,6 @@
       "club": "ERB Bremen",
       "lv": "Bremen",
       "tesOk": false
-     },
-     {
-      "name": "Junioren Dream Team",
-      "nat": "GER",
-      "platz": 1,
-      "total": 68.65,
-      "tes": 38.95,
-      "pcs": 29.7,
-      "nseg": 1,
-      "segs": [
-       {
-        "seg": "Style Dance",
-        "tes": 38.95,
-        "pcs": 29.7,
-        "ded": 0.0
-       }
-      ],
-      "club": "RSV Einbeck",
-      "tesOk": true,
-      "tesRaw": 38.95,
-      "abzuege": 0.0
-     },
-     {
-      "name": "Magic Team Remscheider",
-      "nat": "GER",
-      "platz": 2,
-      "total": 50.08,
-      "tes": null,
-      "pcs": null,
-      "nseg": 0,
-      "segs": null,
-      "tesOk": false
      }
     ]
    }
@@ -159135,6 +159090,7 @@
         "ded": 2.0
        }
       ],
+      "club": "Neuköllner SF",
       "lv": "Berlin",
       "tesOk": true,
       "tesRaw": 52.89,

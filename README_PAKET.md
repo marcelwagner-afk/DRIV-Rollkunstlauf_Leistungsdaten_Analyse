@@ -38,7 +38,7 @@ Eintrag in `parse_all.py` (Liste `JOBS`) ergänzen und neu bauen.
 | `build.py` | Baut die fertige HTML-Datei aus Template + Daten (Datenstand = heute) |
 | `check_data.py` | Datenprüfung (nur lesend): Invarianten, Duplikate, Register-Kreuzcheck |
 | `tests.mjs` | UI-Regressionstest (Playwright): Tabs, Profile, Prognose-Regeln, Exporte, Druck, Mobil |
-| `data/seed_v2.json` | Aufbereiteter Datenbestand (46 Wettbewerbe, 8 381 Ergebnisse) |
+| `data/seed_v2.json` | Aufbereiteter Datenbestand (46 Wettbewerbe, 8 378 Ergebnisse) |
 | `data/seed_international.json` | Basis-Seed EM/WM 2024/2025 |
 | `data/kader.json` | Kaderliste mit Schreibweisen-Varianten |
 | `data/athleten_register.json` | Referenz für den 142er-Kreuzcheck |
