@@ -1,0 +1,38 @@
+# Holt per Knopfdruck (Reiter Actions → "Drive-Abgleich" → Run workflow)
+# alle Dateien aus Svens Google-Drive-Ordner "Statistik_Ergebnisse"
+# und legt sie unter data/NEUE_ERGEBNISSE/drive/ im Repository ab.
+# Voraussetzung: Der Drive-Ordner ist per Link freigegeben ("Jeder mit dem Link – Betrachter").
+name: Drive-Abgleich (Statistik_Ergebnisse)
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Download-Werkzeug installieren
+        run: pip install gdown
+      - name: Drive-Ordner herunterladen
+        run: |
+          mkdir -p data/NEUE_ERGEBNISSE/drive
+          gdown --folder "https://drive.google.com/drive/folders/10qqHNxuDyiy6dYzWI9pGkveJotGpOJZU" \
+                -O data/NEUE_ERGEBNISSE/drive --remaining-ok \
+            || echo "::warning::Ordner leer oder nicht per Link freigegeben – nichts heruntergeladen."
+      - name: Neue Dateien committen
+        run: |
+          git config user.name "drive-sync-bot"
+          git config user.email "actions@github.com"
+          git add data/NEUE_ERGEBNISSE/drive
+          if git diff --cached --quiet; then
+            echo "Keine neuen Dateien im Drive-Ordner."
+          else
+            git commit -m "Drive-Abgleich: neue Ergebnis-Dateien aus Statistik_Ergebnisse"
+            git push
+          fi
