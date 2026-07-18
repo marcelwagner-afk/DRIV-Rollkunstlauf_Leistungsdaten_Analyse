@@ -1,0 +1,4113 @@
+{
+ "athleten": [
+  {
+   "name": "Noah Hirsch",
+   "lv": "Berlin",
+   "national": [
+    {
+     "kategorie": "Kürlaufen Meisterklasse Herren",
+     "rang": 1,
+     "punkte": 559,
+     "wettbewerbe": [
+      "Jahresendrangliste 2025",
+      "RL-Wettbewerb DM Show Freiburg (Feb 2026)",
+      "RL-Wettbewerb Berlin (Mär 2026)",
+      "RL-Wettbewerb Eppingen (Mär 2026)"
+     ],
+     "ergebnisse": [
+      {
+       "platz": 1,
+       "punkte": 375
+      },
+      {},
+      {
+       "platz": 1,
+       "punkte": 184
+      },
+      {
+       "platz": 1
+      }
+     ]
+    }
+   ],
+   "international": [
+    {
+     "event": "Artistic World Cup Semi-Final – Garmisch-Partenkirchen (GER)",
+     "event_id": "wc_gap",
+     "datum": "08.–17.05.2026",
+     "typ": "World Cup",
+     "kat": "Senior Herren",
+     "disziplin": "Kürlaufen",
+     "platz": 12,
+     "punkte": 148.98,
+     "detail": "SP 52,60 / LP 96,38"
+    },
+    {
+     "event": "Artistic World Cup Finale – Cesena (ITA)",
+     "event_id": "wc_fin",
+     "datum": "01.–07.06.2026",
+     "typ": "World Cup Finale",
+     "kat": "Senior Herren",
+     "disziplin": "Kürlaufen",
+     "platz": 8,
+     "punkte": 152.16,
+     "detail": "SP 52,80 (8.) / LP 99,36 (7.)"
+    },
+    {
+     "event": "Deutsche Meisterschaften – Stade",
+     "event_id": "dm_stade",
+     "datum": "06.–12.07.2026",
+     "typ": "Deutsche Meisterschaft",
+     "kat": "Meisterklasse Herren (Seniores)",
+     "disziplin": "Kürlaufen",
+     "platz": 1,
+     "punkte": 165.36,
+     "detail": "Deutsche/r Meister/in 2026 – Endstand, RollArt-Gesamt"
+    }
+   ],
+   "gruppe": "DRIV 1 Kür",
+   "axel": "ja"
+  },
+  {
+   "name": "Ricarda Zander",
+   "lv": "Niedersachsen",
+   "national": [
+    {
+     "kategorie": "Kürlaufen Meisterklasse Damen",
+     "rang": 1,
+     "punkte": 541,
+     "wettbewerbe": [
+      "Jahresendrangliste 2025",
+      "RL-Wettbewerb DM Show Freiburg (Feb 2026)",
+      "RL-Wettbewerb Berlin (Mär 2026)",
+      "RL-Wettbewerb Eppingen (Mär 2026)"
+     ],
+     "ergebnisse": [
+      {
+       "platz": 1,
+       "punkte": 375
+      },
+      {},
+      {
+       "platz": 2,
+       "punkte": 166
+      },
+      {
+       "platz": 2
+      }
+     ]
+    }
+   ],
+   "international": [
+    {
+     "event": "Artistic World Cup Semi-Final – Garmisch-Partenkirchen (GER)",
+     "event_id": "wc_gap",
+     "datum": "08.–17.05.2026",
+     "typ": "World Cup",
+     "kat": "Senior Damen",
+     "disziplin": "Kürlaufen",
+     "platz": 14,
+     "punkte": 108.27,
+     "detail": "SP 37,75 / LP 70,52"
+    },
+    {
+     "event": "Deutsche Meisterschaften – Stade",
+     "event_id": "dm_stade",
+     "datum": "06.–12.07.2026",
+     "typ": "Deutsche Meisterschaft",
+     "kat": "Meisterklasse Damen (Seniores)",
+     "disziplin": "Kürlaufen",
+     "platz": 2,
+     "punkte": 116.65,
+     "detail": "Endstand, RollArt-Gesamt"
+    }
+   ],
+   "gruppe": "DRIV 1 Kür",
+   "axel": "ja"
+  },
+  {
+   "name": "Viola Wiese",
+   "lv": "Hessen",
+   "national": [
+    {
+     "kategorie": "Kürlaufen Meisterklasse Damen",
+     "rang": 3,
+     "punkte": 487,
+     "wettbewerbe": [
+      "Jahresendrangliste 2025",
+      "RL-Wettbewerb DM Show Freiburg (Feb 2026)",
+      "RL-Wettbewerb Berlin (Mär 2026)",
+      "RL-Wettbewerb Eppingen (Mär 2026)"
+     ],
+     "ergebnisse": [
+      {
+       "platz": 2,
+       "punkte": 338
+      },
+      {},
+      {
+       "platz": 3,
+       "punkte": 149
+      },
+      {
+       "platz": 1
+      }
+     ]
+    }
+   ],
+   "international": [
+    {
+     "event": "Deutsche Meisterschaften – Stade",
+     "event_id": "dm_stade",
+     "datum": "06.–12.07.2026",
+     "typ": "Deutsche Meisterschaft",
+     "kat": "Meisterklasse Damen (Seniores)",
+     "disziplin": "Kürlaufen",
+     "platz": 1,
+     "punkte": 125.5,
+     "detail": "Deutsche/r Meister/in 2026 – Endstand, RollArt-Gesamt"
+    }
+   ],
+   "gruppe": "DRIV 1 Kür",
+   "axel": "ja"
+  },
+  {
+   "name": "Max Grüschow",
+   "lv": "Niedersachsen",
+   "national": [
+    {
+     "kategorie": "Kürlaufen Junioren Herren",
+     "rang": 2,
+     "punkte": 394,
+     "wettbewerbe": [
+      "Jahresendrangliste 2025",
+      "RL-Wettbewerb DM Show Freiburg (Feb 2026)",
+      "RL-Wettbewerb Berlin (Mär 2026)",
+      "RL-Wettbewerb Eppingen (Mär 2026)"
+     ],
+     "ergebnisse": [
+      {
+       "platz": 2,
+       "punkte": 264
+      },
+      {},
+      {
+       "platz": 2,
+       "punkte": 130
+      },
+      {
+       "platz": 2
+      }
+     ]
+    }
+   ],
+   "international": [
+    {
+     "event": "Artistic World Cup Semi-Final – Garmisch-Partenkirchen (GER)",
+     "event_id": "wc_gap",
+     "datum": "08.–17.05.2026",
+     "typ": "World Cup",
+     "kat": "Junior Herren",
+     "disziplin": "Kürlaufen",
+     "platz": 12,
+     "punkte": 101.89,
+     "detail": ""
+    },
+    {
+     "event": "Deutsche Meisterschaften – Stade",
+     "event_id": "dm_stade",
+     "datum": "06.–12.07.2026",
+     "typ": "Deutsche Meisterschaft",
+     "kat": "Junioren Herren (Juniores)",
+     "disziplin": "Kürlaufen",
+     "platz": 1,
+     "punkte": 178.81,
+     "detail": "Deutsche/r Meister/in 2026 – Endstand, RollArt-Gesamt"
+    }
+   ],
+   "gruppe": "DRIV 1 Kür"
+  },
+  {
+   "name": "Tiziano Martino",
+   "lv": "Hessen",
+   "national": [
+    {
+     "kategorie": "Kürlaufen Junioren Herren",
+     "rang": 1,
+     "punkte": 437,
+     "wettbewerbe": [
+      "Jahresendrangliste 2025",
+      "RL-Wettbewerb DM Show Freiburg (Feb 2026)",
+      "RL-Wettbewerb Berlin (Mär 2026)",
+      "RL-Wettbewerb Eppingen (Mär 2026)"
+     ],
+     "ergebnisse": [
+      {
+       "platz": 1,
+       "punkte": 293
+      },
+      {},
+      {
+       "platz": 1,
+       "punkte": 144
+      },
+      {
+       "platz": 1
+      }
+     ]
+    }
+   ],
+   "international": [
+    {
+     "event": "Artistic World Cup – Buenos Aires (ARG)",
+     "event_id": "wc_ba",
+     "datum": "11.–19.04.2026",
+     "typ": "World Cup",
+     "kat": "Junior Herren",
+     "disziplin": "Kürlaufen",
+     "platz": 1,
+     "punkte": 156.42,
+     "detail": "SP 55,72 (1.) / LP 100,70 (2.) – Weltcup-Sieg"
+    },
+    {
+     "event": "Artistic World Cup Semi-Final – Garmisch-Partenkirchen (GER)",
+     "event_id": "wc_gap",
+     "datum": "08.–17.05.2026",
+     "typ": "World Cup",
+     "kat": "Junior Herren",
+     "disziplin": "Kürlaufen",
+     "platz": 6,
+     "punkte": 160.49,
+     "detail": "SP 62,20 (6.) / LP 98,29 (5.)"
+    },
+    {
+     "event": "Artistic World Cup Finale – Cesena (ITA)",
+     "event_id": "wc_fin",
+     "datum": "01.–07.06.2026",
+     "typ": "World Cup Finale",
+     "kat": "Junior Herren",
+     "disziplin": "Kürlaufen",
+     "platz": 5,
+     "punkte": 165.35,
+     "detail": "SP 66,10 (3.) / LP 99,25 (5.)"
+    },
+    {
+     "event": "Deutsche Meisterschaften – Stade",
+     "event_id": "dm_stade",
+     "datum": "06.–12.07.2026",
+     "typ": "Deutsche Meisterschaft",
+     "kat": "Junioren Herren (Juniores)",
+     "disziplin": "Kürlaufen",
+     "platz": 2,
+     "punkte": 177.69,
+     "detail": "Endstand, RollArt-Gesamt"
+    }
+   ],
+   "gruppe": "DRIV 1 Kür"
+  },
+  {
+   "name": "Mira Freund",
+   "lv": "Berlin",
+   "national": [
+    {
+     "kategorie": "Kürlaufen Junioren Damen",
+     "rang": 1,
+     "punkte": 437,
+     "wettbewerbe": [
+      "Jahresendrangliste 2025",
+      "RL-Wettbewerb DM Show Freiburg (Feb 2026)",
+      "RL-Wettbewerb Berlin (Mär 2026)",
+      "RL-Wettbewerb Eppingen (Mär 2026)"
+     ],
+     "ergebnisse": [
+      {
+       "platz": 1,
+       "punkte": 293
+      },
+      {},
+      {
+       "platz": 1,
+       "punkte": 144
+      },
+      {
+       "platz": 1
+      }
+     ]
+    }
+   ],
+   "international": [
+    {
+     "event": "Artistic World Cup – Buenos Aires (ARG)",
+     "event_id": "wc_ba",
+     "datum": "11.–19.04.2026",
+     "typ": "World Cup",
+     "kat": "Junior Damen",
+     "disziplin": "Kürlaufen",
+     "platz": 5,
+     "punkte": 122.35,
+     "detail": "SP 50,83 (4.) / LP 71,52 (7.)"
+    },
+    {
+     "event": "Artistic World Cup Semi-Final – Garmisch-Partenkirchen (GER)",
+     "event_id": "wc_gap",
+     "datum": "08.–17.05.2026",
+     "typ": "World Cup",
+     "kat": "Junior Damen",
+     "disziplin": "Kürlaufen",
+     "platz": 12,
+     "punkte": 101.65,
+     "detail": ""
+    },
+    {
+     "event": "Artistic World Cup Finale – Cesena (ITA)",
+     "event_id": "wc_fin",
+     "datum": "01.–07.06.2026",
+     "typ": "World Cup Finale",
+     "kat": "Junior Damen",
+     "disziplin": "Kürlaufen",
+     "platz": 8,
+     "punkte": 103.78,
+     "detail": "SP 35,55 (10.) / LP 68,23 (7.)"
+    }
+   ],
+   "gruppe": "DRIV 1 Kür"
+  },
+  {
+   "name": "Nica Milou Pflaum",
+   "lv": "Niedersachsen",
+   "national": [
+    {
+     "kategorie": "Kürlaufen Junioren Damen",
+     "rang": 2,
+     "punkte": 359,
+     "wettbewerbe": [
+      "Jahresendrangliste 2025",
+      "RL-Wettbewerb DM Show Freiburg (Feb 2026)",
+      "RL-Wettbewerb Berlin (Mär 2026)",
+      "RL-Wettbewerb Eppingen (Mär 2026)"
+     ],
+     "ergebnisse": [
+      {
+       "platz": 1,
+       "punkte": 229
+      },
+      {},
+      {
+       "platz": 2,
+       "punkte": 130
+      },
+      {
+       "platz": 4
+      }
+     ]
+    }
+   ],
+   "international": [
+    {
+     "event": "Artistic World Cup – Buenos Aires (ARG)",
+     "event_id": "wc_ba",
+     "datum": "11.–19.04.2026",
+     "typ": "World Cup",
+     "kat": "Junior Damen",
+     "disziplin": "Kürlaufen",
+     "platz": 10,
+     "punkte": 110.23,
+     "detail": "SP 42,36 (10.) / LP 67,87 (8.)"
+    },
+    {
+     "event": "Artistic World Cup Semi-Final – Garmisch-Partenkirchen (GER)",
+     "event_id": "wc_gap",
+     "datum": "08.–17.05.2026",
+     "typ": "World Cup",
+     "kat": "Junior Damen",
+     "disziplin": "Kürlaufen",
+     "platz": 10,
+     "punkte": 107.05,
+     "detail": ""
+    },
+    {
+     "event": "Deutsche Meisterschaften – Stade",
+     "event_id": "dm_stade",
+     "datum": "06.–12.07.2026",
+     "typ": "Deutsche Meisterschaft",
+     "kat": "Junioren Damen (Juniores)",
+     "disziplin": "Kürlaufen",
+     "platz": 1,
+     "punkte": 118.89,
+     "detail": "Deutsche/r Meister/in 2026 – Endstand, RollArt-Gesamt"
+    }
+   ],
+   "gruppe": "DRIV 1 Kür"
+  },
+  {
+   "name": "Lilly Ann Oppermann",
+   "lv": "Niedersachsen",
+   "national": [
+    {
+     "kategorie": "Kürlaufen Junioren Damen",
+     "rang": 4,
+     "punkte": 302,
+     "wettbewerbe": [
+      "Jahresendrangliste 2025",
+      "RL-Wettbewerb DM Show Freiburg (Feb 2026)",
+      "RL-Wettbewerb Berlin (Mär 2026)",
+      "RL-Wettbewerb Eppingen (Mär 2026)"
+     ],
+     "ergebnisse": [
+      {
+       "platz": 3,
+       "punkte": 185
+      },
+      {},
+      {
+       "platz": 3,
+       "punkte": 117
+      },
+      {
+       "platz": 2
+      }
+     ]
+    }
+   ],
+   "international": [
+    {
+     "event": "Artistic World Cup Semi-Final – Garmisch-Partenkirchen (GER)",
+     "event_id": "wc_gap",
+     "datum": "08.–17.05.2026",
+     "typ": "World Cup",
+     "kat": "Junior Damen",
+     "disziplin": "Kürlaufen",
+     "platz": 17,
+     "punkte": 95.52,
+     "detail": ""
+    },
+    {
+     "event": "Deutsche Meisterschaften – Stade",
+     "event_id": "dm_stade",
+     "datum": "06.–12.07.2026",
+     "typ": "Deutsche Meisterschaft",
+     "kat": "Junioren Damen (Juniores)",
+     "disziplin": "Kürlaufen",
+     "platz": 3,
+     "punkte": 100.64,
+     "detail": "Endstand, RollArt-Gesamt"
+    }
+   ],
+   "gruppe": "DRIV 1 Kür"
+  },
+  {
+   "name": "Linn Messing",
+   "lv": "Nordrhein-Westfalen",
+   "national": [
+    {
+     "kategorie": "Kürlaufen Jugend Damen",
+     "rang": 1,
+     "punkte": 291,
+     "wettbewerbe": [
+      "Jahresendrangliste 2025",
+      "RL-Wettbewerb DM Show Freiburg (Feb 2026)",
+      "RL-Wettbewerb Berlin (Mär 2026)",
+      "RL-Wettbewerb Eppingen (Mär 2026)"
+     ],
+     "ergebnisse": [
+      {
+       "platz": 1,
+       "punkte": 179
+      },
+      {},
+      {
+       "platz": 1,
+       "punkte": 112
+      },
+      {
+       "platz": 2
+      }
+     ]
+    }
+   ],
+   "international": [
+    {
+     "event": "Internationaler Deutschland-Pokal (Kür & Solotanz) – Freiburg",
+     "event_id": "dp_kuer",
+     "datum": "23.–25.04.2026",
+     "typ": "Internationaler Pokal",
+     "kat": "Youth Damen",
+     "disziplin": "Kürlaufen",
+     "platz": 2,
+     "punkte": 77.01,
+     "detail": "Internationales Feld: 4"
+    },
+    {
+     "event": "Artistic World Cup Semi-Final – Garmisch-Partenkirchen (GER)",
+     "event_id": "wc_gap",
+     "datum": "08.–17.05.2026",
+     "typ": "World Cup",
+     "kat": "Youth Damen",
+     "disziplin": "Kürlaufen",
+     "platz": 13,
+     "punkte": 82.07,
+     "detail": ""
+    },
+    {
+     "event": "Deutsche Meisterschaften – Stade",
+     "event_id": "dm_stade",
+     "datum": "06.–12.07.2026 (Teilergebnisse, Stand 11.07.)",
+     "typ": "Deutsche Meisterschaft",
+     "kat": "Jugend Damen (Youth)",
+     "disziplin": "Kürlaufen",
+     "platz": 2,
+     "punkte": 98.97,
+     "detail": "Endstand, RollArt-Gesamt"
+    }
+   ],
+   "gruppe": "DRIV 1 Kür",
+   "axel": "ja"
+  },
+  {
+   "name": "Marie-Sophie Job",
+   "lv": "Nordrhein-Westfalen",
+   "national": [
+    {
+     "kategorie": "Kürlaufen Jugend Damen",
+     "rang": 2,
+     "punkte": 230,
+     "wettbewerbe": [
+      "Jahresendrangliste 2025",
+      "RL-Wettbewerb DM Show Freiburg (Feb 2026)",
+      "RL-Wettbewerb Berlin (Mär 2026)",
+      "RL-Wettbewerb Eppingen (Mär 2026)"
+     ],
+     "ergebnisse": [
+      {
+       "platz": 5,
+       "punkte": 118
+      },
+      {},
+      {},
+      {
+       "platz": 1,
+       "punkte": 112
+      }
+     ]
+    }
+   ],
+   "international": [
+    {
+     "event": "Internationaler Deutschland-Pokal (Kür & Solotanz) – Freiburg",
+     "event_id": "dp_kuer",
+     "datum": "23.–25.04.2026",
+     "typ": "Internationaler Pokal",
+     "kat": "Youth Damen",
+     "disziplin": "Kürlaufen",
+     "platz": 1,
+     "punkte": 99.03,
+     "detail": "Sieg – Internationales Feld: 4"
+    },
+    {
+     "event": "Artistic World Cup Semi-Final – Garmisch-Partenkirchen (GER)",
+     "event_id": "wc_gap",
+     "datum": "08.–17.05.2026",
+     "typ": "World Cup",
+     "kat": "Youth Damen",
+     "disziplin": "Kürlaufen",
+     "platz": 5,
+     "punkte": 101.89,
+     "detail": "SP 40,96 / LP 60,93 (LP-Rang 4)"
+    },
+    {
+     "event": "Artistic World Cup Finale – Cesena (ITA)",
+     "event_id": "wc_fin",
+     "datum": "01.–07.06.2026",
+     "typ": "World Cup Finale",
+     "kat": "Youth Damen",
+     "disziplin": "Kürlaufen",
+     "platz": 7,
+     "punkte": 104.62,
+     "detail": "SP 46,61 (5.) / LP 58,01 (8.)"
+    },
+    {
+     "event": "Deutsche Meisterschaften – Stade",
+     "event_id": "dm_stade",
+     "datum": "06.–12.07.2026 (Teilergebnisse, Stand 11.07.)",
+     "typ": "Deutsche Meisterschaft",
+     "kat": "Jugend Damen (Youth)",
+     "disziplin": "Kürlaufen",
+     "platz": 1,
+     "punkte": 113.86,
+     "detail": "Deutsche/r Meister/in 2026 – Endstand, RollArt-Gesamt"
+    }
+   ],
+   "gruppe": "DRIV 1 Kür",
+   "axel": "ja"
+  },
+  {
+   "name": "Vanessa Braun",
+   "lv": "Hessen",
+   "national": [
+    {
+     "kategorie": "Kürlaufen Schüler A Mädchen",
+     "rang": 1,
+     "punkte": 249,
+     "wettbewerbe": [
+      "Jahresendrangliste 2025",
+      "RL-Wettbewerb DM Show Freiburg (Feb 2026)",
+      "RL-Wettbewerb Berlin (Mär 2026)",
+      "RL-Wettbewerb Eppingen (Mär 2026)"
+     ],
+     "ergebnisse": [
+      {
+       "platz": 2,
+       "punkte": 161
+      },
+      {},
+      {
+       "platz": 1,
+       "punkte": 88
+      },
+      {
+       "platz": 1
+      }
+     ]
+    }
+   ],
+   "international": [
+    {
+     "event": "Artistic World Cup Semi-Final – Garmisch-Partenkirchen (GER)",
+     "event_id": "wc_gap",
+     "datum": "08.–17.05.2026",
+     "typ": "World Cup",
+     "kat": "Cadet Damen",
+     "disziplin": "Kürlaufen",
+     "platz": 13,
+     "punkte": 86.35,
+     "detail": ""
+    },
+    {
+     "event": "Artistic World Cup Finale – Cesena (ITA)",
+     "event_id": "wc_fin",
+     "datum": "01.–07.06.2026",
+     "typ": "World Cup Finale",
+     "kat": "Cadet Damen",
+     "disziplin": "Kürlaufen",
+     "platz": 5,
+     "punkte": 101.98,
+     "detail": "SP 40,73 (5.) / LP 61,25 (4.)"
+    },
+    {
+     "event": "Deutsche Meisterschaften – Stade",
+     "event_id": "dm_stade",
+     "datum": "06.–12.07.2026 (Teilergebnisse, Stand 11.07.)",
+     "typ": "Deutsche Meisterschaft",
+     "kat": "Schüler A Mädchen (Cadets)",
+     "disziplin": "Kürlaufen",
+     "platz": 1,
+     "punkte": 118.86,
+     "detail": "Deutsche/r Meister/in 2026 – Endstand, RollArt-Gesamt"
+    }
+   ],
+   "gruppe": "DRIV 1 Kür",
+   "axel": "ja"
+  },
+  {
+   "name": "Hinata Biamonti",
+   "lv": "Hessen",
+   "national": [
+    {
+     "kategorie": "Kürlaufen Schüler A Mädchen",
+     "rang": 2,
+     "punkte": 210,
+     "wettbewerbe": [
+      "Jahresendrangliste 2025",
+      "RL-Wettbewerb DM Show Freiburg (Feb 2026)",
+      "RL-Wettbewerb Berlin (Mär 2026)",
+      "RL-Wettbewerb Eppingen (Mär 2026)"
+     ],
+     "ergebnisse": [
+      {
+       "platz": 4,
+       "punkte": 131
+      },
+      {},
+      {
+       "platz": 2,
+       "punkte": 79
+      },
+      {
+       "platz": 2
+      }
+     ]
+    }
+   ],
+   "international": [
+    {
+     "event": "Artistic World Cup Semi-Final – Garmisch-Partenkirchen (GER)",
+     "event_id": "wc_gap",
+     "datum": "08.–17.05.2026",
+     "typ": "World Cup",
+     "kat": "Cadet Damen",
+     "disziplin": "Kürlaufen",
+     "platz": 16,
+     "punkte": 82.89,
+     "detail": ""
+    },
+    {
+     "event": "Deutsche Meisterschaften – Stade",
+     "event_id": "dm_stade",
+     "datum": "06.–12.07.2026 (Teilergebnisse, Stand 11.07.)",
+     "typ": "Deutsche Meisterschaft",
+     "kat": "Schüler A Mädchen (Cadets)",
+     "disziplin": "Kürlaufen",
+     "platz": 2,
+     "punkte": 104.77,
+     "detail": "Endstand, RollArt-Gesamt"
+    }
+   ],
+   "gruppe": "DRIV 1 Kür",
+   "axel": "nein"
+  },
+  {
+   "name": "Darian Asmussen",
+   "lv": "Niedersachsen",
+   "national": [
+    {
+     "kategorie": "Kürlaufen Meisterklasse Herren",
+     "rang": 3,
+     "punkte": 387,
+     "wettbewerbe": [
+      "Jahresendrangliste 2025",
+      "RL-Wettbewerb DM Show Freiburg (Feb 2026)",
+      "RL-Wettbewerb Berlin (Mär 2026)",
+      "RL-Wettbewerb Eppingen (Mär 2026)"
+     ],
+     "ergebnisse": [
+      {
+       "platz": 3,
+       "punkte": 238
+      },
+      {},
+      {},
+      {
+       "platz": 3,
+       "punkte": 149
+      }
+     ]
+    }
+   ],
+   "international": [
+    {
+     "event": "Deutsche Meisterschaften – Stade",
+     "event_id": "dm_stade",
+     "datum": "06.–12.07.2026",
+     "typ": "Deutsche Meisterschaft",
+     "kat": "Meisterklasse Herren (Seniores)",
+     "disziplin": "Kürlaufen",
+     "platz": 3,
+     "punkte": 113.2,
+     "detail": "Endstand, RollArt-Gesamt"
+    }
+   ],
+   "gruppe": "DRIV 2 Kür",
+   "axel": "ja"
+  },
+  {
+   "name": "Colleen Fox",
+   "lv": "Württemberg",
+   "national": [
+    {
+     "kategorie": "Kürlaufen Junioren Damen",
+     "rang": 3,
+     "punkte": 355,
+     "wettbewerbe": [
+      "Jahresendrangliste 2025",
+      "RL-Wettbewerb DM Show Freiburg (Feb 2026)",
+      "RL-Wettbewerb Berlin (Mär 2026)",
+      "RL-Wettbewerb Eppingen (Mär 2026)"
+     ],
+     "ergebnisse": [
+      {
+       "platz": 3,
+       "punkte": 238
+      },
+      {},
+      {},
+      {
+       "platz": 3,
+       "punkte": 117
+      }
+     ]
+    }
+   ],
+   "international": [
+    {
+     "event": "Deutsche Meisterschaften – Stade",
+     "event_id": "dm_stade",
+     "datum": "06.–12.07.2026",
+     "typ": "Deutsche Meisterschaft",
+     "kat": "Junioren Damen (Juniores)",
+     "disziplin": "Kürlaufen",
+     "platz": 4,
+     "punkte": 93.53,
+     "detail": "Endstand, RollArt-Gesamt"
+    }
+   ],
+   "gruppe": "DRIV 2 Kür"
+  },
+  {
+   "name": "Rimas Tarhuni",
+   "lv": "Nordrhein-Westfalen",
+   "national": [
+    {
+     "kategorie": "Kürlaufen Junioren Damen",
+     "rang": 9,
+     "punkte": 251,
+     "wettbewerbe": [
+      "Jahresendrangliste 2025",
+      "RL-Wettbewerb DM Show Freiburg (Feb 2026)",
+      "RL-Wettbewerb Berlin (Mär 2026)",
+      "RL-Wettbewerb Eppingen (Mär 2026)"
+     ],
+     "ergebnisse": [
+      {
+       "platz": 6,
+       "punkte": 174
+      },
+      {},
+      {},
+      {
+       "platz": 7,
+       "punkte": 77
+      }
+     ]
+    }
+   ],
+   "international": [
+    {
+     "event": "Deutsche Meisterschaften – Stade",
+     "event_id": "dm_stade",
+     "datum": "06.–12.07.2026",
+     "typ": "Deutsche Meisterschaft",
+     "kat": "Junioren Damen (Juniores)",
+     "disziplin": "Kürlaufen",
+     "platz": 2,
+     "punkte": 104.2,
+     "detail": "Endstand, RollArt-Gesamt"
+    }
+   ],
+   "gruppe": "DRIV 2 Kür"
+  },
+  {
+   "name": "Louise Zimmermann",
+   "lv": "Berlin",
+   "national": [
+    {
+     "kategorie": "Kürlaufen Schüler A Mädchen",
+     "rang": 7,
+     "punkte": 150,
+     "wettbewerbe": [
+      "Jahresendrangliste 2025",
+      "RL-Wettbewerb DM Show Freiburg (Feb 2026)",
+      "RL-Wettbewerb Berlin (Mär 2026)",
+      "RL-Wettbewerb Eppingen (Mär 2026)"
+     ],
+     "ergebnisse": [
+      {
+       "platz": 8,
+       "punkte": 86
+      },
+      {},
+      {
+       "platz": 4,
+       "punkte": 64
+      },
+      {
+       "platz": 5
+      }
+     ]
+    }
+   ],
+   "international": [
+    {
+     "event": "Internationaler Deutschland-Pokal (Kür & Solotanz) – Freiburg",
+     "event_id": "dp_kuer",
+     "datum": "23.–25.04.2026",
+     "typ": "Internationaler Pokal",
+     "kat": "Cadet Damen",
+     "disziplin": "Kürlaufen",
+     "platz": 3,
+     "punkte": 73.46,
+     "detail": "Internationales Feld: 14"
+    },
+    {
+     "event": "Artistic World Cup Semi-Final – Garmisch-Partenkirchen (GER)",
+     "event_id": "wc_gap",
+     "datum": "08.–17.05.2026",
+     "typ": "World Cup",
+     "kat": "Cadet Damen",
+     "disziplin": "Kürlaufen",
+     "platz": 18,
+     "punkte": 65.95,
+     "detail": ""
+    },
+    {
+     "event": "Deutsche Meisterschaften – Stade",
+     "event_id": "dm_stade",
+     "datum": "06.–12.07.2026 (Teilergebnisse, Stand 11.07.)",
+     "typ": "Deutsche Meisterschaft",
+     "kat": "Schüler A Mädchen (Cadets)",
+     "disziplin": "Kürlaufen",
+     "platz": 5,
+     "punkte": 88.86,
+     "detail": "Endstand, RollArt-Gesamt"
+    }
+   ],
+   "gruppe": "DRIV 2 Kür",
+   "axel": "ja"
+  },
+  {
+   "name": "Sina Krah",
+   "lv": "Berlin",
+   "national": [
+    {
+     "kategorie": "Kürlaufen Schüler A Mädchen",
+     "rang": 17,
+     "punkte": 77,
+     "wettbewerbe": [
+      "Jahresendrangliste 2025",
+      "RL-Wettbewerb DM Show Freiburg (Feb 2026)",
+      "RL-Wettbewerb Berlin (Mär 2026)",
+      "RL-Wettbewerb Eppingen (Mär 2026)"
+     ],
+     "ergebnisse": [
+      {
+       "platz": 18,
+       "punkte": 30
+      },
+      {},
+      {
+       "platz": 7,
+       "punkte": 47
+      },
+      {}
+     ]
+    }
+   ],
+   "international": [],
+   "gruppe": "DRIV 2 Kür"
+  },
+  {
+   "name": "Charlotte Kirchmeyer",
+   "lv": "Nordrhein-Westfalen",
+   "national": [
+    {
+     "kategorie": "Kürlaufen Schüler A Mädchen",
+     "rang": 4,
+     "punkte": 197,
+     "wettbewerbe": [
+      "Jahresendrangliste 2025",
+      "RL-Wettbewerb DM Show Freiburg (Feb 2026)",
+      "RL-Wettbewerb Berlin (Mär 2026)",
+      "RL-Wettbewerb Eppingen (Mär 2026)"
+     ],
+     "ergebnisse": [
+      {
+       "platz": 2,
+       "punkte": 126
+      },
+      {},
+      {
+       "platz": 3,
+       "punkte": 71
+      },
+      {
+       "platz": 3
+      }
+     ]
+    }
+   ],
+   "international": [
+    {
+     "event": "Internationaler Deutschland-Pokal (Kür & Solotanz) – Freiburg",
+     "event_id": "dp_kuer",
+     "datum": "23.–25.04.2026",
+     "typ": "Internationaler Pokal",
+     "kat": "Cadet Damen",
+     "disziplin": "Kürlaufen",
+     "platz": 2,
+     "punkte": 80.13,
+     "detail": "Internationales Feld: 14"
+    },
+    {
+     "event": "Artistic World Cup Semi-Final – Garmisch-Partenkirchen (GER)",
+     "event_id": "wc_gap",
+     "datum": "08.–17.05.2026",
+     "typ": "World Cup",
+     "kat": "Cadet Damen",
+     "disziplin": "Kürlaufen",
+     "platz": 11,
+     "punkte": 88.61,
+     "detail": ""
+    },
+    {
+     "event": "Deutsche Meisterschaften – Stade",
+     "event_id": "dm_stade",
+     "datum": "06.–12.07.2026 (Teilergebnisse, Stand 11.07.)",
+     "typ": "Deutsche Meisterschaft",
+     "kat": "Schüler A Mädchen (Cadets)",
+     "disziplin": "Kürlaufen",
+     "platz": 4,
+     "punkte": 90.27,
+     "detail": "Endstand, RollArt-Gesamt"
+    }
+   ],
+   "gruppe": "DRIV 2 Kür",
+   "axel": "nein"
+  },
+  {
+   "name": "Yasan Abad Gonzales",
+   "lv": "Nordrhein-Westfalen",
+   "national": [
+    {
+     "kategorie": "Kürlaufen Schüler A Jungen",
+     "rang": 1,
+     "punkte": 228,
+     "wettbewerbe": [
+      "Jahresendrangliste 2025",
+      "RL-Wettbewerb DM Show Freiburg (Feb 2026)",
+      "RL-Wettbewerb Berlin (Mär 2026)",
+      "RL-Wettbewerb Eppingen (Mär 2026)"
+     ],
+     "ergebnisse": [
+      {
+       "platz": 1,
+       "punkte": 140
+      },
+      {},
+      {},
+      {
+       "platz": 1,
+       "punkte": 88
+      }
+     ]
+    }
+   ],
+   "international": [
+    {
+     "event": "Deutsche Meisterschaften – Stade",
+     "event_id": "dm_stade",
+     "datum": "06.–12.07.2026 (Teilergebnisse, Stand 11.07.)",
+     "typ": "Deutsche Meisterschaft",
+     "kat": "Schüler A Jungen (Cadets)",
+     "disziplin": "Kürlaufen",
+     "platz": 1,
+     "punkte": 75.03,
+     "detail": "Deutsche/r Meister/in 2026 – Endstand, RollArt-Gesamt"
+    }
+   ],
+   "gruppe": "DRIV 2 Kür",
+   "axel": "ja"
+  },
+  {
+   "name": "Juna Maelle Mandaus",
+   "lv": "Württemberg",
+   "national": [
+    {
+     "kategorie": "Kürlaufen Schüler B Mädchen Jahrgang 2013",
+     "rang": 1,
+     "punkte": 209,
+     "wettbewerbe": [
+      "Jahresendrangliste 2025",
+      "RL-Wettbewerb DM Show Freiburg (Feb 2026)",
+      "RL-Wettbewerb Berlin (Mär 2026)",
+      "RL-Wettbewerb Eppingen (Mär 2026)"
+     ],
+     "ergebnisse": [
+      {
+       "platz": 1,
+       "punkte": 140
+      },
+      {
+       "platz": 1,
+       "punkte": 69
+      },
+      {},
+      {
+       "platz": 1
+      }
+     ]
+    }
+   ],
+   "international": [
+    {
+     "event": "Artistic World Cup Semi-Final – Garmisch-Partenkirchen (GER)",
+     "event_id": "wc_gap",
+     "datum": "08.–17.05.2026",
+     "typ": "World Cup",
+     "kat": "Espoir Damen",
+     "disziplin": "Kürlaufen",
+     "platz": 15,
+     "punkte": 41.62,
+     "detail": ""
+    },
+    {
+     "event": "Deutsche Meisterschaften – Stade",
+     "event_id": "dm_stade",
+     "datum": "06.–12.07.2026 (Teilergebnisse, Stand 11.07.)",
+     "typ": "Deutsche Meisterschaft",
+     "kat": "Espoir Damen (Jg. 2013)",
+     "disziplin": "Kürlaufen",
+     "platz": 1,
+     "punkte": 70.42,
+     "detail": "Deutsche/r Meister/in 2026 – Endstand, RollArt-Gesamt"
+    }
+   ],
+   "gruppe": "DRIV 2 Kür"
+  },
+  {
+   "name": "Mia Hadzalic",
+   "lv": "Niedersachsen",
+   "national": [
+    {
+     "kategorie": "Kürlaufen Schüler A Mädchen",
+     "rang": 8,
+     "punkte": 147,
+     "wettbewerbe": [
+      "Jahresendrangliste 2025",
+      "RL-Wettbewerb DM Show Freiburg (Feb 2026)",
+      "RL-Wettbewerb Berlin (Mär 2026)",
+      "RL-Wettbewerb Eppingen (Mär 2026)"
+     ],
+     "ergebnisse": [
+      {
+       "platz": 7,
+       "punkte": 95
+      },
+      {},
+      {
+       "platz": 6,
+       "punkte": 52
+      },
+      {
+       "platz": 11
+      }
+     ]
+    }
+   ],
+   "international": [
+    {
+     "event": "Internationaler Deutschland-Pokal (Kür & Solotanz) – Freiburg",
+     "event_id": "dp_kuer",
+     "datum": "23.–25.04.2026",
+     "typ": "Internationaler Pokal",
+     "kat": "Cadet Damen",
+     "disziplin": "Kürlaufen",
+     "platz": 9,
+     "punkte": 51.88,
+     "detail": "Internationales Feld: 14"
+    },
+    {
+     "event": "Deutsche Meisterschaften – Stade",
+     "event_id": "dm_stade",
+     "datum": "06.–12.07.2026 (Teilergebnisse, Stand 11.07.)",
+     "typ": "Deutsche Meisterschaft",
+     "kat": "Schüler A Mädchen (Cadets)",
+     "disziplin": "Kürlaufen",
+     "platz": 7,
+     "punkte": 75.33,
+     "detail": "Endstand, RollArt-Gesamt"
+    }
+   ],
+   "gruppe": "DRIV 2 Kür",
+   "axel": "ja"
+  },
+  {
+   "name": "Lia Allgeyer",
+   "lv": "Nordrhein-Westfalen",
+   "national": [
+    {
+     "kategorie": "Kürlaufen Schüler A Mädchen",
+     "rang": 3,
+     "punkte": 198,
+     "wettbewerbe": [
+      "Jahresendrangliste 2025",
+      "RL-Wettbewerb DM Show Freiburg (Feb 2026)",
+      "RL-Wettbewerb Berlin (Mär 2026)",
+      "RL-Wettbewerb Eppingen (Mär 2026)"
+     ],
+     "ergebnisse": [
+      {
+       "platz": 1,
+       "punkte": 140
+      },
+      {},
+      {
+       "platz": 5,
+       "punkte": 58
+      },
+      {
+       "platz": 7
+      }
+     ]
+    }
+   ],
+   "international": [
+    {
+     "event": "Internationaler Deutschland-Pokal (Kür & Solotanz) – Freiburg",
+     "event_id": "dp_kuer",
+     "datum": "23.–25.04.2026",
+     "typ": "Internationaler Pokal",
+     "kat": "Cadet Damen",
+     "disziplin": "Kürlaufen",
+     "platz": 7,
+     "punkte": 64.25,
+     "detail": "Internationales Feld: 14"
+    },
+    {
+     "event": "Deutsche Meisterschaften – Stade",
+     "event_id": "dm_stade",
+     "datum": "06.–12.07.2026 (Teilergebnisse, Stand 11.07.)",
+     "typ": "Deutsche Meisterschaft",
+     "kat": "Schüler A Mädchen (Cadets)",
+     "disziplin": "Kürlaufen",
+     "platz": 3,
+     "punkte": 95.71,
+     "detail": "Endstand, RollArt-Gesamt"
+    }
+   ],
+   "gruppe": "DRIV 2 Kür",
+   "axel": "nein"
+  },
+  {
+   "name": "Linda Gogolin",
+   "lv": "Nordrhein-Westfalen",
+   "national": [
+    {
+     "kategorie": "Kürlaufen Schüler A Mädchen",
+     "rang": 6,
+     "punkte": 155,
+     "wettbewerbe": [
+      "Jahresendrangliste 2025",
+      "RL-Wettbewerb DM Show Freiburg (Feb 2026)",
+      "RL-Wettbewerb Berlin (Mär 2026)",
+      "RL-Wettbewerb Eppingen (Mär 2026)"
+     ],
+     "ergebnisse": [
+      {
+       "platz": 3,
+       "punkte": 113
+      },
+      {},
+      {
+       "platz": 8,
+       "punkte": 42
+      },
+      {
+       "platz": 4
+      }
+     ]
+    }
+   ],
+   "international": [
+    {
+     "event": "Internationaler Deutschland-Pokal (Kür & Solotanz) – Freiburg",
+     "event_id": "dp_kuer",
+     "datum": "23.–25.04.2026",
+     "typ": "Internationaler Pokal",
+     "kat": "Cadet Damen",
+     "disziplin": "Kürlaufen",
+     "platz": 5,
+     "punkte": 71.05,
+     "detail": "Internationales Feld: 14"
+    }
+   ],
+   "gruppe": "DRIV 2 Kür"
+  },
+  {
+   "name": "Josephine Schulz",
+   "lv": "Niedersachsen",
+   "national": [
+    {
+     "kategorie": "Kürlaufen Schüler A Mädchen",
+     "rang": 11,
+     "punkte": 117,
+     "wettbewerbe": [
+      "Jahresendrangliste 2025",
+      "RL-Wettbewerb DM Show Freiburg (Feb 2026)",
+      "RL-Wettbewerb Berlin (Mär 2026)",
+      "RL-Wettbewerb Eppingen (Mär 2026)"
+     ],
+     "ergebnisse": [
+      {
+       "platz": 6,
+       "punkte": 83
+      },
+      {},
+      {
+       "platz": 10,
+       "punkte": 34
+      },
+      {
+       "platz": 8
+      }
+     ]
+    }
+   ],
+   "international": [
+    {
+     "event": "Deutsche Meisterschaften – Stade",
+     "event_id": "dm_stade",
+     "datum": "06.–12.07.2026 (Teilergebnisse, Stand 11.07.)",
+     "typ": "Deutsche Meisterschaft",
+     "kat": "Schüler A Mädchen (Cadets)",
+     "disziplin": "Kürlaufen",
+     "platz": 10,
+     "punkte": 64.6,
+     "detail": "Endstand, RollArt-Gesamt"
+    }
+   ],
+   "gruppe": "DRIV 2 Kür",
+   "axel": "nein"
+  },
+  {
+   "name": "Viktoria Halinger",
+   "lv": "Niedersachsen",
+   "national": [
+    {
+     "kategorie": "Kürlaufen Schüler B Mädchen Jahrgang 2013",
+     "rang": 2,
+     "punkte": 164,
+     "wettbewerbe": [
+      "Jahresendrangliste 2025",
+      "RL-Wettbewerb DM Show Freiburg (Feb 2026)",
+      "RL-Wettbewerb Berlin (Mär 2026)",
+      "RL-Wettbewerb Eppingen (Mär 2026)"
+     ],
+     "ergebnisse": [
+      {
+       "platz": 4,
+       "punkte": 102
+      },
+      {
+       "platz": 2,
+       "punkte": 62
+      },
+      {},
+      {
+       "platz": 4
+      }
+     ]
+    }
+   ],
+   "international": [
+    {
+     "event": "Internationaler Deutschland-Pokal (Kür & Solotanz) – Freiburg",
+     "event_id": "dp_kuer",
+     "datum": "23.–25.04.2026",
+     "typ": "Internationaler Pokal",
+     "kat": "Espoir Damen",
+     "disziplin": "Kürlaufen",
+     "platz": 5,
+     "punkte": 45.65,
+     "detail": "Internationales Feld: 10"
+    },
+    {
+     "event": "Deutsche Meisterschaften – Stade",
+     "event_id": "dm_stade",
+     "datum": "06.–12.07.2026 (Teilergebnisse, Stand 11.07.)",
+     "typ": "Deutsche Meisterschaft",
+     "kat": "Espoir Damen (Jg. 2013)",
+     "disziplin": "Kürlaufen",
+     "platz": 2,
+     "punkte": 61.2,
+     "detail": "Endstand, RollArt-Gesamt"
+    }
+   ],
+   "gruppe": "DRIV 2 Kür"
+  },
+  {
+   "name": "Kinga Katharina Soltysik",
+   "lv": "Niedersachsen",
+   "national": [
+    {
+     "kategorie": "Kürlaufen Schüler B Mädchen Jahrgang 2014",
+     "rang": 2,
+     "punkte": 148,
+     "wettbewerbe": [
+      "Jahresendrangliste 2025",
+      "RL-Wettbewerb DM Show Freiburg (Feb 2026)",
+      "RL-Wettbewerb Berlin (Mär 2026)",
+      "RL-Wettbewerb Eppingen (Mär 2026)"
+     ],
+     "ergebnisse": [
+      {
+       "platz": 3,
+       "punkte": 79
+      },
+      {
+       "platz": 1,
+       "punkte": 69
+      },
+      {},
+      {
+       "platz": 1
+      }
+     ]
+    }
+   ],
+   "international": [
+    {
+     "event": "Artistic World Cup Semi-Final – Garmisch-Partenkirchen (GER)",
+     "event_id": "wc_gap",
+     "datum": "08.–17.05.2026",
+     "typ": "World Cup",
+     "kat": "Espoir Damen",
+     "disziplin": "Kürlaufen",
+     "platz": 16,
+     "punkte": 41.62,
+     "detail": ""
+    },
+    {
+     "event": "Deutsche Meisterschaften – Stade",
+     "event_id": "dm_stade",
+     "datum": "06.–12.07.2026 (Teilergebnisse, Stand 11.07.)",
+     "typ": "Deutsche Meisterschaft",
+     "kat": "Espoir Damen (Jg. 2014)",
+     "disziplin": "Kürlaufen",
+     "platz": 2,
+     "punkte": 62.77,
+     "detail": "Endstand, RollArt-Gesamt"
+    }
+   ],
+   "gruppe": "DRIV 2 Kür",
+   "axel": "nein"
+  },
+  {
+   "name": "Leona Hoppstock",
+   "lv": "Nordrhein-Westfalen",
+   "national": [
+    {
+     "kategorie": "Kürlaufen Schüler B Mädchen Jahrgang 2014",
+     "rang": 4,
+     "punkte": 133,
+     "wettbewerbe": [
+      "Jahresendrangliste 2025",
+      "RL-Wettbewerb DM Show Freiburg (Feb 2026)",
+      "RL-Wettbewerb Berlin (Mär 2026)",
+      "RL-Wettbewerb Eppingen (Mär 2026)"
+     ],
+     "ergebnisse": [
+      {
+       "platz": 5,
+       "punkte": 71
+      },
+      {
+       "platz": 2,
+       "punkte": 62
+      },
+      {},
+      {
+       "platz": 4
+      }
+     ]
+    }
+   ],
+   "international": [
+    {
+     "event": "Internationaler Deutschland-Pokal (Kür & Solotanz) – Freiburg",
+     "event_id": "dp_kuer",
+     "datum": "23.–25.04.2026",
+     "typ": "Internationaler Pokal",
+     "kat": "Espoir Damen",
+     "disziplin": "Kürlaufen",
+     "platz": 3,
+     "punkte": 50.24,
+     "detail": "Internationales Feld: 10"
+    },
+    {
+     "event": "Deutsche Meisterschaften – Stade",
+     "event_id": "dm_stade",
+     "datum": "06.–12.07.2026 (Teilergebnisse, Stand 11.07.)",
+     "typ": "Deutsche Meisterschaft",
+     "kat": "Espoir Damen (Jg. 2014)",
+     "disziplin": "Kürlaufen",
+     "platz": 3,
+     "punkte": 61.1,
+     "detail": "Endstand, RollArt-Gesamt"
+    }
+   ],
+   "gruppe": "DRIV 2 Kür",
+   "axel": "nein"
+  },
+  {
+   "name": "Annabelle Röthig",
+   "lv": "Hessen",
+   "national": [
+    {
+     "kategorie": "Kürlaufen Schüler B Mädchen Jahrgang 2014",
+     "rang": 1,
+     "punkte": 154,
+     "wettbewerbe": [
+      "Jahresendrangliste 2025",
+      "RL-Wettbewerb DM Show Freiburg (Feb 2026)",
+      "RL-Wettbewerb Berlin (Mär 2026)",
+      "RL-Wettbewerb Eppingen (Mär 2026)"
+     ],
+     "ergebnisse": [
+      {
+       "platz": 2,
+       "punkte": 98
+      },
+      {},
+      {},
+      {
+       "platz": 3,
+       "punkte": 56
+      }
+     ]
+    }
+   ],
+   "international": [
+    {
+     "event": "Internationaler Deutschland-Pokal (Kür & Solotanz) – Freiburg",
+     "event_id": "dp_kuer",
+     "datum": "23.–25.04.2026",
+     "typ": "Internationaler Pokal",
+     "kat": "Espoir Damen",
+     "disziplin": "Kürlaufen",
+     "platz": 1,
+     "punkte": 52.47,
+     "detail": "Sieg – Internationales Feld: 10"
+    },
+    {
+     "event": "Deutsche Meisterschaften – Stade",
+     "event_id": "dm_stade",
+     "datum": "06.–12.07.2026 (Teilergebnisse, Stand 11.07.)",
+     "typ": "Deutsche Meisterschaft",
+     "kat": "Espoir Damen (Jg. 2014)",
+     "disziplin": "Kürlaufen",
+     "platz": 6,
+     "punkte": 52.88,
+     "detail": "Endstand, RollArt-Gesamt"
+    }
+   ],
+   "gruppe": "DRIV 3 Kür",
+   "axel": "nein"
+  },
+  {
+   "name": "Larissa Dopatka",
+   "lv": "Nordrhein-Westfalen",
+   "national": [
+    {
+     "kategorie": "Kürlaufen Schüler B Mädchen Jahrgang 2014",
+     "rang": 3,
+     "punkte": 144,
+     "wettbewerbe": [
+      "Jahresendrangliste 2025",
+      "RL-Wettbewerb DM Show Freiburg (Feb 2026)",
+      "RL-Wettbewerb Berlin (Mär 2026)",
+      "RL-Wettbewerb Eppingen (Mär 2026)"
+     ],
+     "ergebnisse": [
+      {
+       "platz": 3,
+       "punkte": 88
+      },
+      {
+       "platz": 3,
+       "punkte": 56
+      },
+      {},
+      {
+       "platz": 2
+      }
+     ]
+    }
+   ],
+   "international": [
+    {
+     "event": "Artistic World Cup Semi-Final – Garmisch-Partenkirchen (GER)",
+     "event_id": "wc_gap",
+     "datum": "08.–17.05.2026",
+     "typ": "World Cup",
+     "kat": "Espoir Damen",
+     "disziplin": "Kürlaufen",
+     "platz": 22,
+     "punkte": 37.84,
+     "detail": ""
+    },
+    {
+     "event": "Deutsche Meisterschaften – Stade",
+     "event_id": "dm_stade",
+     "datum": "06.–12.07.2026 (Teilergebnisse, Stand 11.07.)",
+     "typ": "Deutsche Meisterschaft",
+     "kat": "Espoir Damen (Jg. 2014)",
+     "disziplin": "Kürlaufen",
+     "platz": 4,
+     "punkte": 57.91,
+     "detail": "Endstand, RollArt-Gesamt"
+    }
+   ],
+   "gruppe": "DRIV 3 Kür",
+   "axel": "nein"
+  },
+  {
+   "name": "Emma Rubik",
+   "lv": "Württemberg",
+   "national": [
+    {
+     "kategorie": "Kürlaufen Schüler B Mädchen Jahrgang 2014",
+     "rang": 1,
+     "punkte": 154,
+     "wettbewerbe": [
+      "Jahresendrangliste 2025",
+      "RL-Wettbewerb DM Show Freiburg (Feb 2026)",
+      "RL-Wettbewerb Berlin (Mär 2026)",
+      "RL-Wettbewerb Eppingen (Mär 2026)"
+     ],
+     "ergebnisse": [
+      {
+       "platz": 1,
+       "punkte": 109
+      },
+      {},
+      {},
+      {
+       "platz": 5,
+       "punkte": 45
+      }
+     ]
+    }
+   ],
+   "international": [
+    {
+     "event": "Artistic World Cup Semi-Final – Garmisch-Partenkirchen (GER)",
+     "event_id": "wc_gap",
+     "datum": "08.–17.05.2026",
+     "typ": "World Cup",
+     "kat": "Espoir Damen",
+     "disziplin": "Kürlaufen",
+     "platz": 24,
+     "punkte": 36.27,
+     "detail": ""
+    },
+    {
+     "event": "Deutsche Meisterschaften – Stade",
+     "event_id": "dm_stade",
+     "datum": "06.–12.07.2026 (Teilergebnisse, Stand 11.07.)",
+     "typ": "Deutsche Meisterschaft",
+     "kat": "Espoir Damen (Jg. 2014)",
+     "disziplin": "Kürlaufen",
+     "platz": 1,
+     "punkte": 68.64,
+     "detail": "Deutsche Meisterin 2026 – Endstand, RollArt-Gesamt"
+    }
+   ],
+   "gruppe": "DRIV 3 Kür",
+   "axel": "nein"
+  },
+  {
+   "name": "Emma Schneider",
+   "lv": "Württemberg",
+   "national": [
+    {
+     "kategorie": "Kürlaufen Schüler B Mädchen Jahrgang 2013",
+     "rang": 4,
+     "punkte": 148,
+     "wettbewerbe": [
+      "Jahresendrangliste 2025",
+      "RL-Wettbewerb DM Show Freiburg (Feb 2026)",
+      "RL-Wettbewerb Berlin (Mär 2026)",
+      "RL-Wettbewerb Eppingen (Mär 2026)"
+     ],
+     "ergebnisse": [
+      {
+       "platz": 5,
+       "punkte": 92
+      },
+      {},
+      {},
+      {
+       "platz": 3,
+       "punkte": 56
+      }
+     ]
+    }
+   ],
+   "international": [
+    {
+     "event": "Artistic World Cup Semi-Final – Garmisch-Partenkirchen (GER)",
+     "event_id": "wc_gap",
+     "datum": "08.–17.05.2026",
+     "typ": "World Cup",
+     "kat": "Espoir Damen",
+     "disziplin": "Kürlaufen",
+     "platz": 31,
+     "punkte": 30.54,
+     "detail": ""
+    },
+    {
+     "event": "Deutsche Meisterschaften – Stade",
+     "event_id": "dm_stade",
+     "datum": "06.–12.07.2026 (Teilergebnisse, Stand 11.07.)",
+     "typ": "Deutsche Meisterschaft",
+     "kat": "Espoir Damen (Jg. 2013)",
+     "disziplin": "Kürlaufen",
+     "platz": 7,
+     "punkte": 54.54,
+     "detail": "Endstand, RollArt-Gesamt"
+    }
+   ],
+   "gruppe": "DRIV 3 Kür"
+  },
+  {
+   "name": "Malea Louise Bobzien",
+   "lv": "Niedersachsen",
+   "national": [
+    {
+     "kategorie": "Kürlaufen Schüler B Mädchen Jahrgang 2013",
+     "rang": 9,
+     "punkte": 97,
+     "wettbewerbe": [
+      "Jahresendrangliste 2025",
+      "RL-Wettbewerb DM Show Freiburg (Feb 2026)",
+      "RL-Wettbewerb Berlin (Mär 2026)",
+      "RL-Wettbewerb Eppingen (Mär 2026)"
+     ],
+     "ergebnisse": [
+      {
+       "platz": 13,
+       "punkte": 41
+      },
+      {
+       "platz": 3,
+       "punkte": 56
+      },
+      {},
+      {
+       "platz": 6
+      }
+     ]
+    }
+   ],
+   "international": [
+    {
+     "event": "Deutsche Meisterschaften – Stade",
+     "event_id": "dm_stade",
+     "datum": "06.–12.07.2026 (Teilergebnisse, Stand 11.07.)",
+     "typ": "Deutsche Meisterschaft",
+     "kat": "Espoir Damen (Jg. 2013)",
+     "disziplin": "Kürlaufen",
+     "platz": 5,
+     "punkte": 55.93,
+     "detail": "Endstand, RollArt-Gesamt"
+    }
+   ],
+   "gruppe": "DRIV 3 Kür"
+  },
+  {
+   "name": "Lara-Sophie Rebischke",
+   "lv": "Württemberg",
+   "national": [
+    {
+     "kategorie": "Kürlaufen Schüler C Mädchen Jahrgang 2015",
+     "rang": 2,
+     "punkte": 151,
+     "wettbewerbe": [
+      "Jahresendrangliste 2025",
+      "RL-Wettbewerb DM Show Freiburg (Feb 2026)",
+      "RL-Wettbewerb Berlin (Mär 2026)",
+      "RL-Wettbewerb Eppingen (Mär 2026)"
+     ],
+     "ergebnisse": [
+      {
+       "platz": 2,
+       "punkte": 98
+      },
+      {},
+      {},
+      {
+       "platz": 1,
+       "punkte": 53
+      }
+     ]
+    }
+   ],
+   "international": [
+    {
+     "event": "Internationaler Deutschland-Pokal (Kür & Solotanz) – Freiburg",
+     "event_id": "dp_kuer",
+     "datum": "23.–25.04.2026",
+     "typ": "Internationaler Pokal",
+     "kat": "Minis Damen",
+     "disziplin": "Kürlaufen",
+     "platz": 2,
+     "punkte": 28.51,
+     "detail": "Internationales Feld: 8"
+    },
+    {
+     "event": "Deutsche Meisterschaften – Stade",
+     "event_id": "dm_stade",
+     "datum": "06.–12.07.2026 (Teilergebnisse, Stand 11.07.)",
+     "typ": "Deutsche Meisterschaft",
+     "kat": "Minis Damen (Jg. 2015)",
+     "disziplin": "Kürlaufen",
+     "platz": 2,
+     "punkte": 31.61,
+     "detail": "Endstand, RollArt-Gesamt"
+    }
+   ],
+   "gruppe": "DRIV 3 Kür"
+  },
+  {
+   "name": "Luyanda Blanquett",
+   "lv": "Niedersachsen",
+   "national": [
+    {
+     "kategorie": "Kürlaufen Schüler C Mädchen Jahrgang 2015",
+     "rang": 1,
+     "punkte": 162,
+     "wettbewerbe": [
+      "Jahresendrangliste 2025",
+      "RL-Wettbewerb DM Show Freiburg (Feb 2026)",
+      "RL-Wettbewerb Berlin (Mär 2026)",
+      "RL-Wettbewerb Eppingen (Mär 2026)"
+     ],
+     "ergebnisse": [
+      {
+       "platz": 1,
+       "punkte": 109
+      },
+      {
+       "platz": 1,
+       "punkte": 53
+      },
+      {},
+      {}
+     ]
+    }
+   ],
+   "international": [
+    {
+     "event": "Internationaler Deutschland-Pokal (Kür & Solotanz) – Freiburg",
+     "event_id": "dp_kuer",
+     "datum": "23.–25.04.2026",
+     "typ": "Internationaler Pokal",
+     "kat": "Minis Damen",
+     "disziplin": "Kürlaufen",
+     "platz": 1,
+     "punkte": 28.54,
+     "detail": "Sieg – Internationales Feld: 8"
+    },
+    {
+     "event": "Artistic World Cup Semi-Final – Garmisch-Partenkirchen (GER)",
+     "event_id": "wc_gap",
+     "datum": "08.–17.05.2026",
+     "typ": "World Cup",
+     "kat": "Minis Damen",
+     "disziplin": "Kürlaufen",
+     "platz": 11,
+     "punkte": 39.03,
+     "detail": ""
+    },
+    {
+     "event": "Deutsche Meisterschaften – Stade",
+     "event_id": "dm_stade",
+     "datum": "06.–12.07.2026 (Teilergebnisse, Stand 11.07.)",
+     "typ": "Deutsche Meisterschaft",
+     "kat": "Minis Damen (Jg. 2015)",
+     "disziplin": "Kürlaufen",
+     "platz": 1,
+     "punkte": 43.75,
+     "detail": "Deutsche/r Meister/in 2026 – Endstand, RollArt-Gesamt"
+    }
+   ],
+   "gruppe": "DRIV 3 Kür"
+  },
+  {
+   "name": "Constantin Günther",
+   "lv": "Nordrhein-Westfalen",
+   "national": [
+    {
+     "kategorie": "Kürlaufen Schüler A Jungen",
+     "rang": 2,
+     "punkte": 126,
+     "wettbewerbe": [
+      "Jahresendrangliste 2025",
+      "RL-Wettbewerb DM Show Freiburg (Feb 2026)",
+      "RL-Wettbewerb Berlin (Mär 2026)",
+      "RL-Wettbewerb Eppingen (Mär 2026)"
+     ],
+     "ergebnisse": [
+      {
+       "platz": 2,
+       "punkte": 126
+      },
+      {},
+      {},
+      {}
+     ]
+    }
+   ],
+   "international": [
+    {
+     "event": "Deutsche Meisterschaften – Stade",
+     "event_id": "dm_stade",
+     "datum": "06.–12.07.2026 (Teilergebnisse, Stand 11.07.)",
+     "typ": "Deutsche Meisterschaft",
+     "kat": "Schüler A Jungen (Cadets)",
+     "disziplin": "Kürlaufen",
+     "platz": 2,
+     "punkte": 54.55,
+     "detail": "Endstand, RollArt-Gesamt"
+    }
+   ],
+   "gruppe": "DRIV 3 Kür",
+   "axel": "nein"
+  },
+  {
+   "name": "Alisa Saya Dinerman",
+   "lv": "Württemberg",
+   "national": [
+    {
+     "kategorie": "Kürlaufen Schüler B Mädchen Jahrgang 2013",
+     "rang": 3,
+     "punkte": 163,
+     "wettbewerbe": [
+      "Jahresendrangliste 2025",
+      "RL-Wettbewerb DM Show Freiburg (Feb 2026)",
+      "RL-Wettbewerb Berlin (Mär 2026)",
+      "RL-Wettbewerb Eppingen (Mär 2026)"
+     ],
+     "ergebnisse": [
+      {
+       "platz": 2,
+       "punkte": 126
+      },
+      {},
+      {},
+      {
+       "platz": 7,
+       "punkte": 37
+      }
+     ]
+    }
+   ],
+   "international": [
+    {
+     "event": "Internationaler Deutschland-Pokal (Kür & Solotanz) – Freiburg",
+     "event_id": "dp_kuer",
+     "datum": "23.–25.04.2026",
+     "typ": "Internationaler Pokal",
+     "kat": "Espoir Damen",
+     "disziplin": "Kürlaufen",
+     "platz": 4,
+     "punkte": 46.84,
+     "detail": "Internationales Feld: 10"
+    },
+    {
+     "event": "Deutsche Meisterschaften – Stade",
+     "event_id": "dm_stade",
+     "datum": "06.–12.07.2026 (Teilergebnisse, Stand 11.07.)",
+     "typ": "Deutsche Meisterschaft",
+     "kat": "Espoir Damen (Jg. 2013)",
+     "disziplin": "Kürlaufen",
+     "platz": 6,
+     "punkte": 54.97,
+     "detail": "Endstand, RollArt-Gesamt"
+    }
+   ],
+   "gruppe": "DRIV 3 Kür"
+  },
+  {
+   "name": "Valea Lotta Rauchmann",
+   "lv": "Bremen",
+   "national": [
+    {
+     "kategorie": "Kürlaufen Schüler B Mädchen Jahrgang 2013",
+     "rang": 6,
+     "punkte": 143,
+     "wettbewerbe": [
+      "Jahresendrangliste 2025",
+      "RL-Wettbewerb DM Show Freiburg (Feb 2026)",
+      "RL-Wettbewerb Berlin (Mär 2026)",
+      "RL-Wettbewerb Eppingen (Mär 2026)"
+     ],
+     "ergebnisse": [
+      {
+       "platz": 3,
+       "punkte": 113
+      },
+      {
+       "platz": 9,
+       "punkte": 30
+      },
+      {},
+      {}
+     ]
+    }
+   ],
+   "international": [
+    {
+     "event": "Deutsche Meisterschaften – Stade",
+     "event_id": "dm_stade",
+     "datum": "06.–12.07.2026 (Teilergebnisse, Stand 11.07.)",
+     "typ": "Deutsche Meisterschaft",
+     "kat": "Espoir Damen (Jg. 2013)",
+     "disziplin": "Kürlaufen",
+     "platz": 18,
+     "punkte": 40.62,
+     "detail": "Endstand, RollArt-Gesamt"
+    }
+   ],
+   "gruppe": "DRIV 3 Kür"
+  },
+  {
+   "name": "Leana Milane Behrmann",
+   "lv": "Bremen",
+   "national": [
+    {
+     "kategorie": "Kürlaufen Schüler B Mädchen Jahrgang 2013",
+     "rang": 7,
+     "punkte": 125,
+     "wettbewerbe": [
+      "Jahresendrangliste 2025",
+      "RL-Wettbewerb DM Show Freiburg (Feb 2026)",
+      "RL-Wettbewerb Berlin (Mär 2026)",
+      "RL-Wettbewerb Eppingen (Mär 2026)"
+     ],
+     "ergebnisse": [
+      {
+       "platz": 7,
+       "punkte": 75
+      },
+      {
+       "platz": 4,
+       "punkte": 50
+      },
+      {},
+      {}
+     ]
+    }
+   ],
+   "international": [
+    {
+     "event": "Deutsche Meisterschaften – Stade",
+     "event_id": "dm_stade",
+     "datum": "06.–12.07.2026 (Teilergebnisse, Stand 11.07.)",
+     "typ": "Deutsche Meisterschaft",
+     "kat": "Espoir Damen (Jg. 2013)",
+     "disziplin": "Kürlaufen",
+     "platz": 16,
+     "punkte": 42.76,
+     "detail": "Endstand, RollArt-Gesamt"
+    }
+   ],
+   "gruppe": "DRIV 3 Kür"
+  },
+  {
+   "name": "Leonie Schäfer",
+   "lv": "Hessen",
+   "national": [
+    {
+     "kategorie": "Kürlaufen Schüler B Mädchen Jahrgang 2013",
+     "rang": 5,
+     "punkte": 145,
+     "wettbewerbe": [
+      "Jahresendrangliste 2025",
+      "RL-Wettbewerb DM Show Freiburg (Feb 2026)",
+      "RL-Wettbewerb Berlin (Mär 2026)",
+      "RL-Wettbewerb Eppingen (Mär 2026)"
+     ],
+     "ergebnisse": [
+      {
+       "platz": 6,
+       "punkte": 83
+      },
+      {},
+      {},
+      {
+       "platz": 2,
+       "punkte": 62
+      }
+     ]
+    }
+   ],
+   "international": [
+    {
+     "event": "Internationaler Deutschland-Pokal (Kür & Solotanz) – Freiburg",
+     "event_id": "dp_kuer",
+     "datum": "23.–25.04.2026",
+     "typ": "Internationaler Pokal",
+     "kat": "Espoir Damen",
+     "disziplin": "Kürlaufen",
+     "platz": 2,
+     "punkte": 51.04,
+     "detail": "Internationales Feld: 10"
+    },
+    {
+     "event": "Deutsche Meisterschaften – Stade",
+     "event_id": "dm_stade",
+     "datum": "06.–12.07.2026 (Teilergebnisse, Stand 11.07.)",
+     "typ": "Deutsche Meisterschaft",
+     "kat": "Espoir Damen (Jg. 2013)",
+     "disziplin": "Kürlaufen",
+     "platz": 4,
+     "punkte": 57.27,
+     "detail": "Endstand, RollArt-Gesamt"
+    }
+   ],
+   "gruppe": "DRIV 3 Kür"
+  },
+  {
+   "name": "Asia Haspolat",
+   "lv": null,
+   "national": [],
+   "international": [
+    {
+     "event": "Deutsche Meisterschaften – Stade",
+     "event_id": "dm_stade",
+     "datum": "06.–12.07.2026 (Teilergebnisse, Stand 11.07.)",
+     "typ": "Deutsche Meisterschaft",
+     "kat": "Espoir Damen (Jg. 2013)",
+     "disziplin": "Kürlaufen",
+     "platz": 3,
+     "punkte": 60.29,
+     "detail": "Endstand, RollArt-Gesamt"
+    }
+   ],
+   "gruppe": "DRIV 3 Kür"
+  },
+  {
+   "name": "Elias Leonhardt",
+   "lv": "Württemberg",
+   "national": [
+    {
+     "kategorie": "Kürlaufen Schüler B Jungen Jahrgang 2013",
+     "rang": 1,
+     "punkte": 209,
+     "wettbewerbe": [
+      "Jahresendrangliste 2025",
+      "RL-Wettbewerb DM Show Freiburg (Feb 2026)",
+      "RL-Wettbewerb Berlin (Mär 2026)",
+      "RL-Wettbewerb Eppingen (Mär 2026)"
+     ],
+     "ergebnisse": [
+      {
+       "platz": 1,
+       "punkte": 140
+      },
+      {
+       "platz": 1,
+       "punkte": 69
+      },
+      {},
+      {}
+     ]
+    }
+   ],
+   "international": [
+    {
+     "event": "Internationaler Deutschland-Pokal (Kür & Solotanz) – Freiburg",
+     "event_id": "dp_kuer",
+     "datum": "23.–25.04.2026",
+     "typ": "Internationaler Pokal",
+     "kat": "Espoir Herren",
+     "disziplin": "Kürlaufen",
+     "platz": 1,
+     "punkte": 38.64,
+     "detail": "Sieg – Internationales Feld: 1"
+    },
+    {
+     "event": "Deutsche Meisterschaften – Stade",
+     "event_id": "dm_stade",
+     "datum": "06.–12.07.2026 (Teilergebnisse, Stand 11.07.)",
+     "typ": "Deutsche Meisterschaft",
+     "kat": "Espoir Herren",
+     "disziplin": "Kürlaufen",
+     "platz": 1,
+     "punkte": 57.71,
+     "detail": "Deutsche/r Meister/in 2026 – Endstand, RollArt-Gesamt"
+    }
+   ],
+   "gruppe": "DRIV 3 Kür"
+  },
+  {
+   "name": "Madita Wülbern",
+   "lv": "Bremen",
+   "national": [
+    {
+     "kategorie": "Kürlaufen Schüler C Mädchen Jahrgang 2015",
+     "rang": 9,
+     "punkte": 79,
+     "wettbewerbe": [
+      "Jahresendrangliste 2025",
+      "RL-Wettbewerb DM Show Freiburg (Feb 2026)",
+      "RL-Wettbewerb Berlin (Mär 2026)",
+      "RL-Wettbewerb Eppingen (Mär 2026)"
+     ],
+     "ergebnisse": [
+      {
+       "platz": 4,
+       "punkte": 79
+      },
+      {},
+      {},
+      {}
+     ]
+    }
+   ],
+   "international": [],
+   "gruppe": "DRIV 4 Kür"
+  },
+  {
+   "name": "Clara Caldari",
+   "lv": "Berlin",
+   "national": [
+    {
+     "kategorie": "Kürlaufen Schüler B Mädchen Jahrgang 2013",
+     "rang": 10,
+     "punkte": 95,
+     "wettbewerbe": [
+      "Jahresendrangliste 2025",
+      "RL-Wettbewerb DM Show Freiburg (Feb 2026)",
+      "RL-Wettbewerb Berlin (Mär 2026)",
+      "RL-Wettbewerb Eppingen (Mär 2026)"
+     ],
+     "ergebnisse": [
+      {
+       "platz": 11,
+       "punkte": 50
+      },
+      {
+       "platz": 5,
+       "punkte": 45
+      },
+      {},
+      {}
+     ]
+    }
+   ],
+   "international": [
+    {
+     "event": "Deutsche Meisterschaften – Stade",
+     "event_id": "dm_stade",
+     "datum": "06.–12.07.2026 (Teilergebnisse, Stand 11.07.)",
+     "typ": "Deutsche Meisterschaft",
+     "kat": "Espoir Damen (Jg. 2013)",
+     "disziplin": "Kürlaufen",
+     "platz": 10,
+     "punkte": 49.55,
+     "detail": "Endstand, RollArt-Gesamt"
+    }
+   ],
+   "gruppe": "DRIV 4 Kür"
+  },
+  {
+   "name": "Lenke Frida Leidert",
+   "lv": "Niedersachsen",
+   "national": [
+    {
+     "kategorie": "Kürlaufen Schüler C Mädchen 2016",
+     "rang": 4,
+     "punkte": 108,
+     "wettbewerbe": [
+      "Jahresendrangliste 2025",
+      "RL-Wettbewerb DM Show Freiburg (Feb 2026)",
+      "RL-Wettbewerb Berlin (Mär 2026)",
+      "RL-Wettbewerb Eppingen (Mär 2026)"
+     ],
+     "ergebnisse": [
+      {
+       "platz": 3,
+       "punkte": 69
+      },
+      {
+       "platz": 4,
+       "punkte": 39
+      },
+      {},
+      {}
+     ]
+    }
+   ],
+   "international": [],
+   "gruppe": "DRIV 4 Kür"
+  },
+  {
+   "name": "Liah Triess",
+   "lv": "Südbaden",
+   "national": [
+    {
+     "kategorie": "Kürlaufen Schüler C Mädchen Jahrgang 2015",
+     "rang": 3,
+     "punkte": 136,
+     "wettbewerbe": [
+      "Jahresendrangliste 2025",
+      "RL-Wettbewerb DM Show Freiburg (Feb 2026)",
+      "RL-Wettbewerb Berlin (Mär 2026)",
+      "RL-Wettbewerb Eppingen (Mär 2026)"
+     ],
+     "ergebnisse": [
+      {
+       "platz": 3,
+       "punkte": 88
+      },
+      {
+       "platz": 2,
+       "punkte": 48
+      },
+      {},
+      {}
+     ]
+    },
+    {
+     "kategorie": "Solotanz Schüler C",
+     "rang": 2,
+     "punkte": 136,
+     "wettbewerbe": [
+      "Jahresendrangliste 2025",
+      "RL-Wettbewerb DM Show Freiburg (Feb 2026)",
+      "RL-Wettbewerb Berlin (Mär 2026)"
+     ],
+     "ergebnisse": [
+      {
+       "platz": 3,
+       "punkte": 88
+      },
+      {
+       "platz": 2,
+       "punkte": 48
+      },
+      {}
+     ]
+    }
+   ],
+   "international": [
+    {
+     "event": "Internationaler Deutschland-Pokal (Kür & Solotanz) – Freiburg",
+     "event_id": "dp_kuer",
+     "datum": "23.–25.04.2026",
+     "typ": "Internationaler Pokal",
+     "kat": "Minis Damen",
+     "disziplin": "Kürlaufen",
+     "platz": 7,
+     "punkte": 14.34,
+     "detail": "Internationales Feld: 8"
+    },
+    {
+     "event": "Internationaler Deutschland-Pokal (Kür & Solotanz) – Freiburg",
+     "event_id": "dp_kuer",
+     "datum": "23.–25.04.2026",
+     "typ": "Internationaler Pokal",
+     "kat": "Minis Damen",
+     "disziplin": "Solotanz",
+     "platz": 1,
+     "punkte": 34.6,
+     "detail": "Sieg – Internationales Feld: 8"
+    },
+    {
+     "event": "Artistic World Cup Semi-Final – Garmisch-Partenkirchen (GER)",
+     "event_id": "wc_gap",
+     "datum": "08.–17.05.2026",
+     "typ": "World Cup",
+     "kat": "Minis Damen",
+     "disziplin": "Kürlaufen",
+     "platz": 23,
+     "punkte": 25.05,
+     "detail": ""
+    },
+    {
+     "event": "Deutsche Meisterschaften – Stade",
+     "event_id": "dm_stade",
+     "datum": "06.–12.07.2026 (Teilergebnisse, Stand 11.07.)",
+     "typ": "Deutsche Meisterschaft",
+     "kat": "Minis Damen (Jg. 2015)",
+     "disziplin": "Kürlaufen",
+     "platz": 4,
+     "punkte": 26.15,
+     "detail": "Endstand, RollArt-Gesamt"
+    }
+   ],
+   "gruppe": "DRIV 4 Kür"
+  },
+  {
+   "name": "Mira Haspolat",
+   "lv": "Nordrhein-Westfalen",
+   "national": [
+    {
+     "kategorie": "Kürlaufen Schüler B Mädchen Jahrgang 2014",
+     "rang": 9,
+     "punkte": 64,
+     "wettbewerbe": [
+      "Jahresendrangliste 2025",
+      "RL-Wettbewerb DM Show Freiburg (Feb 2026)",
+      "RL-Wettbewerb Berlin (Mär 2026)",
+      "RL-Wettbewerb Eppingen (Mär 2026)"
+     ],
+     "ergebnisse": [
+      {
+       "platz": 16,
+       "punkte": 23
+      },
+      {
+       "platz": 6,
+       "punkte": 41
+      },
+      {},
+      {}
+     ]
+    }
+   ],
+   "international": [
+    {
+     "event": "Deutsche Meisterschaften – Stade",
+     "event_id": "dm_stade",
+     "datum": "06.–12.07.2026 (Teilergebnisse, Stand 11.07.)",
+     "typ": "Deutsche Meisterschaft",
+     "kat": "Espoir Damen (Jg. 2014)",
+     "disziplin": "Kürlaufen",
+     "platz": 8,
+     "punkte": 40.33,
+     "detail": "Endstand, RollArt-Gesamt"
+    }
+   ],
+   "gruppe": "DRIV 4 Kür",
+   "axel": "nein"
+  },
+  {
+   "name": "Viktoriia Ravkovska",
+   "lv": "Bayern",
+   "national": [
+    {
+     "kategorie": "Kürlaufen Schüler C Mädchen 2016",
+     "rang": 2,
+     "punkte": 125,
+     "wettbewerbe": [
+      "Jahresendrangliste 2025",
+      "RL-Wettbewerb DM Show Freiburg (Feb 2026)",
+      "RL-Wettbewerb Berlin (Mär 2026)",
+      "RL-Wettbewerb Eppingen (Mär 2026)"
+     ],
+     "ergebnisse": [
+      {
+       "platz": 2,
+       "punkte": 77
+      },
+      {},
+      {},
+      {
+       "platz": 2,
+       "punkte": 48
+      }
+     ]
+    }
+   ],
+   "international": [
+    {
+     "event": "Deutsche Meisterschaften – Stade",
+     "event_id": "dm_stade",
+     "datum": "06.–12.07.2026 (Teilergebnisse, Stand 11.07.)",
+     "typ": "Deutsche Meisterschaft",
+     "kat": "Minis Damen (Jg. 2016)",
+     "disziplin": "Kürlaufen",
+     "platz": 10,
+     "punkte": 17.32,
+     "detail": "Endstand, RollArt-Gesamt"
+    }
+   ],
+   "gruppe": "DRIV 4 Kür"
+  },
+  {
+   "name": "Anni Göhler",
+   "lv": "Hessen",
+   "national": [
+    {
+     "kategorie": "Kürlaufen Schüler B Mädchen Jahrgang 2013",
+     "rang": 8,
+     "punkte": 98,
+     "wettbewerbe": [
+      "Jahresendrangliste 2025",
+      "RL-Wettbewerb DM Show Freiburg (Feb 2026)",
+      "RL-Wettbewerb Berlin (Mär 2026)",
+      "RL-Wettbewerb Eppingen (Mär 2026)"
+     ],
+     "ergebnisse": [
+      {
+       "platz": 8,
+       "punkte": 68
+      },
+      {},
+      {},
+      {
+       "platz": 9,
+       "punkte": 30
+      }
+     ]
+    }
+   ],
+   "international": [
+    {
+     "event": "Deutsche Meisterschaften – Stade",
+     "event_id": "dm_stade",
+     "datum": "06.–12.07.2026 (Teilergebnisse, Stand 11.07.)",
+     "typ": "Deutsche Meisterschaft",
+     "kat": "Espoir Damen (Jg. 2013)",
+     "disziplin": "Kürlaufen",
+     "platz": 11,
+     "punkte": 49.37,
+     "detail": "Endstand, RollArt-Gesamt"
+    }
+   ],
+   "gruppe": "DRIV 4 Kür"
+  },
+  {
+   "name": "Mila Rabb",
+   "lv": "Hessen",
+   "national": [
+    {
+     "kategorie": "Kürlaufen Schüler B Mädchen Jahrgang 2014",
+     "rang": 5,
+     "punkte": 105,
+     "wettbewerbe": [
+      "Jahresendrangliste 2025",
+      "RL-Wettbewerb DM Show Freiburg (Feb 2026)",
+      "RL-Wettbewerb Berlin (Mär 2026)",
+      "RL-Wettbewerb Eppingen (Mär 2026)"
+     ],
+     "ergebnisse": [
+      {
+       "platz": 6,
+       "punkte": 64
+      },
+      {},
+      {},
+      {
+       "platz": 6,
+       "punkte": 41
+      }
+     ]
+    },
+    {
+     "kategorie": "Solotanz Schüler B",
+     "rang": 19,
+     "punkte": 25,
+     "wettbewerbe": [
+      "Jahresendrangliste 2025",
+      "RL-Wettbewerb DM Show Freiburg (Feb 2026)",
+      "RL-Wettbewerb Berlin (Mär 2026)"
+     ],
+     "ergebnisse": [
+      {
+       "platz": 15,
+       "punkte": 25
+      },
+      {},
+      {}
+     ]
+    }
+   ],
+   "international": [
+    {
+     "event": "Deutsche Meisterschaften – Stade",
+     "event_id": "dm_stade",
+     "datum": "06.–12.07.2026 (Teilergebnisse, Stand 11.07.)",
+     "typ": "Deutsche Meisterschaft",
+     "kat": "Espoir Damen (Jg. 2014)",
+     "disziplin": "Kürlaufen",
+     "platz": 7,
+     "punkte": 43.86,
+     "detail": "Endstand, RollArt-Gesamt"
+    }
+   ],
+   "gruppe": "DRIV 4 Kür",
+   "axel": "nein"
+  },
+  {
+   "name": "Laura Münch Fernandes",
+   "lv": "Nordrhein-Westfalen",
+   "national": [
+    {
+     "kategorie": "Kürlaufen Schüler C Mädchen 2016",
+     "rang": 1,
+     "punkte": 138,
+     "wettbewerbe": [
+      "Jahresendrangliste 2025",
+      "RL-Wettbewerb DM Show Freiburg (Feb 2026)",
+      "RL-Wettbewerb Berlin (Mär 2026)",
+      "RL-Wettbewerb Eppingen (Mär 2026)"
+     ],
+     "ergebnisse": [
+      {
+       "platz": 1,
+       "punkte": 85
+      },
+      {
+       "platz": 1,
+       "punkte": 53
+      },
+      {},
+      {}
+     ]
+    }
+   ],
+   "international": [
+    {
+     "event": "Internationaler Deutschland-Pokal (Kür & Solotanz) – Freiburg",
+     "event_id": "dp_kuer",
+     "datum": "23.–25.04.2026",
+     "typ": "Internationaler Pokal",
+     "kat": "Minis Damen",
+     "disziplin": "Kürlaufen",
+     "platz": 4,
+     "punkte": 17.74,
+     "detail": "Internationales Feld: 8"
+    },
+    {
+     "event": "Deutsche Meisterschaften – Stade",
+     "event_id": "dm_stade",
+     "datum": "06.–12.07.2026 (Teilergebnisse, Stand 11.07.)",
+     "typ": "Deutsche Meisterschaft",
+     "kat": "Minis Damen (Jg. 2016)",
+     "disziplin": "Kürlaufen",
+     "platz": 1,
+     "punkte": 23.89,
+     "detail": "Deutsche/r Meister/in 2026 – Endstand, RollArt-Gesamt"
+    }
+   ],
+   "gruppe": "DRIV 4 Kür"
+  },
+  {
+   "name": "Tilda Hedwig Jennerjahn",
+   "lv": "Niedersachsen",
+   "national": [
+    {
+     "kategorie": "Kürlaufen Schüler D Mädchen Jahrgang 2017",
+     "rang": 2,
+     "punkte": 111,
+     "wettbewerbe": [
+      "Jahresendrangliste 2025",
+      "RL-Wettbewerb DM Show Freiburg (Feb 2026)",
+      "RL-Wettbewerb Berlin (Mär 2026)",
+      "RL-Wettbewerb Eppingen (Mär 2026)"
+     ],
+     "ergebnisse": [
+      {
+       "platz": 3,
+       "punkte": 69
+      },
+      {
+       "platz": 1,
+       "punkte": 42
+      },
+      {},
+      {
+       "platz": 1
+      }
+     ]
+    }
+   ],
+   "international": [
+    {
+     "event": "Internationaler Deutschland-Pokal (Kür & Solotanz) – Freiburg",
+     "event_id": "dp_kuer",
+     "datum": "23.–25.04.2026",
+     "typ": "Internationaler Pokal",
+     "kat": "Tots Damen",
+     "disziplin": "Kürlaufen",
+     "platz": 1,
+     "punkte": 21.06,
+     "detail": "Sieg – Internationales Feld: 4"
+    },
+    {
+     "event": "Artistic World Cup Semi-Final – Garmisch-Partenkirchen (GER)",
+     "event_id": "wc_gap",
+     "datum": "08.–17.05.2026",
+     "typ": "World Cup",
+     "kat": "Tots Damen",
+     "disziplin": "Kürlaufen",
+     "platz": 10,
+     "punkte": 24.09,
+     "detail": ""
+    },
+    {
+     "event": "Deutsche Meisterschaften – Stade",
+     "event_id": "dm_stade",
+     "datum": "06.–12.07.2026 (Teilergebnisse, Stand 11.07.)",
+     "typ": "Deutsche Meisterschaft",
+     "kat": "Tots Damen (Jg. 2017)",
+     "disziplin": "Kürlaufen",
+     "platz": 1,
+     "punkte": 22.5,
+     "detail": "Deutsche Meisterin 2026 – Endstand, RollArt-Gesamt"
+    }
+   ],
+   "gruppe": "DRIV 4 Kür"
+  },
+  {
+   "name": "Livia Helene Bobzien",
+   "lv": "Niedersachsen",
+   "national": [
+    {
+     "kategorie": "Kürlaufen Schüler D Mädchen Jahrgang 2017",
+     "rang": 4,
+     "punkte": 100,
+     "wettbewerbe": [
+      "Jahresendrangliste 2025",
+      "RL-Wettbewerb DM Show Freiburg (Feb 2026)",
+      "RL-Wettbewerb Berlin (Mär 2026)",
+      "RL-Wettbewerb Eppingen (Mär 2026)"
+     ],
+     "ergebnisse": [
+      {
+       "platz": 4,
+       "punkte": 62
+      },
+      {
+       "platz": 2,
+       "punkte": 38
+      },
+      {},
+      {
+       "platz": 4
+      }
+     ]
+    }
+   ],
+   "international": [
+    {
+     "event": "Internationaler Deutschland-Pokal (Kür & Solotanz) – Freiburg",
+     "event_id": "dp_kuer",
+     "datum": "23.–25.04.2026",
+     "typ": "Internationaler Pokal",
+     "kat": "Tots Damen",
+     "disziplin": "Kürlaufen",
+     "platz": 2,
+     "punkte": 19.32,
+     "detail": "Internationales Feld: 4"
+    },
+    {
+     "event": "Deutsche Meisterschaften – Stade",
+     "event_id": "dm_stade",
+     "datum": "06.–12.07.2026 (Teilergebnisse, Stand 11.07.)",
+     "typ": "Deutsche Meisterschaft",
+     "kat": "Tots Damen (Jg. 2017)",
+     "disziplin": "Kürlaufen",
+     "platz": 2,
+     "punkte": 20.58,
+     "detail": "Endstand, RollArt-Gesamt"
+    }
+   ],
+   "gruppe": "DRIV 4 Kür"
+  },
+  {
+   "name": "Jule Hinderberger",
+   "lv": "Württemberg",
+   "national": [
+    {
+     "kategorie": "Kürlaufen Schüler D Mädchen Jahrgang 2017",
+     "rang": 1,
+     "punkte": 123,
+     "wettbewerbe": [
+      "Jahresendrangliste 2025",
+      "RL-Wettbewerb DM Show Freiburg (Feb 2026)",
+      "RL-Wettbewerb Berlin (Mär 2026)",
+      "RL-Wettbewerb Eppingen (Mär 2026)"
+     ],
+     "ergebnisse": [
+      {
+       "platz": 1,
+       "punkte": 85
+      },
+      {},
+      {},
+      {
+       "platz": 2,
+       "punkte": 38
+      }
+     ]
+    }
+   ],
+   "international": [
+    {
+     "event": "Internationaler Deutschland-Pokal (Kür & Solotanz) – Freiburg",
+     "event_id": "dp_kuer",
+     "datum": "23.–25.04.2026",
+     "typ": "Internationaler Pokal",
+     "kat": "Tots Damen",
+     "disziplin": "Kürlaufen",
+     "platz": 4,
+     "punkte": 15.64,
+     "detail": "Internationales Feld: 4"
+    },
+    {
+     "event": "Deutsche Meisterschaften – Stade",
+     "event_id": "dm_stade",
+     "datum": "06.–12.07.2026 (Teilergebnisse, Stand 11.07.)",
+     "typ": "Deutsche Meisterschaft",
+     "kat": "Tots Damen (Jg. 2017)",
+     "disziplin": "Kürlaufen",
+     "platz": 11,
+     "punkte": 15.3,
+     "detail": "Endstand, RollArt-Gesamt"
+    }
+   ],
+   "gruppe": "DRIV 4 Kür"
+  },
+  {
+   "name": "Lina Flek",
+   "lv": "Bayern",
+   "national": [
+    {
+     "kategorie": "Kürlaufen Schüler D Mädchen Jahrgang 2017",
+     "rang": 2,
+     "punkte": 111,
+     "wettbewerbe": [
+      "Jahresendrangliste 2025",
+      "RL-Wettbewerb DM Show Freiburg (Feb 2026)",
+      "RL-Wettbewerb Berlin (Mär 2026)",
+      "RL-Wettbewerb Eppingen (Mär 2026)"
+     ],
+     "ergebnisse": [
+      {
+       "platz": 2,
+       "punkte": 77
+      },
+      {},
+      {},
+      {
+       "platz": 3,
+       "punkte": 34
+      }
+     ]
+    }
+   ],
+   "international": [
+    {
+     "event": "Internationaler Deutschland-Pokal (Kür & Solotanz) – Freiburg",
+     "event_id": "dp_kuer",
+     "datum": "23.–25.04.2026",
+     "typ": "Internationaler Pokal",
+     "kat": "Tots Damen",
+     "disziplin": "Kürlaufen",
+     "platz": 3,
+     "punkte": 16.85,
+     "detail": "Internationales Feld: 4"
+    },
+    {
+     "event": "Deutsche Meisterschaften – Stade",
+     "event_id": "dm_stade",
+     "datum": "06.–12.07.2026 (Teilergebnisse, Stand 11.07.)",
+     "typ": "Deutsche Meisterschaft",
+     "kat": "Tots Damen (Jg. 2017)",
+     "disziplin": "Kürlaufen",
+     "platz": 3,
+     "punkte": 20.08,
+     "detail": "Endstand, RollArt-Gesamt"
+    }
+   ],
+   "gruppe": "DRIV 4 Kür"
+  },
+  {
+   "name": "Lilly Calderone",
+   "lv": null,
+   "national": [],
+   "international": [
+    {
+     "event": "Deutsche Meisterschaften – Stade",
+     "event_id": "dm_stade",
+     "datum": "06.–12.07.2026 (Teilergebnisse, Stand 11.07.)",
+     "typ": "Deutsche Meisterschaft",
+     "kat": "Tots Damen (Jg. 2017)",
+     "disziplin": "Kürlaufen",
+     "platz": 6,
+     "punkte": 17.78,
+     "detail": "Endstand, RollArt-Gesamt"
+    }
+   ],
+   "gruppe": "DRIV 4 Kür"
+  },
+  {
+   "name": "Lisa Böhm",
+   "lv": "Württemberg",
+   "national": [
+    {
+     "kategorie": "Kürlaufen Schüler C Mädchen 2016",
+     "rang": 3,
+     "punkte": 115,
+     "wettbewerbe": [
+      "Jahresendrangliste 2025",
+      "RL-Wettbewerb DM Show Freiburg (Feb 2026)",
+      "RL-Wettbewerb Berlin (Mär 2026)",
+      "RL-Wettbewerb Eppingen (Mär 2026)"
+     ],
+     "ergebnisse": [
+      {
+       "platz": 4,
+       "punkte": 62
+      },
+      {},
+      {},
+      {
+       "platz": 1,
+       "punkte": 53
+      }
+     ]
+    }
+   ],
+   "international": [
+    {
+     "event": "Deutsche Meisterschaften – Stade",
+     "event_id": "dm_stade",
+     "datum": "06.–12.07.2026 (Teilergebnisse, Stand 11.07.)",
+     "typ": "Deutsche Meisterschaft",
+     "kat": "Minis Damen (Jg. 2016)",
+     "disziplin": "Kürlaufen",
+     "platz": 2,
+     "punkte": 21.68,
+     "detail": "Endstand, RollArt-Gesamt"
+    }
+   ],
+   "gruppe": "DRIV 4 Kür"
+  },
+  {
+   "name": "Phil Assmus",
+   "lv": "Niedersachsen",
+   "national": [
+    {
+     "kategorie": "Kürlaufen Schüler C Jungen Jahrgang 2016",
+     "rang": 1,
+     "punkte": 122,
+     "wettbewerbe": [
+      "Jahresendrangliste 2025",
+      "RL-Wettbewerb DM Show Freiburg (Feb 2026)",
+      "RL-Wettbewerb Berlin (Mär 2026)",
+      "RL-Wettbewerb Eppingen (Mär 2026)"
+     ],
+     "ergebnisse": [
+      {
+       "platz": 3,
+       "punkte": 69
+      },
+      {
+       "platz": 1,
+       "punkte": 53
+      },
+      {},
+      {}
+     ]
+    },
+    {
+     "kategorie": "Solotanz Schüler C",
+     "rang": 8,
+     "punkte": 29,
+     "wettbewerbe": [
+      "Jahresendrangliste 2025",
+      "RL-Wettbewerb DM Show Freiburg (Feb 2026)",
+      "RL-Wettbewerb Berlin (Mär 2026)"
+     ],
+     "ergebnisse": [
+      {},
+      {
+       "platz": 7,
+       "punkte": 29
+      },
+      {}
+     ]
+    }
+   ],
+   "international": [
+    {
+     "event": "Internationaler Deutschland-Pokal (Kür & Solotanz) – Freiburg",
+     "event_id": "dp_kuer",
+     "datum": "23.–25.04.2026",
+     "typ": "Internationaler Pokal",
+     "kat": "Minis Herren",
+     "disziplin": "Kürlaufen",
+     "platz": 2,
+     "punkte": 16.99,
+     "detail": "Internationales Feld: 3"
+    }
+   ],
+   "gruppe": "DRIV 4 Kür"
+  },
+  {
+   "name": "Erik Welik",
+   "lv": "Bremen",
+   "national": [
+    {
+     "kategorie": "Solotanz Meisterklasse Herren",
+     "rang": 1,
+     "punkte": 541,
+     "wettbewerbe": [
+      "Jahresendrangliste 2025",
+      "RL-Wettbewerb DM Show Freiburg (Feb 2026)",
+      "RL-Wettbewerb Berlin (Mär 2026)"
+     ],
+     "ergebnisse": [
+      {
+       "platz": 1,
+       "punkte": 375
+      },
+      {},
+      {
+       "platz": 2,
+       "punkte": 166
+      }
+     ]
+    }
+   ],
+   "international": [
+    {
+     "event": "Deutsche Meisterschaften – Stade",
+     "event_id": "dm_stade",
+     "datum": "06.–12.07.2026",
+     "typ": "Deutsche Meisterschaft",
+     "kat": "Meisterklasse Herren (Seniores)",
+     "disziplin": "Solotanz",
+     "platz": 1,
+     "punkte": 109.69,
+     "detail": "Deutsche/r Meister/in 2026 – Endstand, RollArt-Gesamt (offizielles FINAL-Protokoll; Segmente: SD+FD)"
+    }
+   ],
+   "gruppe": "DRIV Solo"
+  },
+  {
+   "name": "Michael Seeger-Suarez",
+   "lv": "Bremen",
+   "national": [
+    {
+     "kategorie": "Solotanz Meisterklasse Herren",
+     "rang": 3,
+     "punkte": 184,
+     "wettbewerbe": [
+      "Jahresendrangliste 2025",
+      "RL-Wettbewerb DM Show Freiburg (Feb 2026)",
+      "RL-Wettbewerb Berlin (Mär 2026)"
+     ],
+     "ergebnisse": [
+      {
+       "punkte": 0
+      },
+      {},
+      {
+       "platz": 1,
+       "punkte": 184
+      }
+     ]
+    }
+   ],
+   "international": [
+    {
+     "event": "Artistic World Cup Semi-Final – Garmisch-Partenkirchen (GER)",
+     "event_id": "wc_gap",
+     "datum": "08.–17.05.2026",
+     "typ": "World Cup",
+     "kat": "Senior Herren",
+     "disziplin": "Solotanz",
+     "platz": 17,
+     "punkte": 103.38,
+     "detail": "SD 46,37 / FD 57,01"
+    },
+    {
+     "event": "Deutsche Meisterschaften – Stade",
+     "event_id": "dm_stade",
+     "datum": "06.–12.07.2026",
+     "typ": "Deutsche Meisterschaft",
+     "kat": "Meisterklasse Herren (Seniores)",
+     "disziplin": "Solotanz",
+     "platz": 2,
+     "punkte": 103.56,
+     "detail": "Endstand, RollArt-Gesamt (offizielles FINAL-Protokoll; Segmente: SD+FD)"
+    }
+   ],
+   "gruppe": "DRIV Solo"
+  },
+  {
+   "name": "Palmira Seeger-Suarez",
+   "lv": "Bremen",
+   "national": [
+    {
+     "kategorie": "Solotanz Meisterklasse Damen",
+     "rang": 1,
+     "punkte": 559,
+     "wettbewerbe": [
+      "Jahresendrangliste 2025",
+      "RL-Wettbewerb DM Show Freiburg (Feb 2026)",
+      "RL-Wettbewerb Berlin (Mär 2026)"
+     ],
+     "ergebnisse": [
+      {
+       "platz": 1,
+       "punkte": 375
+      },
+      {},
+      {
+       "platz": 1,
+       "punkte": 184
+      }
+     ]
+    }
+   ],
+   "international": [
+    {
+     "event": "Artistic World Cup Semi-Final – Garmisch-Partenkirchen (GER)",
+     "event_id": "wc_gap",
+     "datum": "08.–17.05.2026",
+     "typ": "World Cup",
+     "kat": "Senior Damen",
+     "disziplin": "Solotanz",
+     "platz": 8,
+     "punkte": 127.12,
+     "detail": "Style Dance 56,70 (6.) / Free Dance 70,42 (10.)"
+    },
+    {
+     "event": "Deutsche Meisterschaften – Stade",
+     "event_id": "dm_stade",
+     "datum": "06.–12.07.2026",
+     "typ": "Deutsche Meisterschaft",
+     "kat": "Meisterklasse Damen (Seniores)",
+     "disziplin": "Solotanz",
+     "platz": 1,
+     "punkte": 129.58,
+     "detail": "Deutsche/r Meister/in 2026 – Endstand, RollArt-Gesamt"
+    }
+   ],
+   "gruppe": "DRIV Solo"
+  },
+  {
+   "name": "Anne Sophie Schiefer",
+   "lv": "Niedersachsen",
+   "national": [
+    {
+     "kategorie": "Kürlaufen Meisterklasse Damen",
+     "rang": 2,
+     "punkte": 488,
+     "wettbewerbe": [
+      "Jahresendrangliste 2025",
+      "RL-Wettbewerb DM Show Freiburg (Feb 2026)",
+      "RL-Wettbewerb Berlin (Mär 2026)",
+      "RL-Wettbewerb Eppingen (Mär 2026)"
+     ],
+     "ergebnisse": [
+      {
+       "platz": 3,
+       "punkte": 304
+      },
+      {},
+      {
+       "platz": 1,
+       "punkte": 184
+      },
+      {}
+     ]
+    },
+    {
+     "kategorie": "Solotanz Meisterklasse Damen",
+     "rang": 3,
+     "punkte": 438,
+     "wettbewerbe": [
+      "Jahresendrangliste 2025",
+      "RL-Wettbewerb DM Show Freiburg (Feb 2026)",
+      "RL-Wettbewerb Berlin (Mär 2026)"
+     ],
+     "ergebnisse": [
+      {
+       "platz": 3,
+       "punkte": 304
+      },
+      {},
+      {
+       "platz": 4,
+       "punkte": 134
+      }
+     ]
+    }
+   ],
+   "international": [
+    {
+     "event": "Artistic World Cup Semi-Final – Garmisch-Partenkirchen (GER)",
+     "event_id": "wc_gap",
+     "datum": "08.–17.05.2026",
+     "typ": "World Cup",
+     "kat": "Senior Damen",
+     "disziplin": "Solotanz",
+     "platz": 24,
+     "punkte": 41.14,
+     "detail": "Finale nicht erreicht"
+    },
+    {
+     "event": "Deutsche Meisterschaften – Stade",
+     "event_id": "dm_stade",
+     "datum": "06.–12.07.2026",
+     "typ": "Deutsche Meisterschaft",
+     "kat": "Meisterklasse Damen (Seniores)",
+     "disziplin": "Kürlaufen",
+     "platz": 3,
+     "punkte": 108.62,
+     "detail": "Endstand, RollArt-Gesamt"
+    },
+    {
+     "event": "Deutsche Meisterschaften – Stade",
+     "event_id": "dm_stade",
+     "datum": "06.–12.07.2026",
+     "typ": "Deutsche Meisterschaft",
+     "kat": "Meisterklasse Damen (Seniores)",
+     "disziplin": "Solotanz",
+     "platz": 5,
+     "punkte": 103.3,
+     "detail": "Endstand, RollArt-Gesamt"
+    }
+   ],
+   "gruppe": "DRIV Solo",
+   "axel": "nein"
+  },
+  {
+   "name": "Luisa Kristina Scherf",
+   "lv": "Berlin",
+   "national": [
+    {
+     "kategorie": "Solotanz Meisterklasse Damen",
+     "rang": 4,
+     "punkte": 388,
+     "wettbewerbe": [
+      "Jahresendrangliste 2025",
+      "RL-Wettbewerb DM Show Freiburg (Feb 2026)",
+      "RL-Wettbewerb Berlin (Mär 2026)"
+     ],
+     "ergebnisse": [
+      {
+       "platz": 6,
+       "punkte": 222
+      },
+      {},
+      {
+       "platz": 2,
+       "punkte": 166
+      }
+     ]
+    }
+   ],
+   "international": [
+    {
+     "event": "Artistic World Cup Semi-Final – Garmisch-Partenkirchen (GER)",
+     "event_id": "wc_gap",
+     "datum": "08.–17.05.2026",
+     "typ": "World Cup",
+     "kat": "Senior Damen",
+     "disziplin": "Solotanz",
+     "platz": 23,
+     "punkte": 42.24,
+     "detail": "Finale nicht erreicht"
+    },
+    {
+     "event": "Deutsche Meisterschaften – Stade",
+     "event_id": "dm_stade",
+     "datum": "06.–12.07.2026",
+     "typ": "Deutsche Meisterschaft",
+     "kat": "Meisterklasse Damen (Seniores)",
+     "disziplin": "Solotanz",
+     "platz": 4,
+     "punkte": 107.23,
+     "detail": "Endstand, RollArt-Gesamt"
+    }
+   ],
+   "gruppe": "DRIV Solo"
+  },
+  {
+   "name": "Gina Vesper",
+   "lv": "Nordrhein-Westfalen",
+   "national": [
+    {
+     "kategorie": "Solotanz Meisterklasse Damen",
+     "rang": 7,
+     "punkte": 280,
+     "wettbewerbe": [
+      "Jahresendrangliste 2025",
+      "RL-Wettbewerb DM Show Freiburg (Feb 2026)",
+      "RL-Wettbewerb Berlin (Mär 2026)"
+     ],
+     "ergebnisse": [
+      {
+       "platz": 11,
+       "punkte": 131
+      },
+      {},
+      {
+       "platz": 3,
+       "punkte": 149
+      }
+     ]
+    }
+   ],
+   "international": [
+    {
+     "event": "Artistic World Cup Semi-Final – Garmisch-Partenkirchen (GER)",
+     "event_id": "wc_gap",
+     "datum": "08.–17.05.2026",
+     "typ": "World Cup",
+     "kat": "Senior Damen",
+     "disziplin": "Solotanz",
+     "platz": 30,
+     "punkte": 37.34,
+     "detail": "Finale nicht erreicht"
+    },
+    {
+     "event": "Deutsche Meisterschaften – Stade",
+     "event_id": "dm_stade",
+     "datum": "06.–12.07.2026",
+     "typ": "Deutsche Meisterschaft",
+     "kat": "Meisterklasse Damen (Seniores)",
+     "disziplin": "Solotanz",
+     "platz": 3,
+     "punkte": 108.8,
+     "detail": "Endstand, RollArt-Gesamt"
+    }
+   ],
+   "gruppe": "DRIV Solo"
+  },
+  {
+   "name": "Yana Birlinger",
+   "lv": "Südbaden",
+   "national": [
+    {
+     "kategorie": "Solotanz Meisterklasse Damen",
+     "rang": 2,
+     "punkte": 459,
+     "wettbewerbe": [
+      "Jahresendrangliste 2025",
+      "RL-Wettbewerb DM Show Freiburg (Feb 2026)",
+      "RL-Wettbewerb Berlin (Mär 2026)"
+     ],
+     "ergebnisse": [
+      {
+       "platz": 2,
+       "punkte": 338
+      },
+      {},
+      {
+       "platz": 5,
+       "punkte": 121
+      }
+     ]
+    }
+   ],
+   "international": [
+    {
+     "event": "Deutsche Meisterschaften – Stade",
+     "event_id": "dm_stade",
+     "datum": "06.–12.07.2026",
+     "typ": "Deutsche Meisterschaft",
+     "kat": "Meisterklasse Damen (Seniores)",
+     "disziplin": "Solotanz",
+     "platz": 6,
+     "punkte": 102.84,
+     "detail": "Endstand, RollArt-Gesamt"
+    }
+   ],
+   "gruppe": "DRIV Solo"
+  },
+  {
+   "name": "Julie Kretzschmar",
+   "lv": "Niedersachsen",
+   "national": [
+    {
+     "kategorie": "Solotanz Meisterklasse Damen",
+     "rang": 6,
+     "punkte": 289,
+     "wettbewerbe": [
+      "Jahresendrangliste 2025",
+      "RL-Wettbewerb DM Show Freiburg (Feb 2026)",
+      "RL-Wettbewerb Berlin (Mär 2026)"
+     ],
+     "ergebnisse": [
+      {
+       "platz": 8,
+       "punkte": 180
+      },
+      {},
+      {
+       "platz": 6,
+       "punkte": 109
+      }
+     ]
+    }
+   ],
+   "international": [
+    {
+     "event": "Deutsche Meisterschaften – Stade",
+     "event_id": "dm_stade",
+     "datum": "06.–12.07.2026",
+     "typ": "Deutsche Meisterschaft",
+     "kat": "Meisterklasse Damen (Seniores)",
+     "disziplin": "Solotanz",
+     "platz": 7,
+     "punkte": 95.35,
+     "detail": "Endstand, RollArt-Gesamt"
+    }
+   ],
+   "gruppe": "DRIV Solo"
+  },
+  {
+   "name": "Monika Toel",
+   "lv": "Bremen",
+   "national": [
+    {
+     "kategorie": "Solotanz Meisterklasse Damen",
+     "rang": 5,
+     "punkte": 335,
+     "wettbewerbe": [
+      "Jahresendrangliste 2025",
+      "RL-Wettbewerb DM Show Freiburg (Feb 2026)",
+      "RL-Wettbewerb Berlin (Mär 2026)"
+     ],
+     "ergebnisse": [
+      {
+       "platz": 5,
+       "punkte": 247
+      },
+      {},
+      {
+       "platz": 8,
+       "punkte": 88
+      }
+     ]
+    }
+   ],
+   "international": [
+    {
+     "event": "Deutsche Meisterschaften – Stade",
+     "event_id": "dm_stade",
+     "datum": "06.–12.07.2026",
+     "typ": "Deutsche Meisterschaft",
+     "kat": "Meisterklasse Damen (Seniores)",
+     "disziplin": "Solotanz",
+     "platz": 10,
+     "punkte": 83.04,
+     "detail": "Endstand, RollArt-Gesamt"
+    }
+   ],
+   "gruppe": "DRIV Solo"
+  },
+  {
+   "name": "Carolina Konstanty",
+   "lv": "Nordrhein-Westfalen",
+   "national": [
+    {
+     "kategorie": "Solotanz Junioren Damen",
+     "rang": 1,
+     "punkte": 437,
+     "wettbewerbe": [
+      "Jahresendrangliste 2025",
+      "RL-Wettbewerb DM Show Freiburg (Feb 2026)",
+      "RL-Wettbewerb Berlin (Mär 2026)"
+     ],
+     "ergebnisse": [
+      {
+       "platz": 1,
+       "punkte": 293
+      },
+      {},
+      {
+       "platz": 1,
+       "punkte": 144
+      }
+     ]
+    }
+   ],
+   "international": [
+    {
+     "event": "Artistic World Cup Semi-Final – Garmisch-Partenkirchen (GER)",
+     "event_id": "wc_gap",
+     "datum": "08.–17.05.2026",
+     "typ": "World Cup",
+     "kat": "Junior Damen",
+     "disziplin": "Solotanz",
+     "platz": 29,
+     "punkte": 31.75,
+     "detail": "Finale nicht erreicht"
+    },
+    {
+     "event": "Deutsche Meisterschaften – Stade",
+     "event_id": "dm_stade",
+     "datum": "06.–12.07.2026",
+     "typ": "Deutsche Meisterschaft",
+     "kat": "Junioren Damen (Juniores)",
+     "disziplin": "Solotanz",
+     "platz": 2,
+     "punkte": 101.4,
+     "detail": "Endstand, RollArt-Gesamt"
+    }
+   ],
+   "gruppe": "DRIV Solo"
+  },
+  {
+   "name": "Valentina Sofia Markakis",
+   "lv": "Württemberg",
+   "national": [
+    {
+     "kategorie": "Solotanz Junioren Damen",
+     "rang": 2,
+     "punkte": 359,
+     "wettbewerbe": [
+      "Jahresendrangliste 2025",
+      "RL-Wettbewerb DM Show Freiburg (Feb 2026)",
+      "RL-Wettbewerb Berlin (Mär 2026)"
+     ],
+     "ergebnisse": [
+      {
+       "platz": 1,
+       "punkte": 229
+      },
+      {},
+      {
+       "platz": 2,
+       "punkte": 130
+      }
+     ]
+    }
+   ],
+   "international": [
+    {
+     "event": "Artistic World Cup Semi-Final – Garmisch-Partenkirchen (GER)",
+     "event_id": "wc_gap",
+     "datum": "08.–17.05.2026",
+     "typ": "World Cup",
+     "kat": "Junior Damen",
+     "disziplin": "Solotanz",
+     "platz": 28,
+     "punkte": 34.9,
+     "detail": "Finale nicht erreicht"
+    },
+    {
+     "event": "Deutsche Meisterschaften – Stade",
+     "event_id": "dm_stade",
+     "datum": "06.–12.07.2026",
+     "typ": "Deutsche Meisterschaft",
+     "kat": "Junioren Damen (Juniores)",
+     "disziplin": "Solotanz",
+     "platz": 1,
+     "punkte": 101.58,
+     "detail": "Deutsche/r Meister/in 2026 – Endstand, RollArt-Gesamt"
+    }
+   ],
+   "gruppe": "DRIV Solo"
+  },
+  {
+   "name": "Diego Birlinger",
+   "lv": "Südbaden",
+   "national": [
+    {
+     "kategorie": "Solotanz Junioren Herren",
+     "rang": 1,
+     "punkte": 373,
+     "wettbewerbe": [
+      "Jahresendrangliste 2025",
+      "RL-Wettbewerb DM Show Freiburg (Feb 2026)",
+      "RL-Wettbewerb Berlin (Mär 2026)"
+     ],
+     "ergebnisse": [
+      {
+       "platz": 1,
+       "punkte": 229
+      },
+      {},
+      {
+       "platz": 1,
+       "punkte": 144
+      }
+     ]
+    }
+   ],
+   "international": [
+    {
+     "event": "Artistic World Cup Semi-Final – Garmisch-Partenkirchen (GER)",
+     "event_id": "wc_gap",
+     "datum": "08.–17.05.2026",
+     "typ": "World Cup",
+     "kat": "Junior Herren",
+     "disziplin": "Solotanz",
+     "platz": 11,
+     "punkte": 93.22,
+     "detail": "SD 43,57 / FD 49,65"
+    },
+    {
+     "event": "Deutsche Meisterschaften – Stade",
+     "event_id": "dm_stade",
+     "datum": "06.–12.07.2026",
+     "typ": "Deutsche Meisterschaft",
+     "kat": "Junioren Herren (Juniores)",
+     "disziplin": "Solotanz",
+     "platz": 1,
+     "punkte": 93.27,
+     "detail": "Deutsche/r Meister/in 2026 – Endstand, RollArt-Gesamt"
+    }
+   ],
+   "gruppe": "DRIV Solo"
+  },
+  {
+   "name": "Charlotte Schenk",
+   "lv": "Südbaden",
+   "national": [
+    {
+     "kategorie": "Solotanz Schüler A Mädchen",
+     "rang": 4,
+     "punkte": 179,
+     "wettbewerbe": [
+      "Jahresendrangliste 2025",
+      "RL-Wettbewerb DM Show Freiburg (Feb 2026)",
+      "RL-Wettbewerb Berlin (Mär 2026)"
+     ],
+     "ergebnisse": [
+      {
+       "platz": 1,
+       "punkte": 179
+      },
+      {},
+      {}
+     ]
+    }
+   ],
+   "international": [
+    {
+     "event": "Artistic World Cup Semi-Final – Garmisch-Partenkirchen (GER)",
+     "event_id": "wc_gap",
+     "datum": "08.–17.05.2026",
+     "typ": "World Cup",
+     "kat": "Cadet Damen",
+     "disziplin": "Solotanz",
+     "platz": 27,
+     "punkte": 26.52,
+     "detail": "Finale nicht erreicht"
+    },
+    {
+     "event": "Deutsche Meisterschaften – Stade",
+     "event_id": "dm_stade",
+     "datum": "06.–12.07.2026",
+     "typ": "Deutsche Meisterschaft",
+     "kat": "Schüler A Mädchen (Cadets)",
+     "disziplin": "Solotanz",
+     "platz": 1,
+     "punkte": 91.8,
+     "detail": "Deutsche/r Meister/in 2026 – Endstand, RollArt-Gesamt"
+    }
+   ],
+   "gruppe": "DRIV Solo"
+  },
+  {
+   "name": "Melisa Gümüs",
+   "lv": "Niedersachsen",
+   "national": [
+    {
+     "kategorie": "Solotanz Schüler A Mädchen",
+     "rang": 2,
+     "punkte": 205,
+     "wettbewerbe": [
+      "Jahresendrangliste 2025",
+      "RL-Wettbewerb DM Show Freiburg (Feb 2026)",
+      "RL-Wettbewerb Berlin (Mär 2026)"
+     ],
+     "ergebnisse": [
+      {
+       "platz": 2,
+       "punkte": 126
+      },
+      {},
+      {
+       "platz": 2,
+       "punkte": 79
+      }
+     ]
+    }
+   ],
+   "international": [
+    {
+     "event": "Internationaler Deutschland-Pokal (Kür & Solotanz) – Freiburg",
+     "event_id": "dp_kuer",
+     "datum": "23.–25.04.2026",
+     "typ": "Internationaler Pokal",
+     "kat": "Cadet Damen",
+     "disziplin": "Solotanz",
+     "platz": 4,
+     "punkte": 69.44,
+     "detail": "Internationales Feld: 7"
+    },
+    {
+     "event": "Artistic World Cup Semi-Final – Garmisch-Partenkirchen (GER)",
+     "event_id": "wc_gap",
+     "datum": "08.–17.05.2026",
+     "typ": "World Cup",
+     "kat": "Cadet Damen",
+     "disziplin": "Solotanz",
+     "platz": 28,
+     "punkte": 26.17,
+     "detail": "Finale nicht erreicht"
+    },
+    {
+     "event": "Deutsche Meisterschaften – Stade",
+     "event_id": "dm_stade",
+     "datum": "06.–12.07.2026",
+     "typ": "Deutsche Meisterschaft",
+     "kat": "Schüler A Mädchen (Cadets)",
+     "disziplin": "Solotanz",
+     "platz": 6,
+     "punkte": 74.24,
+     "detail": "Endstand, RollArt-Gesamt"
+    }
+   ],
+   "gruppe": "DRIV Solo"
+  },
+  {
+   "name": "Amelie Fiorina Felchle",
+   "lv": "Württemberg",
+   "national": [
+    {
+     "kategorie": "Kürlaufen Schüler A Mädchen",
+     "rang": 9,
+     "punkte": 140,
+     "wettbewerbe": [
+      "Jahresendrangliste 2025",
+      "RL-Wettbewerb DM Show Freiburg (Feb 2026)",
+      "RL-Wettbewerb Berlin (Mär 2026)",
+      "RL-Wettbewerb Eppingen (Mär 2026)"
+     ],
+     "ergebnisse": [
+      {
+       "platz": 4,
+       "punkte": 102
+      },
+      {},
+      {
+       "platz": 9,
+       "punkte": 38
+      },
+      {}
+     ]
+    },
+    {
+     "kategorie": "Solotanz Schüler A Mädchen",
+     "rang": 3,
+     "punkte": 201,
+     "wettbewerbe": [
+      "Jahresendrangliste 2025",
+      "RL-Wettbewerb DM Show Freiburg (Feb 2026)",
+      "RL-Wettbewerb Berlin (Mär 2026)"
+     ],
+     "ergebnisse": [
+      {
+       "platz": 3,
+       "punkte": 113
+      },
+      {},
+      {
+       "platz": 1,
+       "punkte": 88
+      }
+     ]
+    }
+   ],
+   "international": [
+    {
+     "event": "Internationaler Deutschland-Pokal (Kür & Solotanz) – Freiburg",
+     "event_id": "dp_kuer",
+     "datum": "23.–25.04.2026",
+     "typ": "Internationaler Pokal",
+     "kat": "Cadet Damen",
+     "disziplin": "Solotanz",
+     "platz": 2,
+     "punkte": 78.22,
+     "detail": "Internationales Feld: 7"
+    },
+    {
+     "event": "Artistic World Cup Semi-Final – Garmisch-Partenkirchen (GER)",
+     "event_id": "wc_gap",
+     "datum": "08.–17.05.2026",
+     "typ": "World Cup",
+     "kat": "Cadet Damen",
+     "disziplin": "Solotanz",
+     "platz": 12,
+     "punkte": 88.24,
+     "detail": "SD 37,04 / FD 51,20"
+    },
+    {
+     "event": "Artistic World Cup Finale – Cesena (ITA)",
+     "event_id": "wc_fin",
+     "datum": "01.–07.06.2026",
+     "typ": "World Cup Finale",
+     "kat": "Cadet Damen",
+     "disziplin": "Solotanz",
+     "platz": 7,
+     "punkte": 89.85,
+     "detail": "SD 34,41 / FD 55,44"
+    },
+    {
+     "event": "Deutsche Meisterschaften – Stade",
+     "event_id": "dm_stade",
+     "datum": "06.–12.07.2026 (Teilergebnisse, Stand 11.07.)",
+     "typ": "Deutsche Meisterschaft",
+     "kat": "Schüler A Mädchen (Cadets)",
+     "disziplin": "Kürlaufen",
+     "platz": 6,
+     "punkte": 83.74,
+     "detail": "Endstand, RollArt-Gesamt"
+    }
+   ],
+   "gruppe": "DRIV Solo",
+   "axel": "nein"
+  },
+  {
+   "name": "Anny Kehl",
+   "lv": "Südbaden",
+   "national": [
+    {
+     "kategorie": "Solotanz Schüler A Mädchen",
+     "rang": 1,
+     "punkte": 211,
+     "wettbewerbe": [
+      "Jahresendrangliste 2025",
+      "RL-Wettbewerb DM Show Freiburg (Feb 2026)",
+      "RL-Wettbewerb Berlin (Mär 2026)"
+     ],
+     "ergebnisse": [
+      {
+       "platz": 1,
+       "punkte": 140
+      },
+      {},
+      {
+       "platz": 3,
+       "punkte": 71
+      }
+     ]
+    }
+   ],
+   "international": [
+    {
+     "event": "Internationaler Deutschland-Pokal (Kür & Solotanz) – Freiburg",
+     "event_id": "dp_kuer",
+     "datum": "23.–25.04.2026",
+     "typ": "Internationaler Pokal",
+     "kat": "Cadet Damen",
+     "disziplin": "Solotanz",
+     "platz": 1,
+     "punkte": 84.31,
+     "detail": "Sieg – Internationales Feld: 7"
+    },
+    {
+     "event": "Deutsche Meisterschaften – Stade",
+     "event_id": "dm_stade",
+     "datum": "06.–12.07.2026",
+     "typ": "Deutsche Meisterschaft",
+     "kat": "Schüler A Mädchen (Cadets)",
+     "disziplin": "Solotanz",
+     "platz": 3,
+     "punkte": 83.3,
+     "detail": "Endstand, RollArt-Gesamt"
+    }
+   ],
+   "gruppe": "DRIV Solo"
+  },
+  {
+   "name": "Monika Toel / Erik Welik",
+   "lv": "Bremen",
+   "national": [
+    {
+     "kategorie": "Rolltanz Meisterklasse",
+     "rang": 1,
+     "punkte": 375,
+     "wettbewerbe": [
+      "Jahresendrangliste 2025",
+      "RL-Wettbewerb DM Show Freiburg (Feb 2026)",
+      "RL-Wettbewerb Berlin (Mär 2026)"
+     ],
+     "ergebnisse": [
+      {
+       "platz": 1,
+       "punkte": 375
+      },
+      {},
+      {}
+     ]
+    }
+   ],
+   "international": [],
+   "gruppe": "Paar (beide im DRIV-Kader)"
+  },
+  {
+   "name": "Charlotte Schenk / Diego Birlinger",
+   "lv": "Südbaden",
+   "national": [
+    {
+     "kategorie": "Rolltanz Junioren",
+     "rang": 1,
+     "punkte": 229,
+     "wettbewerbe": [
+      "Jahresendrangliste 2025",
+      "RL-Wettbewerb DM Show Freiburg (Feb 2026)",
+      "RL-Wettbewerb Berlin (Mär 2026)"
+     ],
+     "ergebnisse": [
+      {
+       "platz": 1,
+       "punkte": 229
+      },
+      {},
+      {}
+     ]
+    }
+   ],
+   "international": [
+    {
+     "event": "Artistic World Cup Semi-Final – Garmisch-Partenkirchen (GER)",
+     "event_id": "wc_gap",
+     "datum": "08.–17.05.2026",
+     "typ": "World Cup",
+     "kat": "Junior",
+     "disziplin": "Rolltanz",
+     "platz": 8,
+     "punkte": 86.59,
+     "detail": "SD 39,19 / FD 47,40"
+    },
+    {
+     "event": "Artistic World Cup Finale – Cesena (ITA)",
+     "event_id": "wc_fin",
+     "datum": "01.–07.06.2026",
+     "typ": "World Cup Finale",
+     "kat": "Junior",
+     "disziplin": "Rolltanz",
+     "platz": 7,
+     "punkte": 102.74,
+     "detail": "SD 44,36 / FD 58,38"
+    }
+   ],
+   "gruppe": "Paar (beide im DRIV-Kader)"
+  },
+  {
+   "name": "Malin Pfeil / Elias Leonhardt",
+   "lv": null,
+   "national": [],
+   "international": [
+    {
+     "event": "Deutsche Meisterschaften – Stade",
+     "event_id": "dm_stade",
+     "datum": "06.–12.07.2026 (Teilergebnisse, Stand 11.07.)",
+     "typ": "Deutsche Meisterschaft",
+     "kat": "Espoir",
+     "disziplin": "Paarlauf",
+     "platz": 1,
+     "punkte": 38.18,
+     "detail": "Deutsche Meister (RRV Eppingen)"
+    }
+   ],
+   "gruppe": "Paarlauf-Kader",
+   "hinweis": "Malin Pfeil startet 2026 ausschließlich im Paarlauf (Festlegung Sportkommission) – kein Einzelstart Kürlaufen"
+  },
+  {
+   "name": "Pauline Rieder / Lennox Geiger",
+   "lv": null,
+   "national": [],
+   "international": [
+    {
+     "event": "Artistic World Cup Semi-Final – Garmisch-Partenkirchen (GER)",
+     "event_id": "wc_gap",
+     "datum": "08.–17.05.2026",
+     "typ": "World Cup",
+     "kat": "Cadet",
+     "disziplin": "Paarlauf",
+     "platz": 6,
+     "punkte": 40.83,
+     "detail": "SP 17,25 / Kür 23,58"
+    },
+    {
+     "event": "Deutsche Meisterschaften – Stade",
+     "event_id": "dm_stade",
+     "datum": "06.–12.07.2026 (Teilergebnisse, Stand 11.07.)",
+     "typ": "Deutsche Meisterschaft",
+     "kat": "Cadets",
+     "disziplin": "Paarlauf",
+     "platz": 1,
+     "punkte": 58.0,
+     "detail": "Deutsche Meister (RRV Eppingen)"
+    }
+   ],
+   "gruppe": "Paarlauf-Kader",
+   "hinweis": "Schreibweise lt. Gruppeneinteilung/Worldskate „Lennox Geiger“; im DM-Ergebnis-PDF als „Lennox Günther“ geführt"
+  },
+  {
+   "name": "Lisa Welik / Michael Seeger-Suarez",
+   "lv": "Bremen",
+   "national": [
+    {
+     "kategorie": "Rolltanz Meisterklasse",
+     "rang": 2,
+     "punkte": 338,
+     "wettbewerbe": [
+      "Jahresendrangliste 2025",
+      "RL-Wettbewerb DM Show Freiburg (Feb 2026)",
+      "RL-Wettbewerb Berlin (Mär 2026)"
+     ],
+     "ergebnisse": [
+      {
+       "platz": 2,
+       "punkte": 338
+      },
+      {},
+      {}
+     ]
+    }
+   ],
+   "international": [
+    {
+     "event": "Deutsche Meisterschaften – Stade",
+     "event_id": "dm_stade",
+     "datum": "06.–12.07.2026",
+     "typ": "Deutsche Meisterschaft",
+     "kat": "Meisterklasse (Seniores)",
+     "disziplin": "Rolltanz",
+     "platz": 1,
+     "punkte": 121.66,
+     "detail": "Deutsche/r Meister/in 2026 – Endstand, RollArt-Gesamt"
+    }
+   ],
+   "gruppe": "Kader Rolltanz (Bestätigung Sportkommission, 12.07.2026)",
+   "hinweis": "International etabliert: WM 2024 (Rimini) Platz 6 und WM 2025 (Peking) Platz 6 im Couple Dance Seniores (Quelle: worldskate.org). Keine 2026er World-Cup-Vergleichsbasis im Datensatz – EM-/WM-Einsatz als individuelle Entscheidung der Sportkommission."
+  },
+  {
+   "name": "Lisa Welik",
+   "lv": "Bremen",
+   "national": [
+    {
+     "kategorie": "Solotanz Meisterklasse Damen",
+     "rang": 8,
+     "punkte": 274,
+     "wettbewerbe": [
+      "Jahresendrangliste 2025",
+      "RL-Wettbewerb DM Show Freiburg (Feb 2026)",
+      "RL-Wettbewerb Berlin (Mär 2026)"
+     ],
+     "ergebnisse": [
+      {
+       "platz": 4,
+       "punkte": 274
+      },
+      {},
+      {}
+     ]
+    }
+   ],
+   "international": [
+    {
+     "event": "Deutsche Meisterschaften – Stade",
+     "event_id": "dm_stade",
+     "datum": "06.–12.07.2026",
+     "typ": "Deutsche Meisterschaft",
+     "kat": "Meisterklasse Damen (Seniores)",
+     "disziplin": "Solotanz",
+     "platz": 2,
+     "punkte": 120.94,
+     "detail": "Endstand, RollArt-Gesamt"
+    }
+   ],
+   "gruppe": "Kader Solotanz (Bestätigung Sportkommission, 12.07.2026)",
+   "hinweis": "International etabliert: WM 2025 (Peking) Platz 6 und WM 2024 (Rimini) Platz 12 im Solo Dance Seniores; EM 2024/2025 Starterin (Quelle: worldskate.org / rollkunstlauf-driv.de). Zusätzlich Kader Rolltanz im Paar mit Michael Seeger-Suarez."
+  }
+ ]
+}

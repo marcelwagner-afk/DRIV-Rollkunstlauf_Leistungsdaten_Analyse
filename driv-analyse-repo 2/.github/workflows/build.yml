@@ -1,0 +1,26 @@
+# Baut das Dashboard bei jedem Push neu und prüft die Datenqualität.
+# Das fertige HTML liegt danach als Artefakt am Workflow-Lauf ("dashboard").
+name: Build & Datenprüfung
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Dashboard bauen
+        run: python3 build.py
+      - name: Datenprüfung (Invarianten, Duplikate, Register-Kreuzcheck)
+        run: python3 check_data.py
+      - name: Fertiges Dashboard als Artefakt ablegen
+        uses: actions/upload-artifact@v4
+        with:
+          name: dashboard
+          path: Analyse_Tool_DRIV_Rollkunstlauf.html
