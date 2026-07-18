@@ -20,10 +20,11 @@ erfolgreicher Anmeldung im Browser entschlüsselt.
 - **Zugang anfordern / Passwort vergessen:** formlose E-Mail an
   Marcel Wagner (Sportkommission) – er legt Benutzername + Passwort an und
   teilt sie persönlich mit.
-- **Benutzerverwaltung (nur Sportkommission):** Die Benutzerliste
-  (`zugang/benutzer.txt`) liegt ausschließlich lokal bei der Sportkommission –
-  sie ist **nicht** Teil dieses Repositories. Nach jeder Änderung wird die
-  Login-Seite (`index.html`) mit `python3 protect.py` neu erzeugt und gepusht.
+- **Benutzerverwaltung (nur Sportkommission):** direkt **online** – als
+  Verwalter anmelden → „Benutzerverwaltung“ → Personen anlegen/ändern/entziehen
+  → „Speichern & veröffentlichen“. Die Seite verschlüsselt sich dabei im
+  Browser komplett neu. Alternativ lokal: `zugang/benutzer.txt` pflegen
+  (liegt **nicht** im Repository) und mit `python3 protect.py` neu erzeugen.
 - **Technik:** `protect.py` verschlüsselt das Dashboard je Benutzer
   (PBKDF2-SHA256 mit 310 000 Iterationen, AES-256-GCM); Benutzernamen stehen
   nur als Hash in der veröffentlichten Seite. Eine erzwungene Passwort-Änderung
