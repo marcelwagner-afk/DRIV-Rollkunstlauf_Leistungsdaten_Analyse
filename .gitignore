@@ -1,0 +1,9 @@
+# Build-Nebenprodukte
+__pycache__/
+*.pyc
+.DS_Store
+node_modules/
+tests_local.mjs
+# Benutzerliste der Login-Seite: bleibt IMMER nur lokal (nie hochladen!)
+zugang/
+login/

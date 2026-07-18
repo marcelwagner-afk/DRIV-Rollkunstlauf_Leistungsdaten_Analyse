@@ -138,8 +138,8 @@ tr.click:focus-visible{outline:2px solid var(--s1);outline-offset:-2px}
 let DB = /*__SEED__*/;
 const KADER = /*__KADER__*/;
 const TYPEN=[['WM','Weltmeisterschaft'],['EM','Europameisterschaft'],['WC-EU','World Cup Europa'],['WC-SA','World Cup Südamerika'],['WC-F','World Cup Finale'],['CoE','Europa Cup'],['IGC','Int. Deutschland-Pokal'],['IL','Interland Cup'],['National','National (DM / Ranglistenwettbewerb)'],['Sonstige','Sonstiger Wettbewerb']];
-const VERSION='3.3';
-const METHODIK_VERSION='1.1'; // historische 3-Jahres-Referenzkurven, 80-%-Regel
+const VERSION='3.4';
+const METHODIK_VERSION='1.2'; // historische 3-Jahres-Referenzkurven, 80-%-Regel, Rückstand auf Platz 1–3
 const BUILD='/*__BUILD__*/';
 const GRUPPE_DIS={ // Gruppen-Anzeige je Disziplin-Bereich (Festlegung Marcel)
  'Anne Sophie Schiefer':{'Kürlaufen':'DRIV 1 Kür'},
@@ -177,7 +177,8 @@ const GLOSS={
  best:['Bester TES 2026','Höchster vollständiger TES des Jahres 2026, unabhängig von der Quelle: (int.) = internationaler Start, (nat.) = nationaler Start (formatgleich).'],
  konst:['Konstanz (σ)','Standardabweichung der vollständigen TES-Werte einer Saison – je kleiner, desto konstanter die Leistungen.'],
  starts:['Jahres-Spalten','Alle Starts des Jahres in zeitlicher Reihenfolge: Kurzname des Wettbewerbs, Platzierung, vollständiger TES. Fett = internationaler Start. Details per Mauszeiger.'],
- unvoll:['Unvollständig (¹)','Nicht alle Programm-Protokolle im Datenbestand – der Wert fließt nicht in Referenzwerte, Bestwerte oder Trends ein.']
+ unvoll:['Unvollständig (¹)','Nicht alle Programm-Protokolle im Datenbestand – der Wert fließt nicht in Referenzwerte, Bestwerte oder Trends ein.'],
+ gap:['Rückstand auf Referenz Platz 1–3','Rechnerische Differenz zwischen dem besten vollständigen TES der letzten Saison (bzw. dem besten internationalen PCS) und dem historischen Referenzwert des jeweiligen Platzes (Ø der letzten 3 Jahre, erste 80 % des Feldes). „fehlen x“ = der Wert liegt x Punkte unter dem historischen Durchschnitt dieses Platzes; „✓ erreicht“ = der Wert liegt darauf oder darüber. In der Übersicht wird der höchste startberechtigte Wettbewerbstyp gezeigt (WM vor EM vor Europa Cup vor Interland). Rein rechnerische Vergleichswerte zur Entwicklungs-Orientierung – keine Ziel-, Mindest- oder Nominierungswerte; nicht berücksichtigt: Trainingsentwicklung, Technikqualität, Tagesform, Wertungsrichterbesetzung.']
 };
 function infoI(key){
   const g=GLOSS[key]; if(!g)return document.createTextNode('');
@@ -571,14 +572,16 @@ function renderBench(){
       if(prP&&state.pcs)card.append(el('p','sec','Ergänzend Components: mit PCS '+state.pcs+' entspräche das dem historischen PCS-Durchschnittswert von Platz '+(prP.platz!=null?prP.platz:('> '+prP.letzt))+'.'));
     } else card.append(el('p','sec','TES eingeben, um die rechnerische Platzierung zu sehen.'));
     const lg=el('div','legend');
-    [['Ø TES je Platz','var(--s1)'],['Ø PCS je Platz (ergänzend)','var(--s2)']].forEach(([l,col])=>{const li=el('span');const sw=el('span','sw');sw.style.background=col;li.append(sw,document.createTextNode(l));lg.append(li);});
+    [['Ø Gesamt (TES + PCS) je Platz','var(--deemph)'],['Ø TES je Platz','var(--s1)'],['Ø PCS je Platz (ergänzend)','var(--s2)']].forEach(([l,col])=>{const li=el('span');const sw=el('span','sw');sw.style.background=col;li.append(sw,document.createTextNode(l));lg.append(li);});
     if(state.tes){const li=el('span');const sw=el('span','sw');sw.style.background='var(--s2)';li.append(sw,document.createTextNode('eingegebener TES'));lg.append(li);}
     card.append(lg);
-    const series=[{name:'Ø TES je Platz',color:'var(--s1)',pts:cvT.pts.map(p=>({x:p.platz,y:p.avg,sub:'Platz '+p.platz+' · '+p.n+' Wert(e)'}))}];
+    const series=[];
+    if(cvG)series.push({name:'Ø Gesamt (TES + PCS) je Platz',color:'var(--deemph)',pts:cvG.pts.map(p=>({x:p.platz,y:p.avg,sub:'Platz '+p.platz+' · Gesamtwertung'}))});
+    series.push({name:'Ø TES je Platz',color:'var(--s1)',pts:cvT.pts.map(p=>({x:p.platz,y:p.avg,sub:'Platz '+p.platz+' · '+p.n+' Wert(e)'}))});
     if(cvP)series.push({name:'Ø PCS je Platz',color:'var(--s2)',dash:true,pts:cvP.pts.map(p=>({x:p.platz,y:p.avg,sub:'Platz '+p.platz}))});
     const v=parseFloat(String(state.tes).replace(',','.'));
     card.append(lineChart(series,{unit:'Pkt.',xLabel:'Platzierung',marker:isNaN(v)?null:{y:v,label:'TES '+fmt(v)}}));
-    card.append(el('p','note','Diagramm: historischer Referenzwert (Ø der letzten 3 Jahre, erste 80 % des Feldes) je Platzierung dieser Kategorie; gestrichelt die Components. Lesart: Die Kurve beschreibt das dokumentierte Niveau vergangener Wettbewerbe – sie ist kein Zielwert und kein Nominierungskriterium.'));
+    card.append(el('p','note','Diagramm: historischer Referenzwert (Ø der letzten 3 Jahre, erste 80 % des Feldes) je Platzierung dieser Kategorie – obere Linie die Gesamtwertung (TES und PCS zusammen), darunter der TES, gestrichelt die Components. Lesart: Die Kurven beschreiben das dokumentierte Niveau vergangener Wettbewerbe – sie sind kein Zielwert und kein Nominierungskriterium.'));
     const tb=el('table');const trh=el('tr');
     /* Jahres-Tabelle im Vorlagen-Format: je Platz TES/PCS/Total pro Jahr + Durchschnitt */
     const yrs=[...cvT.years].sort();
@@ -776,6 +779,73 @@ function projText(dis,klasse,gender,tes){
   });
   return parts.join(' · ')||'–';
 }
+/* ---- Rückstand auf Referenz Platz 1–3 (rein rechnerisch) ---- */
+function gapData(dis,klasse,gender,tesVal,pcsVal){
+  const out=[];
+  [['WM','Weltmeisterschaft'],['EM','Europameisterschaft'],['CoE','Europa Cup'],['IL','Interland Cup']].forEach(([t,lbl])=>{
+    if(!eligClass(t,klasse))return;
+    const cvT=curveG(t,dis,klasse,gender,'tes'); if(!cvT)return;
+    const cvP=curveG(t,dis,klasse,gender,'pcs');
+    const rows=[1,2,3].map(pl=>{
+      const rT=cvT.pts.find(x=>x.platz===pl)||null;
+      const rP=cvP?(cvP.pts.find(x=>x.platz===pl)||null):null;
+      if(!rT&&!rP)return null;
+      return {platz:pl,refT:rT,refP:rP,
+        dT:(rT&&tesVal!=null)?Math.round((rT.avg-tesVal)*100)/100:null,
+        dP:(rP&&pcsVal!=null)?Math.round((rP.avg-pcsVal)*100)/100:null};
+    }).filter(Boolean);
+    if(rows.length)out.push({typ:t,label:lbl,rows,years:cvT.years});
+  });
+  return out;
+}
+function gapTxt(d){ if(d==null)return '–'; return d>0?('fehlen '+fmt(d)):('✓ erreicht (+'+fmt(Math.round(-d*100)/100)+')'); }
+/* Kurzform für Übersicht/Vergleich: höchster startberechtigter Wettbewerbstyp, Platz 3 */
+function topGapShort(dis,klasse,gender,tesVal){
+  if(tesVal==null)return '–';
+  const g=gapData(dis,klasse,gender,tesVal,null);
+  if(!g.length)return '–';
+  const order=['WM','EM','CoE','IL'];
+  g.sort((a,b)=>order.indexOf(a.typ)-order.indexOf(b.typ));
+  const top=g[0];
+  const r3=top.rows.find(r=>r.platz===3&&r.refT)||[...top.rows].reverse().find(r=>r.refT);
+  if(!r3||r3.dT==null)return '–';
+  const lblT=top.typ==='CoE'?'EC':top.typ;
+  return lblT+' P'+r3.platz+': '+(r3.dT>0?'fehlen '+fmt(r3.dT):'✓ +'+fmt(Math.round(-r3.dT*100)/100));
+}
+/* Detail-Box fürs Athletenprofil: Abstand zu Platz 1–3 je startberechtigtem Wettbewerbstyp */
+function gapBox(rel){
+  const ys=[...new Set(rel.filter(r=>r.tes!=null&&r.tesOk!==false).map(r=>r.datum.slice(0,4)))].sort();
+  const y=ys[ys.length-1]; if(!y)return null;
+  let bT=null; rel.forEach(r=>{if(r.tes!=null&&r.tesOk!==false&&r.datum.startsWith(y)&&(bT==null||r.tes>bT.tes))bT=r;});
+  if(!bT)return null;
+  let bP=null; rel.forEach(r=>{if(r.pcs!=null&&r.tesOk!==false&&r.herkunft==='international'&&r.datum.startsWith(y)&&(bP==null||r.pcs>bP.pcs))bP=r;});
+  const data=gapData(bT.dis,bT.klasse,bT.gender,bT.tes,bP?bP.pcs:null);
+  if(!data.length)return null;
+  const bx=el('div');
+  const h=el('p','statline','Entwicklungs-Orientierung: rechnerischer Abstand zu den Referenzwerten für Platz 1–3 (Saison '+y+')');
+  h.append(infoI('gap')); bx.append(h);
+  bx.append(el('p','sec','Basis: bester vollständiger TES '+y+' = '+fmt(bT.tes)+' ('+bT.ev+', '+bT.klasse+(bT.gender?' '+bT.gender:'')+')'+(bP?(' · bester internationaler PCS '+y+' = '+fmt(bP.pcs)+' ('+bP.ev+')'):' · kein internationaler PCS-Wert in der Saison – PCS-Abstand daher nicht berechenbar')+'.'));
+  const tb=el('table');const th=el('tr');
+  [['Wettbewerb',null],['Platz',null],['Referenz TES Ø (n)','bench'],['Abstand TES','gap'],['Referenz PCS Ø (int.)','pcs'],['Abstand PCS','gap']].forEach(([x,g2])=>th.append(thI(x,g2)));tb.append(th);
+  let smallN=false;
+  data.forEach(d=>{
+    d.rows.forEach((r,i)=>{
+      const tr=el('tr');
+      tr.append(el('td','sec',i===0?(d.label+' ('+d.years.join(', ')+')'):''));
+      tr.append(el('td','num',String(r.platz)));
+      tr.append(el('td','num',r.refT?(fmt(Math.round(r.refT.avg*100)/100)+' (n = '+r.refT.n+')'):'–'));
+      tr.append(el('td','num',gapTxt(r.dT)));
+      tr.append(el('td','num',r.refP?fmt(Math.round(r.refP.avg*100)/100):'–'));
+      tr.append(el('td','num',gapTxt(r.dP)));
+      if(r.refT&&r.refT.n<3)smallN=true;
+      tb.append(tr);
+    });
+  });
+  bx.append(tb);
+  if(smallN)bx.append(el('p','note','Hinweis: Teilweise kleine historische Datenbasis (n < 3) – Abstände vorsichtig interpretieren.'));
+  bx.append(el('p','note','Rein rechnerische Differenz zu historischen Durchschnittswerten (Ø letzte 3 Jahre, erste 80 % des Feldes) – zur Orientierung, an welchen Punktbereichen sich die Entwicklung messen lässt. Keine Ziel-, Mindest- oder Nominierungswerte, keine Trainingsvorgabe und keine sportfachliche Bewertung. PCS nur international vergleichbar. Maßgeblich ist die Startkategorie der jeweiligen Saison.'));
+  return bx;
+}
 /* ---- Kaderathleten (Liste + Profil) ---- */
 function renderKader(){
   if(state.athlet){renderProfilA(state.athlet);return;}
@@ -850,12 +920,12 @@ function renderKader(){
     c2.append(el('h2',null,(dis==='Kürlaufen'?'Kürlaufen (Einzel)':dis)+' ('+es.length+')'));
     const tb=el('table');const th=el('tr');
     tb.className='ovtab';
-    [['Athlet/in',null],['Klasse',null],['2023','starts'],['2024','starts'],['2025','starts'],['2026','starts'],['Bester TES 2026','best'],['Prognose (EM · WM · EC · IL)','prog'],['Trend','trend']].forEach(([x,g])=>th.append(thI(x,g)));tb.append(th);
+    [['Athlet/in',null],['Klasse',null],['2023','starts'],['2024','starts'],['2025','starts'],['2026','starts'],['Bester TES 2026','best'],['Prognose (EM · WM · EC · IL)','prog'],['Rückstand Platz 3','gap'],['Trend','trend']].forEach(([x,g])=>th.append(thI(x,g)));tb.append(th);
     let lastBlock=null;
     es.forEach(e=>{
       const block=OLDER.has(e.klasse)?0:1;
       if(lastBlock!==null&&block!==lastBlock){
-        const trS=el('tr');const tdS=el('td','sec','— jüngere Klassen (Espoir / Minis / Tots) —');tdS.colSpan=7;tdS.style.textAlign='center';tdS.style.color='var(--ink-3)';trS.append(tdS);tb.append(trS);
+        const trS=el('tr');const tdS=el('td','sec','— jüngere Klassen (Espoir / Minis / Tots) —');tdS.colSpan=10;tdS.style.textAlign='center';tdS.style.color='var(--ink-3)';trS.append(tdS);tb.append(trS);
       }
       lastBlock=block;
       const tr=el('tr','click');
@@ -904,6 +974,7 @@ function renderKader(){
       e.rel.forEach(r=>{if(r.tes!=null&&r.tesOk!==false&&r.datum.startsWith('2026')&&(bRef==null||r.tes>bRef.tes))bRef=r;});
       tr.append(el('td','num',bRef?fmt(bRef.tes)+(bRef.herkunft==='international'?' (int.)':' (nat.)'):'–'));
       tr.append(el('td','prog',bRef?projShort(bRef.dis,bRef.klasse,bRef.gender,bRef.tes):'–'));
+      tr.append(el('td','sec',bRef?topGapShort(bRef.dis,bRef.klasse,bRef.gender,bRef.tes):'–'));
       const y26=(()=>{let b=null;e.rel.forEach(r=>{if(r.tes!=null&&r.tesOk!==false&&r.datum.startsWith('2026')&&(b==null||r.tes>b))b=r.tes;});return b;})();
       const y25=(()=>{let b=null;e.rel.forEach(r=>{if(r.tes!=null&&r.tesOk!==false&&r.datum.startsWith('2025')&&(b==null||r.tes>b))b=r.tes;});return b;})();
       if(y26!=null&&y25!=null){
@@ -925,7 +996,7 @@ function renderKader(){
     c2.append(tb);
     main.append(c2);
   });
-  main.append(Object.assign(el('p','note'),{textContent:'Reihenfolge: je Disziplin erst die Klassen Senioren–Cadets, danach Espoir/Minis/Tots; Klasse = zuletzt gelaufene Klasse in der Disziplin. Jahres-Spalten: alle Starts chronologisch mit Platzierung und vollständigem TES (fett = international; blau = beste Platzierung des Jahres; ohne TES-Angabe = Segment-Summe unvollständig; Details per Mauszeiger). Prognose: rechnerische Platzierung des besten TES 2026 gegen die 3-Jahres-Referenzkurven – EM = Europameisterschaft, WM = Weltmeisterschaft, EC = Europa Cup, IL = Interland Cup; „>n“ = unterhalb des letzten gewerteten Platzes; Prognose = rechnerische Prognose auf Basis historischer Referenzwerte (Details per ⓘ), nur für startberechtigte Wettbewerbe (WM nur Junioren/Senioren, EM ab Cadets, Europa Cup/Interland alle Klassen); maßgeblich ist immer die Startkategorie des jeweiligen Jahres; nationale TES sind formatgleich (Kennzeichnung „nat.“ in der TES-Spalte). Athleten erscheinen nur in den Disziplinen, in denen sie in ihrer letzten aktiven Saison gestartet sind (strikte Trennung; frühere Disziplinen bleiben im Athletenprofil sichtbar). Mehrfachstarter – z. B. Solotanz + Kürlaufen in derselben Saison – erscheinen je Disziplin getrennt ausgewertet, inkl. Einzel/Paar-Trennung. TES-Trend: bester vollständiger TES 2026 vs. 2025 in der Disziplin.'}));
+  main.append(Object.assign(el('p','note'),{textContent:'Reihenfolge: je Disziplin erst die Klassen Senioren–Cadets, danach Espoir/Minis/Tots; Klasse = zuletzt gelaufene Klasse in der Disziplin. Jahres-Spalten: alle Starts chronologisch mit Platzierung und vollständigem TES (fett = international; blau = beste Platzierung des Jahres; ohne TES-Angabe = Segment-Summe unvollständig; Details per Mauszeiger). Prognose: rechnerische Platzierung des besten TES 2026 gegen die 3-Jahres-Referenzkurven – EM = Europameisterschaft, WM = Weltmeisterschaft, EC = Europa Cup, IL = Interland Cup; „>n“ = unterhalb des letzten gewerteten Platzes; Prognose = rechnerische Prognose auf Basis historischer Referenzwerte (Details per ⓘ), nur für startberechtigte Wettbewerbe (WM nur Junioren/Senioren, EM ab Cadets, Europa Cup/Interland alle Klassen); maßgeblich ist immer die Startkategorie des jeweiligen Jahres; nationale TES sind formatgleich (Kennzeichnung „nat.“ in der TES-Spalte). Athleten erscheinen nur in den Disziplinen, in denen sie in ihrer letzten aktiven Saison gestartet sind (strikte Trennung; frühere Disziplinen bleiben im Athletenprofil sichtbar). Mehrfachstarter – z. B. Solotanz + Kürlaufen in derselben Saison – erscheinen je Disziplin getrennt ausgewertet, inkl. Einzel/Paar-Trennung. TES-Trend: bester vollständiger TES 2026 vs. 2025 in der Disziplin. Rückstand Platz 3: rechnerische Differenz des besten TES 2026 zum historischen Referenzwert von Platz 3 des höchsten startberechtigten Wettbewerbstyps (WM vor EM vor EC vor IL); „fehlen x“ = x Punkte unter dem Referenzwert, „✓“ = erreicht; Details und Platz 1–2 im Athletenprofil (Details per ⓘ).'}));
 }
 /* ---- Athletenprofil ---- */
 
@@ -1127,6 +1198,8 @@ function renderProfilA(name){
       }
       if(b26.pcs!=null)card.append(el('p','sec','Components dazu (international): '+fmt(b26.pcs)+' – PCS-Vergleich: '+(function(){const cv=curve('EM',b26.dis,b26.klasse,b26.gender,'pcs');const pr=cv?project(cv,String(b26.pcs)):null;return pr&&pr.platz!=null?'entspricht dem historischen EM-Referenzwert (PCS) von Platz '+pr.platz:'–';})()));
     }
+    /* Entwicklungs-Orientierung: Abstand zu Platz 1–3 (rein rechnerisch) */
+    { const gb=gapBox(rel); if(gb)card.append(gb); }
     /* Benchmark-Verlauf: je Jahr bester TES und internationale Einordnung */
     const years=[...new Set(rel.map(r=>r.datum.slice(0,4)))].sort();
     if(years.length){
@@ -1324,6 +1397,7 @@ function renderVergleich(){
   addRow('Podiumsplätze (1–3)',r=>String(r.filter(x=>x.platz!=null&&x.platz<=3).length));
   addRow('Konstanz 2026 (σ TES)',r=>{const v=r.filter(x=>x.tes!=null&&x.tesOk!==false&&x.datum.startsWith('2026')).map(x=>x.tes);if(v.length<3)return '–';const m=v.reduce((a,b)=>a+b,0)/v.length;return fmt(Math.round(Math.sqrt(v.reduce((a,b)=>a+(b-m)*(b-m),0)/v.length)*100)/100);},'num');
   addRow('Rechnerische Prognose (bester TES 2026, int. oder nat.)',r=>{let b=null;r.forEach(x=>{if(x.tes!=null&&x.tesOk!==false&&x.datum.startsWith('2026')&&(b==null||x.tes>b.tes))b=x;});if(!b)b=bestIntTes(r);return b?projText(b.dis,b.klasse,b.gender,b.tes):'–';},'sec');
+  addRow('Rückstand auf Referenz Platz 3 (höchster startberechtigter Wettbewerb)',r=>{let b=null;r.forEach(x=>{if(x.tes!=null&&x.tesOk!==false&&x.datum.startsWith('2026')&&(b==null||x.tes>b.tes))b=x;});if(!b)b=bestIntTes(r);return b?topGapShort(b.dis,b.klasse,b.gender,b.tes):'–';},'sec');
   c3.append(tb);
   c3.append(el('p','note','Disziplinen werden strikt getrennt: Athleten mit mehreren Disziplinen erscheinen je Disziplin als eigene Linie und Spalte. Bestwerte über alle Klassen 2023–2026; bei Klassenwechseln Kennzahlen im Kontext des Verlaufs-Charts lesen. Components ausschließlich aus internationalen Wettbewerben. Rein statistische Gegenüberstellung – keine Nominierungsempfehlung.'));
   main.append(c3);
@@ -1347,7 +1421,8 @@ function renderMethodik(){
     'Zur 80-Prozent-Grenze: Je Wettbewerb und Jahr werden die ersten 80 % des platzierten Feldes berücksichtigt. Dadurch sollen außergewöhnlich niedrige Werte am Ende großer Teilnehmerfelder die Referenzkurve nicht überproportional beeinflussen. Die 80-Prozent-Grenze ist eine methodische Festlegung dieses Dashboards und kein offizieller RollArt-, World-Skate- oder DRIV-Standard.',
     'Die Referenzwerte sind deskriptive historische Vergleichswerte. Aufgrund der teilweise kleinen Zahl verfügbarer Wettbewerbsjahrgänge sind sie nicht als statistisch stabile Schwellen-, Mindest- oder Zielwerte zu verstehen; bei kleiner Datenbasis (n < 3) erscheint im Dashboard ein entsprechender Hinweis.',
     'Es handelt sich ausschließlich um historische Vergleichswerte internationaler Wettbewerbe – nicht um Zielwerte, nicht um Mindestwerte und nicht um Nominierungskriterien. Die „Rechnerische Einordnung“ beschreibt, auf welchem historischen Platzierungsniveau ein Wert gelegen hätte; sie ist keine Vorhersage.',
-    'Berücksichtigt wird stets die Startkategorie des jeweiligen Jahres. Einordnungen erscheinen nur für Wettbewerbe, bei denen die Klasse startberechtigt ist (WM nur Junioren/Senioren, EM ab Cadets, Europa Cup und Interland Cup für alle Klassen).']);
+    'Berücksichtigt wird stets die Startkategorie des jeweiligen Jahres. Einordnungen erscheinen nur für Wettbewerbe, bei denen die Klasse startberechtigt ist (WM nur Junioren/Senioren, EM ab Cadets, Europa Cup und Interland Cup für alle Klassen).',
+    'Der ausgewiesene „Rückstand auf Platz 1–3“ (Übersicht, Athletenprofil, Vergleich) ist die rechnerische Differenz zwischen dem besten vollständigen TES der letzten Saison (bzw. dem besten internationalen PCS) und dem historischen Referenzwert des jeweiligen Platzes. Er dient ausschließlich der Entwicklungs-Orientierung – er beschreibt den Abstand zu historischen Durchschnittswerten und ist weder Trainingsvorgabe noch Ziel-, Mindest- oder Nominierungswert.']);
   mk('Grenzen der Datenbasis',[
     'Das Dashboard bildet ausschließlich dokumentierte Wettkampfergebnisse ab. Nicht enthalten sind: Technikqualität im Detail, Trainingsentwicklung, gesundheitliche Umstände, Tagesform-Kontexte sowie taktische oder strategische Erwägungen. Aussagen über künftige Leistungen oder über die Eignung von Athletinnen und Athleten lassen sich aus diesen Daten nicht ableiten.',
     'Bei Klassenwechseln gelten teils unterschiedliche Programm-Faktoren; Jahresvergleiche sind in diesem Kontext zu lesen (Kennzeichnung im Profil).']);

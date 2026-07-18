@@ -50,6 +50,25 @@ check('Espoir ohne EM/WM', !/EM|WM/.test(prog.espoir), prog.espoir);
 check('Youth mit EM, ohne WM', /EM/.test(prog.youth) && !/WM/.test(prog.youth), prog.youth);
 check('Senioren mit WM', /WM/.test(prog.senior), prog.senior);
 
+// 4b) Rückstand auf Platz 1–3 (rechnerische Konsistenz + Anzeige)
+const gap = await p.evaluate(() => {
+  const cv = curveG('WM','Kürlaufen','Senioren','Herren','tes');
+  const p3 = cv ? cv.pts.find(x => x.platz === 3) : null;
+  const manuell = p3 ? Math.round((p3.avg - 95) * 100) / 100 : null;
+  const kurz = topGapShort('Kürlaufen','Senioren','Herren',95);
+  const daten = gapData('Kürlaufen','Senioren','Herren',95,null);
+  const wm = daten.find(d => d.typ === 'WM');
+  const r3 = wm ? wm.rows.find(r => r.platz === 3) : null;
+  state.view='kader'; state.athlet='Noah Hirsch'; render();
+  const boxDa = main.textContent.includes('Abstand zu den Referenzwerten für Platz 1–3');
+  state.athlet=''; render();
+  const spalteDa = main.textContent.includes('Rückstand Platz 3');
+  return { manuell, kurz, dT: r3 ? r3.dT : null, boxDa, spalteDa };
+});
+check('Rückstand: Rechenwert konsistent', gap.manuell !== null && gap.dT === gap.manuell, gap.dT+' vs '+gap.manuell);
+check('Rückstand: Kurzform plausibel', /^(WM|EM|EC|IL) P\d: (fehlen |✓)/.test(gap.kurz), gap.kurz);
+check('Rückstand: Profil-Box und Übersichts-Spalte vorhanden', gap.boxDa && gap.spalteDa, JSON.stringify({box:gap.boxDa,spalte:gap.spalteDa}));
+
 // 5) Exporte (XLSX + CSV)
 let dl = p.waitForEvent('download', { timeout: 15000 }).catch(() => null);
 await p.click('button:has-text("Excel (XLSX)")');

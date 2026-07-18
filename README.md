@@ -2,7 +2,7 @@
 
 Statistische Auswertung historischer Wettkampfdaten der DRIV-Kaderathleten
 (2023–2026) auf Basis offizieller RollArt-Ergebnisprotokolle.
-**Version 3.3 · Methodik v1.1**
+**Version 3.4 · Methodik v1.2**
 
 > Dieses Dashboard dient ausschließlich der transparenten statistischen
 > Auswertung historischer Wettkampfdaten. Enthaltene Prognosen sind rein
@@ -10,19 +10,36 @@ Statistische Auswertung historischer Wettkampfdaten der DRIV-Kaderathleten
 > keine sportfachliche Bewertung, keine Empfehlung für Kader-, Förder- oder
 > Nominierungsentscheidungen.
 
-## Dashboard nutzen
+## Zugriff: passwortgeschützte Login-Seite
 
-`Analyse_Tool_DRIV_Rollkunstlauf.html` herunterladen und im Browser öffnen –
-keine Installation, kein Server, läuft vollständig offline
-(46 Wettbewerbe, 8 381 Einzelergebnisse, Stand 18.07.2026).
+Das Dashboard ist über eine **Login-Seite** erreichbar:
+**https://marcelwagner-afk.github.io/DRIV-Rollkunstlauf_Leistungsdaten_Analyse/**
+Der Dashboard-Inhalt liegt dort AES-256-verschlüsselt und wird erst nach
+erfolgreicher Anmeldung im Browser entschlüsselt.
+
+- **Zugang anfordern / Passwort vergessen:** formlose E-Mail an
+  Marcel Wagner (Sportkommission) – er legt Benutzername + Passwort an und
+  teilt sie persönlich mit.
+- **Benutzerverwaltung (nur Sportkommission):** Die Benutzerliste
+  (`zugang/benutzer.txt`) liegt ausschließlich lokal bei der Sportkommission –
+  sie ist **nicht** Teil dieses Repositories. Nach jeder Änderung wird die
+  Login-Seite (`index.html`) mit `python3 protect.py` neu erzeugt und gepusht.
+- **Technik:** `protect.py` verschlüsselt das Dashboard je Benutzer
+  (PBKDF2-SHA256 mit 310 000 Iterationen, AES-256-GCM); Benutzernamen stehen
+  nur als Hash in der veröffentlichten Seite. Eine erzwungene Passwort-Änderung
+  beim ersten Login ist ohne Server nicht möglich – daher starke, persönliche
+  Passwörter vergeben und bei Bedarf rotieren.
 
 ## Neue Ergebnisse ablegen
 
 Offizielle RollArt-PDFs über die GitHub-Weboberfläche nach
 [`data/NEUE_ERGEBNISSE/`](data/NEUE_ERGEBNISSE/) hochladen
-(„Add file → Upload files", je Wettbewerb ein Unterordner).
-Die Übernahme ins Dashboard ist dort in der ANLEITUNG.md beschrieben –
-oder die PDFs direkt im Dashboard unter „Daten & Import" per Drag & Drop einlesen.
+(„Add file → Upload files", je Wettbewerb ein Unterordner) – oder in den
+freigegebenen Google-Drive-Ordner „Statistik_Ergebnisse" legen und im Reiter
+**Actions** den Workflow „Drive-Abgleich" starten.
+Die Übernahme ins Dashboard ist in `data/NEUE_ERGEBNISSE/ANLEITUNG.md`
+beschrieben – oder die PDFs direkt im Dashboard unter „Daten & Import"
+per Drag & Drop einlesen.
 
 ## Selbst bauen und prüfen
 
@@ -33,8 +50,9 @@ node tests.mjs          # UI-Tests (benötigt Playwright, siehe README_PAKET.md)
 ```
 
 Der GitHub-Actions-Workflow ([`.github/workflows/build.yml`](.github/workflows/build.yml))
-baut und prüft automatisch bei jedem Push; das fertige HTML hängt als
-Artefakt „dashboard" am Workflow-Lauf.
+baut und prüft automatisch bei jedem Push, committet das aktualisierte
+Dashboard zurück und legt es zusätzlich als Artefakt „dashboard" am
+Workflow-Lauf ab.
 
 ## Aufbau
 
@@ -54,11 +72,14 @@ TES = technische Elemente − Abzüge (nie der PDF-Endwert; Kontrolle
 TES + PCS = Gesamt). PCS = Summe beider Programme, RollArt-Faktoren bereits
 enthalten. Referenzwerte = Ø der letzten 3 ausgetragenen Jahre je Platzierung,
 erste 80 % des Feldes (methodische Festlegung dieses Projekts).
+Neu in v3.4: „Rückstand auf Platz 1–3" – rechnerischer Abstand des besten
+Saison-TES/PCS zu den Referenzwerten je startberechtigtem Wettbewerb.
 Details im Dashboard-Tab „Methodik".
 
 ## Datenschutz-Hinweis
 
 Der Datenbestand enthält Namen und Ergebnisse aus öffentlich veröffentlichten
 offiziellen Ergebnislisten – darunter auch minderjährige Athletinnen und
-Athleten. **Empfehlung: Repository privat betreiben** und nur berechtigten
-Personen (Sportkommission, Trainer) Zugriff geben.
+Athleten. Das Repository wird deshalb **privat** betrieben; Zugriff nur für
+berechtigte Personen (Sportkommission, Trainer) über persönliche
+GitHub-Konten.
