@@ -1,0 +1,1613 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>DRIV Rollkunstlauf – Leistungsdaten-Analyse</title>
+<script>/*__PDFJS__*/</script>
+<script type="text/plain" id="pdfworkersrc">/*__PDFWORKER__*/</script>
+<style>
+:root{
+  --page:#f7f8fa;--surface-1:#ffffff;--surface-2:#f1f3f6;--ink-1:#111418;--ink-2:#4b5563;--ink-3:#8a919c;
+  --grid:#e5e8ec;--axis:#c8cdd4;--border:rgba(17,20,24,.09);
+  --s1:#2563c4;--s2:#0e9f6e;--deemph:#c3c8cf;--seq-550:#1c5cab;--good:#0e9f6e;--bad:#c0392b;--warn:#b45309;
+  --r-lg:14px;--r-md:10px;--r-sm:8px;
+  --shadow-1:0 1px 2px rgba(17,20,24,.05);--shadow-2:0 6px 24px rgba(17,20,24,.08);
+}
+@media (prefers-color-scheme: dark){
+  :root{--page:#0e1013;--surface-1:#171a1e;--surface-2:#1f232a;--ink-1:#f3f4f6;--ink-2:#b6bcc6;--ink-3:#828a96;
+    --grid:#272c33;--axis:#3a404a;--border:rgba(243,244,246,.10);--s1:#4c8ae8;--s2:#17b380;--deemph:#454b54;--good:#22b57f;--bad:#e05e4e;--warn:#d9903e;
+    --shadow-1:0 1px 2px rgba(0,0,0,.4);--shadow-2:0 8px 28px rgba(0,0,0,.45)}
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--page);color:var(--ink-1);font:14px/1.55 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;-webkit-font-smoothing:antialiased}
+.wrap{max-width:1680px;margin:0 auto;padding:18px 24px 64px}
+.brandbar{display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+.logo{height:46px;width:auto}
+@media(max-width:900px){.logo{height:36px}}
+h1{font-size:22px;letter-spacing:-.01em;margin:4px 0 0}
+.ver{font-size:11px;font-weight:600;color:var(--ink-3);border:1px solid var(--border);border-radius:99px;padding:2px 9px;background:var(--surface-1)}
+.sub{color:var(--ink-2);font-size:13px;margin-top:4px}
+.disclaim{margin:12px 0 0;padding:10px 14px;border:1px solid var(--border);border-left:3px solid var(--axis);border-radius:var(--r-sm);background:var(--surface-1);color:var(--ink-2);font-size:12.5px}
+.metacards{display:flex;gap:10px;flex-wrap:wrap;margin:12px 0 0}
+.meta{background:var(--surface-1);border:1px solid var(--border);border-radius:var(--r-md);padding:7px 13px;box-shadow:var(--shadow-1);min-width:118px}
+.meta .l{font-size:10.5px;text-transform:uppercase;letter-spacing:.05em;color:var(--ink-3);font-weight:600}
+.meta .v{font-size:15px;font-weight:650;margin-top:1px;font-variant-numeric:tabular-nums}
+nav.tabs{display:flex;gap:2px;margin:16px 0 18px;border-bottom:1px solid var(--grid);flex-wrap:wrap;position:sticky;top:0;background:color-mix(in srgb,var(--page) 88%,transparent);backdrop-filter:blur(8px);z-index:5}
+nav.tabs button{appearance:none;background:none;border:none;border-bottom:2px solid transparent;padding:10px 16px;font:inherit;font-weight:560;color:var(--ink-2);cursor:pointer;transition:color .15s,border-color .15s;border-radius:var(--r-sm) var(--r-sm) 0 0}
+nav.tabs button:hover{color:var(--ink-1);background:var(--surface-2)}
+nav.tabs button.on{color:var(--s1);border-bottom-color:var(--s1)}
+nav.tabs button:focus-visible{outline:2px solid var(--s1);outline-offset:-2px}
+.card{background:var(--surface-1);border:1px solid var(--border);border-radius:var(--r-lg);padding:18px 20px;margin-bottom:16px;overflow-x:auto;box-shadow:var(--shadow-1);transition:box-shadow .15s}
+.card:hover{box-shadow:var(--shadow-2)}
+.card h2{font-size:15.5px;letter-spacing:-.005em;margin:0 0 10px;display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+.sec{color:var(--ink-2);font-size:13px}
+.note{color:var(--ink-3);font-size:12px;margin-top:10px;line-height:1.55}
+.yrcell{color:var(--ink-2);font-size:11px;line-height:1.45;white-space:nowrap}
+.ovtab td,.ovtab th{padding:6px 8px}
+.ovtab td{font-size:12.5px}
+.ovtab tbody tr:hover td{background:var(--surface-2)}
+.prog{white-space:nowrap;font-size:12px}
+.calc{background:var(--surface-2);border-left:3px solid var(--s1);padding:10px 14px;border-radius:0 var(--r-sm) var(--r-sm) 0}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin:10px 0 2px}
+.chip{background:var(--surface-2);border:1px solid var(--border);border-radius:999px;padding:3px 11px;font-size:12px;color:var(--ink-2)}
+.chip b{color:var(--ink-1)}
+label{font-size:12px;color:var(--ink-2);display:block;margin-bottom:3px;font-weight:550}
+select,input[type=text],input[type=number],input[type=date]{font:inherit;color:var(--ink-1);background:var(--surface-1);border:1px solid var(--axis);border-radius:var(--r-sm);padding:7px 10px;transition:border-color .15s,box-shadow .15s}
+select:focus-visible,input:focus-visible{outline:none;border-color:var(--s1);box-shadow:0 0 0 3px color-mix(in srgb,var(--s1) 20%,transparent)}
+.row{display:flex;gap:14px;flex-wrap:wrap;align-items:flex-end}
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px;margin:12px 0 6px}
+.kpi{background:var(--surface-1);border:1px solid var(--border);border-radius:var(--r-md);padding:13px 15px;box-shadow:var(--shadow-1)}
+.kpi .lbl{color:var(--ink-2);font-size:12px;font-weight:550}
+.kpi .val{font-size:27px;font-weight:700;margin-top:2px;letter-spacing:-.01em;font-variant-numeric:tabular-nums}
+.kpi .nt{color:var(--ink-3);font-size:11.5px;margin-top:3px}
+table{border-collapse:collapse;width:100%;font-size:13px;margin-top:6px}
+th{text-align:left;color:var(--ink-3);font-weight:640;font-size:11px;text-transform:uppercase;letter-spacing:.045em;border-bottom:1px solid var(--axis);padding:6px 8px;background:var(--surface-1);position:sticky;top:0;z-index:1}
+td{border-bottom:1px solid var(--grid);padding:6px 8px;vertical-align:top}
+td.num{text-align:right;font-variant-numeric:tabular-nums}
+tbody tr{transition:background .1s}
+.legend{display:flex;gap:16px;margin:8px 0 2px;font-size:12.5px;color:var(--ink-2);flex-wrap:wrap;align-items:center}
+.legend .sw{display:inline-block;width:14px;height:3px;border-radius:2px;vertical-align:middle;margin-right:5px}
+.tooltip{position:fixed;display:none;background:var(--surface-1);border:1px solid var(--border);border-radius:var(--r-md);padding:9px 12px;font-size:12.5px;pointer-events:none;box-shadow:var(--shadow-2);z-index:20;max-width:340px;line-height:1.5}
+.tooltip b{font-size:13px}
+.info{display:inline-flex;align-items:center;justify-content:center;width:15px;height:15px;border-radius:50%;border:1px solid var(--axis);color:var(--ink-3);font-size:10px;font-weight:700;cursor:help;vertical-align:1px;margin-left:5px;font-style:normal;text-transform:none;letter-spacing:0}
+.info:hover{border-color:var(--s1);color:var(--s1)}
+.drop{border:2px dashed var(--axis);border-radius:var(--r-lg);padding:28px;text-align:center;color:var(--ink-2);cursor:pointer;transition:border-color .15s,background .15s}
+.drop.over,.drop:hover{border-color:var(--s1);color:var(--ink-1);background:color-mix(in srgb,var(--s1) 4%,transparent)}
+button.btn{font:inherit;background:var(--s1);color:#fff;border:none;border-radius:var(--r-sm);padding:8px 15px;cursor:pointer;font-weight:560;transition:filter .15s;box-shadow:var(--shadow-1)}
+button.btn:hover{filter:brightness(1.08)}
+button.btn:focus-visible{outline:2px solid var(--ink-1);outline-offset:2px}
+button.btn.sec2{background:var(--surface-1);color:var(--ink-1);border:1px solid var(--axis);box-shadow:none}
+button.btn.sec2:hover{background:var(--surface-2);filter:none}
+button.btn.mini{padding:4px 10px;font-size:12px}
+.badge{display:inline-block;font-size:11px;font-weight:600;border:1px solid var(--border);border-radius:99px;padding:2px 9px;margin-left:6px;color:var(--ink-2);background:var(--surface-2)}
+.proj{font-size:15px;margin:6px 0}
+.proj b{font-size:17px;color:var(--s1)}
+.athlete-head{display:flex;justify-content:space-between;align-items:flex-start;gap:10px;flex-wrap:wrap}
+.nm{font-size:21px;font-weight:700;letter-spacing:-.01em}
+.badge.gold{background:color-mix(in srgb,#eda100 16%,var(--surface-1));border-color:#eda100;color:var(--ink-1)}
+button.back{font:inherit;background:var(--surface-1);border:1px solid var(--axis);border-radius:var(--r-sm);padding:6px 13px;cursor:pointer;color:var(--ink-1);margin-bottom:12px;transition:background .15s}
+button.back:hover{background:var(--surface-2)}
+tr.click{cursor:pointer}
+tr.click:hover td{background:color-mix(in srgb,var(--s1) 6%,transparent)}
+tr.click:focus-visible{outline:2px solid var(--s1);outline-offset:-2px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media(max-width:900px){.grid2{grid-template-columns:1fr}.wrap{padding:12px 12px 40px}.metacards{gap:6px}.meta{min-width:100px;padding:6px 10px}}
+.statline{font-size:14px;margin:5px 0}
+.statline b{font-size:15px}
+.fltbar{display:flex;gap:12px;flex-wrap:wrap;align-items:flex-end;margin-top:8px}
+.fltactive{font-size:12px;color:var(--s1);font-weight:600}
+.foot{margin-top:28px;padding:14px 4px 0;border-top:1px solid var(--grid);color:var(--ink-3);font-size:12px;line-height:1.6}
+.printonly{display:none}
+@media print{.printonly{display:block;font-size:10.5px;color:#333;border-top:1px solid #bbb;margin-top:10mm;padding-top:3mm}}
+@media (prefers-reduced-motion: reduce){*{transition:none !important;animation:none !important}html{scroll-behavior:auto}}
+@media print{
+  @page{size:A4;margin:0}
+  .brandbar,.sub,.metacards,.disclaim,.foot,nav.tabs,.fltbar,.drop,button,.info,input,select,label,datalist{display:none !important}
+  html,body{background:#fff;color:#000}
+  .card{box-shadow:none;border:1px solid #ccc;break-inside:avoid;overflow:visible}
+  .wrap{max-width:none;padding:12mm 11mm}
+  th{position:static}
+  a{color:#000;text-decoration:none}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+<div class="brandbar"><img class="logo" alt="DRIV – Deutscher Rollsport- und Inline-Verband" src="data:image/png;base64,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"><h1>DRIV Rollkunstlauf – Leistungsdaten-Analyse</h1><span class="ver" id="verbadge"></span>
+  <span style="flex:1"></span>
+  <button class="btn sec2 mini" onclick="window.print()" title="Aktuelle Ansicht drucken oder als PDF sichern">Drucken / PDF</button></div>
+<div class="sub">Objektive Auswertung historischer Wettkampfdaten auf Basis offizieller Ergebnisprotokolle · RollArt (World Skate / DRIV) · 2023–2026</div>
+<div class="metacards" id="metacards"></div>
+<div class="disclaim">Dieses Dashboard dient ausschließlich der transparenten statistischen Auswertung historischer Wettkampfdaten aus offiziellen Ergebnisprotokollen. Enthaltene Prognosen sind rein rechnerische Ableitungen aus historischen Referenzwerten. Sie stellen keine Garantie, keine sportfachliche Bewertung und keine Empfehlung oder Hilfestellung für Kader-, Förder- oder Nominierungsentscheidungen dar. Das Dashboard bewertet weder Athletinnen und Athleten noch Trainerinnen und Trainer oder getroffene Entscheidungen. Nicht berücksichtigt sind insbesondere Technikqualität im Detail, Trainingsentwicklung, gesundheitliche Umstände, Tagesform sowie taktische oder strategische Erwägungen.</div>
+<nav class="tabs" role="tablist" aria-label="Hauptnavigation">
+  <button id="tab-kader" data-v="kader" class="on" role="tab" aria-selected="true" aria-controls="main" tabindex="0">Kaderathleten</button>
+  <button id="tab-vergleich" data-v="vergleich" role="tab" aria-selected="false" aria-controls="main" tabindex="-1">Athleten-Vergleich</button>
+  <button id="tab-bench" data-v="bench" role="tab" aria-selected="false" aria-controls="main" tabindex="-1">Internationale Referenzwerte</button>
+  <button id="tab-methodik" data-v="methodik" role="tab" aria-selected="false" aria-controls="main" tabindex="-1">Methodik</button>
+  <button id="tab-daten" data-v="daten" role="tab" aria-selected="false" aria-controls="main" tabindex="-1">Daten &amp; Import</button>
+</nav>
+<main id="main" role="tabpanel" aria-labelledby="tab-kader"></main>
+<footer class="foot" id="foot"></footer>
+</div>
+<div class="tooltip" id="tt"></div>
+<script>
+'use strict';
+/* ================= Datenbestand ================= */
+let DB = /*__SEED__*/;
+const KADER = /*__KADER__*/;
+const TYPEN=[['WM','Weltmeisterschaft'],['EM','Europameisterschaft'],['WC-EU','World Cup Europa'],['WC-SA','World Cup Südamerika'],['WC-F','World Cup Finale'],['CoE','Europa Cup'],['IGC','Int. Deutschland-Pokal'],['IL','Interland Cup'],['National','National (DM / Ranglistenwettbewerb)'],['Sonstige','Sonstiger Wettbewerb']];
+const VERSION='3.3';
+const METHODIK_VERSION='1.1'; // historische 3-Jahres-Referenzkurven, 80-%-Regel
+const BUILD='/*__BUILD__*/';
+const GRUPPE_DIS={ // Gruppen-Anzeige je Disziplin-Bereich (Festlegung Marcel)
+ 'Anne Sophie Schiefer':{'Kürlaufen':'DRIV 1 Kür'},
+ 'Amelie Fiorina Felchle':{'Kürlaufen':'DRIV 3 Kür'},
+ 'Liah Triess':{'Solotanz':'DRIV Solo'},
+ 'Phil Assmus':{'Solotanz':'DRIV Solo'}
+};
+const CUT=0.8;           // nur die ersten 80 % der Platzierten fließen in Durchschnitte ein
+const JAHRE_FENSTER=3;   // nur die letzten 3 Jahre
+const tt=document.getElementById('tt');
+function showTT(ev,html){tt.innerHTML=html;tt.style.display='block';moveTT(ev);}
+function moveTT(ev){const w=tt.offsetWidth;let x=ev.clientX+14;if(x+w>innerWidth-8)x=ev.clientX-w-14;tt.style.left=x+'px';tt.style.top=(ev.clientY+12)+'px';}
+function hideTT(){tt.style.display='none';}
+function el(tag,cls,txt){const e=document.createElement(tag);if(cls)e.className=cls;if(txt!=null)e.textContent=txt;return e;}
+const fmt=n=>n==null?'–':n.toLocaleString('de-DE',{minimumFractionDigits:2,maximumFractionDigits:2});
+const COLORS=['var(--s1)','var(--s2)','#eda100','#4a3aa7','#c2417f','#0d8f8f','#8a6d1a','#666'];
+const main=document.getElementById('main');
+let IMPLOG=[];
+let state={view:'kader',dis:null,klasse:null,gender:null,tes:'',pcs:'',athlet:'',cmp:['','',''],cmpMetric:'tes',cmpDis:'',search:'',fltDis:'',fltKl:''};
+
+/* ================= Auswertungskern ================= */
+/* ---------- Glossar: Definitionen für Mouseover-Hilfen ---------- */
+const GLOSS={
+ tes:['TES – Technical Score','Summe der technischen Element-Wertungen aller Programme abzüglich der Abzüge (Vorgabe Sportkommission). Nationale und internationale TES werden nach derselben rechnerischen RollArt-Struktur ermittelt und sind daher formal bzw. formatseitig vergleichbar; Unterschiede bei Wertungsgerichten, Teilnehmerfeldern und Wettbewerbskontexten bleiben davon unberührt.'],
+ tesraw:['Technische Elemente (roh)','Summe der technischen Element-Wertungen vor Abzügen, wie im offiziellen Protokoll je Programm ausgewiesen.'],
+ pcs:['PCS – Components','Summe der Component-Wertungen (Programmteile) aus allen Programmen. Der Programm-Faktor ist in den offiziellen RollArt-Werten bereits enthalten. Wird nur international ausgewertet, da nationale Wertungsgerichte nicht einheitlich besetzt sind.'],
+ abz:['Abzüge','Punktabzüge (z. B. Stürze) laut offiziellem Protokoll, über alle Programme summiert. TES = technische Elemente − Abzüge.'],
+ total:['Gesamtwertung','Offizieller Endstand laut Protokoll. Kontrollgleichung: TES + PCS = Gesamt.'],
+ bench:['Historischer Referenzwert','Durchschnitt je Platzierung über die letzten 3 ausgetragenen Jahre eines Wettbewerbstyps, wobei je Jahr nur die ersten 80 % des platzierten Feldes einfließen (methodische Festlegung dieses Dashboards, kein offizieller Standard). Referenzwerte sind historische Vergleichswerte – keine Ziel-, Mindest- oder Nominierungswerte.'],
+ benchpct:['% des Referenzwerts Platz 3','Eigener TES geteilt durch den historischen Durchschnittswert von Platz 3. 100 % bedeutet, dass der TES dem historischen Durchschnittswert von Platz 3 entspricht.'],
+ prog:['Rechnerische Prognose auf Basis historischer Referenzwerte','Die Prognose vergleicht den besten vollständigen TES 2026 mit den historischen Referenzkurven (letzte 3 Jahre) – nur für Wettbewerbe, bei denen die Klasse startberechtigt ist (WM nur Junioren/Senioren, EM ab Cadets, Europa Cup EC und Interland IL für alle Klassen). „>n“ = unterhalb des letzten gewerteten Platzes. Sie ist eine rein rechnerische, datenbasierte Ableitung aus historischen Wettkampfergebnissen: keine Garantie, keine Vorhersage eines tatsächlichen Ergebnisses, keine sportfachliche Bewertung, kein Mindestwert und kein offizielles Nominierungskriterium. Nicht berücksichtigt: Trainingsentwicklung, gesundheitliche Umstände, Technikqualität, Tagesform, Wertungsrichterbesetzung, taktische Entscheidungen.'],
+ trend:['Trend','Bester vollständiger TES 2026 minus bester vollständiger TES 2025 derselben Disziplin (Veränderung in Punkten). Ohne Vorjahreswert: Verlauf innerhalb der Saison (erster → letzter vollständiger Wert). ▲/▼ beschreiben ausschließlich die rechnerische Richtung der Veränderung, keine sportfachliche Bewertung. Bei Klassenwechsel andere Programm-Faktoren möglich.'],
+ avg:['Durchschnitt (Ø)','Arithmetisches Mittel der verfügbaren Jahre je Platzierung.'],
+ median:['Median','Mittlerer Wert der sortierten Reihe – robuster gegen Ausreißer als der Durchschnitt.'],
+ best:['Bester TES 2026','Höchster vollständiger TES des Jahres 2026, unabhängig von der Quelle: (int.) = internationaler Start, (nat.) = nationaler Start (formatgleich).'],
+ konst:['Konstanz (σ)','Standardabweichung der vollständigen TES-Werte einer Saison – je kleiner, desto konstanter die Leistungen.'],
+ starts:['Jahres-Spalten','Alle Starts des Jahres in zeitlicher Reihenfolge: Kurzname des Wettbewerbs, Platzierung, vollständiger TES. Fett = internationaler Start. Details per Mauszeiger.'],
+ unvoll:['Unvollständig (¹)','Nicht alle Programm-Protokolle im Datenbestand – der Wert fließt nicht in Referenzwerte, Bestwerte oder Trends ein.']
+};
+function infoI(key){
+  const g=GLOSS[key]; if(!g)return document.createTextNode('');
+  const s=el('span','info','i');
+  s.setAttribute('role','img'); s.setAttribute('aria-label','Erklärung: '+g[0]); s.tabIndex=0;
+  const show=ev=>showTT(ev.touches?ev.touches[0]:ev,'<b>'+g[0]+'</b><br>'+g[1]);
+  s.addEventListener('mouseenter',show); s.addEventListener('mousemove',moveTT);
+  s.addEventListener('mouseleave',hideTT); s.addEventListener('focus',e=>{const r=s.getBoundingClientRect();showTT({clientX:r.left,clientY:r.bottom},'<b>'+g[0]+'</b><br>'+g[1]);}); s.addEventListener('blur',hideTT);
+  return s;
+}
+function thI(text,key){const t=el('th',null,text);if(key)t.append(infoI(key));return t;}
+function rowNav(tr,label){ // klickbare Tabellenzeilen per Tastatur bedienbar machen
+  tr.tabIndex=0; tr.setAttribute('role','button'); tr.setAttribute('aria-label',label);
+  tr.addEventListener('keydown',ev=>{if(ev.key==='Enter'||ev.key===' '){ev.preventDefault();tr.click();}});
+}
+/* ---------- Kopf-Infokarten ---------- */
+function renderMeta(){
+  const mc=document.getElementById('metacards'); if(!mc)return;
+  const dates=[]; DB.forEach(e=>{if(e.datum)dates.push(e.datum);});
+  dates.sort();
+  const nRes=DB.reduce((s,e)=>s+e.kategorien.reduce((x,k)=>x+k.rows.length,0),0);
+  const nAth=athletIndex().size;
+  const fmtD=d=>d?d.slice(8,10)+'.'+d.slice(5,7)+'.'+d.slice(0,4):'–';
+  mc.replaceChildren();
+  const nInt=KADER.filter(k=>rowsOf(k.name).some(r=>r.herkunft==='international')).length;
+  [['Kaderathleten & -paare',String(KADER.length)],
+   ['davon mit int. Starts',String(nInt)],
+   ['Athleten im Datenbestand',String(nAth)],
+   ['Wettbewerbe',String(DB.length)],
+   ['Einzelergebnisse',nRes.toLocaleString('de-DE')],
+   ['Zeitraum',fmtD(dates[0])+' – '+fmtD(dates[dates.length-1])],
+   ['Datenstand',BUILD],
+   ['Quelle','RollArt-Protokolle']
+  ].forEach(([l,v])=>{const d=el('div','meta');d.append(el('div','l',l),el('div','v',v));mc.append(d);});
+  const vb=document.getElementById('verbadge'); if(vb)vb.textContent='v'+VERSION;
+}
+function catKey(k){return k.disziplin+'|'+k.klasse+'|'+(k.gender||'');}
+function allCats(){
+  const s=new Map();
+  DB.forEach(ev=>ev.kategorien.forEach(k=>{const key=catKey(k);if(!s.has(key))s.set(key,{disziplin:k.disziplin,klasse:k.klasse,gender:k.gender||''});}));
+  return [...s.values()];
+}
+function lastYears(typ){
+  const ys=[...new Set(DB.filter(e=>e.typ===typ).map(e=>e.jahr))].sort((a,b)=>b-a);
+  return ys.slice(0,JAHRE_FENSTER);
+}
+/* Ø-Wert je Platz über die letzten 3 Jahre, nur Top-80 % je Jahr */
+function curve(typ,dis,klasse,gender,metric){
+  const ck=DBREV+'|'+typ+'|'+dis+'|'+klasse+'|'+gender+'|'+metric;
+  if(_cvCache.has(ck))return _cvCache.get(ck);
+  const years=lastYears(typ); if(!years.length){_cvCache.set(ck,null);return null;}
+  const byRank={}; let fields=[];
+  years.forEach(y=>{
+    DB.filter(e=>e.typ===typ&&e.jahr===y).forEach(ev=>{
+      ev.kategorien.filter(k=>k.disziplin===dis&&k.klasse===klasse&&(k.gender||'')===gender).forEach(k=>{
+        const n=k.rows.length, lim=Math.ceil(n*CUT);
+        fields.push({jahr:y,n,lim,ev:ev.name});
+        k.rows.filter(r=>r.platz!=null&&r.platz<=lim&&r[metric]!=null&&(metric==='total'||r.tesOk!==false)).forEach(r=>{(byRank[r.platz]=byRank[r.platz]||[]).push(r[metric]);});
+      });
+    });
+  });
+  const ranks=Object.keys(byRank).map(Number).sort((a,b)=>a-b);
+  const res=ranks.length?{years,fields,pts:ranks.map(r=>({platz:r,avg:byRank[r].reduce((a,b)=>a+b,0)/byRank[r].length,n:byRank[r].length,min:Math.min(...byRank[r]),max:Math.max(...byRank[r])}))}:null;
+  _cvCache.set(ck,res);
+  return res;
+}
+function project(cv,val){
+  if(cv==null||val==='')return null;
+  const v=parseFloat(String(val).replace(',','.')); if(isNaN(v))return null;
+  for(const p of cv.pts){ if(v>=p.avg-1e-9) return {platz:p.platz,ueber:p.platz===1&&v>=cv.pts[0].avg}; }
+  return {platz:null,letzt:cv.pts[cv.pts.length-1].platz};
+}
+
+
+/* ---------- Exporte (rein ergänzend) ---------- */
+/* ---------- Echtes XLSX (minimaler Writer, ohne Fremdbibliothek) ---------- */
+const _crcT=(()=>{const t=new Uint32Array(256);for(let n=0;n<256;n++){let c=n;for(let k=0;k<8;k++)c=c&1?0xEDB88320^(c>>>1):c>>>1;t[n]=c;}return t;})();
+function _crc32(u8){let c=0xFFFFFFFF;for(let i=0;i<u8.length;i++)c=_crcT[(c^u8[i])&0xFF]^(c>>>8);return (c^0xFFFFFFFF)>>>0;}
+function _zip(files){ // files: [{name, data:Uint8Array}] – STORE (unkomprimiert)
+  const enc=new TextEncoder(); const parts=[]; const central=[]; let off=0;
+  const n16=v=>[v&255,(v>>8)&255], n32=v=>[v&255,(v>>8)&255,(v>>16)&255,(v>>24)&255];
+  files.forEach(f=>{
+    const nm=enc.encode(f.name), crc=_crc32(f.data), sz=f.data.length;
+    const lh=new Uint8Array([0x50,0x4b,3,4,20,0,0,0,0,0,0,0,0,0,...n32(crc),...n32(sz),...n32(sz),...n16(nm.length),0,0]);
+    parts.push(lh,nm,f.data);
+    central.push({nm,crc,sz,off});
+    off+=lh.length+nm.length+sz;
+  });
+  const cdParts=[]; let cdLen=0;
+  central.forEach(c=>{
+    const cd=new Uint8Array([0x50,0x4b,1,2,20,0,20,0,0,0,0,0,0,0,0,0,...n32(c.crc),...n32(c.sz),...n32(c.sz),...n16(c.nm.length),0,0,0,0,0,0,0,0,0,0,0,0,...n32(c.off)]);
+    cdParts.push(cd,c.nm); cdLen+=cd.length+c.nm.length;
+  });
+  const end=new Uint8Array([0x50,0x4b,5,6,0,0,0,0,...n16(files.length),...n16(files.length),...n32(cdLen),...n32(off),0,0]);
+  return new Blob([...parts,...cdParts,end],{type:'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'});
+}
+function _xesc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
+const esc=_xesc; // HTML-Escaping für dynamische Inhalte (Namen, Eventnamen, Importdaten)
+function xlsxBlob(rows,sheetName){
+  const enc=new TextEncoder();
+  const colL=i=>{let s='';i++;while(i>0){const m=(i-1)%26;s=String.fromCharCode(65+m)+s;i=(i-m-1)/26;}return s;};
+  let body='';
+  rows.forEach((r,ri)=>{
+    body+='<row r="'+(ri+1)+'">';
+    r.forEach((v,ci)=>{
+      const ref=colL(ci)+(ri+1);
+      if(typeof v==='number'&&isFinite(v))body+='<c r="'+ref+'"><v>'+v+'</v></c>';
+      else if(v!=null&&v!=='')body+='<c r="'+ref+'" t="inlineStr"><is><t xml:space="preserve">'+_xesc(v)+'</t></is></c>';
+    });
+    body+='</row>';
+  });
+  const sheet='<?xml version="1.0" encoding="UTF-8" standalone="yes"?><worksheet xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main"><sheetData>'+body+'</sheetData></worksheet>';
+  const wb='<?xml version="1.0" encoding="UTF-8" standalone="yes"?><workbook xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main" xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships"><sheets><sheet name="'+_xesc((sheetName||'Daten').slice(0,31))+'" sheetId="1" r:id="rId1"/></sheets></workbook>';
+  const wbRels='<?xml version="1.0" encoding="UTF-8" standalone="yes"?><Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships"><Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/worksheet" Target="worksheets/sheet1.xml"/></Relationships>';
+  const rels='<?xml version="1.0" encoding="UTF-8" standalone="yes"?><Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships"><Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/officeDocument" Target="xl/workbook.xml"/></Relationships>';
+  const ct='<?xml version="1.0" encoding="UTF-8" standalone="yes"?><Types xmlns="http://schemas.openxmlformats.org/package/2006/content-types"><Default Extension="rels" ContentType="application/vnd.openxmlformats-package.relationships+xml"/><Default Extension="xml" ContentType="application/xml"/><Override PartName="/xl/workbook.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet.main+xml"/><Override PartName="/xl/worksheets/sheet1.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.worksheet+xml"/></Types>';
+  return _zip([
+    {name:'[Content_Types].xml',data:enc.encode(ct)},
+    {name:'_rels/.rels',data:enc.encode(rels)},
+    {name:'xl/workbook.xml',data:enc.encode(wb)},
+    {name:'xl/_rels/workbook.xml.rels',data:enc.encode(wbRels)},
+    {name:'xl/worksheets/sheet1.xml',data:enc.encode(sheet)}
+  ]);
+}
+/* Datenzeilen (gemeinsame Basis für CSV und XLSX; Zahlen als echte Zahlen) */
+function overviewRows(){
+  const rows=[['Disziplin','Athlet/in','Klasse','Gruppe','Jahr','Wettbewerb','Typ','Platz','Feld','TES','TES roh','Abzüge','PCS (int.)','Gesamt','vollständig']];
+  KADER.forEach(kd=>{
+    rowsOf(kd.name).forEach(r=>{
+      if(state.fltDis&&r.dis!==state.fltDis)return;
+      if(state.fltKl&&r.klasse!==state.fltKl)return;
+      rows.push([r.dis,kd.name,r.klasse+(r.gender?' '+r.gender:''),kd.gruppe||'',+r.datum.slice(0,4),r.ev,r.typ,
+        r.platz!=null?r.platz:'',r.feld||'',r.tes!=null?r.tes:'',r.tesRaw!=null?r.tesRaw:'',r.abzuege!=null?r.abzuege:'',
+        (r.herkunft==='international'&&r.pcs!=null)?r.pcs:'',r.total!=null?r.total:'',r.tesOk===false?'nein':'ja']);
+    });
+  });
+  return rows;
+}
+function athletRows(name){
+  const rows=[['Datum','Wettbewerb','Typ','Disziplin','Klasse','Platz','Feld','TES','TES roh','Abzüge','PCS (int.)','Gesamt','vollständig']];
+  rowsOf(name).forEach(r=>rows.push([r.datum,r.ev,r.typ,r.dis,r.klasse+(r.gender?' '+r.gender:''),
+    r.platz!=null?r.platz:'',r.feld||'',r.tes!=null?r.tes:'',r.tesRaw!=null?r.tesRaw:'',r.abzuege!=null?r.abzuege:'',
+    (r.herkunft==='international'&&r.pcs!=null)?r.pcs:'',r.total!=null?r.total:'',r.tesOk===false?'nein':'ja']));
+  return rows;
+}
+function exportOverviewXLSX(){dl(xlsxBlob(overviewRows(),'Kaderathleten'),'DRIV_Kaderathleten_Ergebnisse.xlsx');}
+function exportAthletXLSX(name){dl(xlsxBlob(athletRows(name),name.slice(0,31)),name.replace(/[^\wäöüÄÖÜß\- ]/g,'').replace(/\s+/g,'_')+'_Ergebnisse.xlsx');}
+
+function dl(blob,name){const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(a.href),4000);}
+function csvBlob(rows){
+  const esc=v=>{v=String(v==null?'':v);return /[;"\n]/.test(v)?'"'+v.replace(/"/g,'""')+'"':v;};
+  return new Blob(["\ufeff"+rows.map(r=>r.map(esc).join(';')).join('\r\n')],{type:'text/csv;charset=utf-8'});
+}
+function _csvize(rows){return rows.map(r=>r.map(v=>typeof v==='number'?String(v).replace('.',','):v));}
+function exportOverviewCSV(){dl(csvBlob(_csvize(overviewRows())),'DRIV_Kaderathleten_Ergebnisse.csv');}
+function exportAthletCSV(name){dl(csvBlob(_csvize(athletRows(name))),name.replace(/[^\wäöüÄÖÜß\- ]/g,'').replace(/\s+/g,'_')+'_Ergebnisse.csv');}
+function svgToPng(svg,name){
+  const xml=new XMLSerializer().serializeToString(svg);
+  const vb=svg.getAttribute('viewBox').split(' ');
+  const W=parseFloat(vb[2])*2,H=parseFloat(vb[3])*2;
+  const img=new Image();
+  img.onload=()=>{const c=document.createElement('canvas');c.width=W;c.height=H;
+    const ctx=c.getContext('2d');
+    const cs=getComputedStyle(document.body);
+    ctx.fillStyle=cs.backgroundColor||'#fff';ctx.fillRect(0,0,W,H);
+    ctx.drawImage(img,0,0,W,H);
+    c.toBlob(bl=>dl(bl,name+'.png'));};
+  // CSS-Variablen in Inline-Farben auflösen
+  const tmp=document.createElement('div');tmp.innerHTML=xml;const s2=tmp.firstChild;
+  const cs=getComputedStyle(document.documentElement);
+  s2.querySelectorAll('*').forEach(n=>{['stroke','fill'].forEach(a=>{const v=n.getAttribute(a);
+    if(v&&v.startsWith('var(')){const name=v.slice(4,-1).trim();n.setAttribute(a,cs.getPropertyValue(name).trim()||'#888');}});});
+  s2.querySelectorAll('text').forEach(t=>{if(!t.getAttribute('fill'))t.setAttribute('fill',getComputedStyle(document.body).color);});
+  img.src='data:image/svg+xml;charset=utf-8,'+encodeURIComponent(new XMLSerializer().serializeToString(s2));
+}
+
+/* ================= Linien-Chart ================= */
+function lineChart(series,opts){
+  // series: [{name,color,pts:[{x,y,sub}],dash?}] – x numerisch; opts: {unit,marker:{x?,y},xLabel,w}
+  opts=opts||{};
+  const W=opts.w||860,H=300,padL=52,padR=18,padT=14,padB=34;
+  const xs=series.flatMap(s=>s.pts.map(p=>p.x)), ys=series.flatMap(s=>s.pts.map(p=>p.y));
+  if(opts.marker&&opts.marker.y!=null)ys.push(opts.marker.y);
+  if(!xs.length)return el('div','sec','Keine Daten.');
+  const x0=Math.min(...xs),x1=Math.max(...xs);
+  let y0=Math.min(...ys),y1=Math.max(...ys); const yp=(y1-y0)*0.08||1; y0-=yp; y1+=yp;
+  const X=v=>padL+(x1===x0?0.5:(v-x0)/(x1-x0))*(W-padL-padR);
+  const Y=v=>padT+(1-(v-y0)/(y1-y0))*(H-padT-padB);
+  const wrap=document.createElement('div');wrap.style.position='relative';
+  const pngBtn=el('button','btn sec2 mini','PNG');
+  pngBtn.title='Diagramm als PNG-Bild exportieren';
+  pngBtn.style.cssText='position:absolute;top:2px;right:2px;opacity:.55';
+  pngBtn.addEventListener('mouseenter',()=>pngBtn.style.opacity='1');
+  pngBtn.addEventListener('mouseleave',()=>pngBtn.style.opacity='.55');
+  const svg=document.createElementNS('http://www.w3.org/2000/svg','svg');
+  pngBtn.addEventListener('click',()=>svgToPng(svg,'DRIV_Diagramm'));
+  svg.setAttribute('viewBox','0 0 '+W+' '+H);svg.style.width='100%';svg.style.height='auto';
+  svg.setAttribute('role','img');
+  {
+    const ys2=series.flatMap(s=>s.pts.map(p=>p.y));
+    const lbl='Liniendiagramm: '+series.map(s=>s.name).join(', ')+'. Wertebereich '+(ys2.length?(Math.min(...ys2).toLocaleString('de-DE',{maximumFractionDigits:2})+' bis '+Math.max(...ys2).toLocaleString('de-DE',{maximumFractionDigits:2})+' Punkte'):'ohne Werte')+'.';
+    svg.setAttribute('aria-label',lbl);
+    const ti=document.createElementNS(svg.namespaceURI,'title');ti.textContent=lbl;svg.append(ti);
+  }
+  for(let i=0;i<=4;i++){const yv=y0+(y1-y0)*i/4;
+    const l=document.createElementNS(svg.namespaceURI,'line');
+    l.setAttribute('x1',padL);l.setAttribute('x2',W-padR);l.setAttribute('y1',Y(yv));l.setAttribute('y2',Y(yv));
+    l.setAttribute('stroke','var(--grid)');l.setAttribute('stroke-width','1');svg.append(l);
+    const t=document.createElementNS(svg.namespaceURI,'text');
+    t.setAttribute('x',padL-7);t.setAttribute('y',Y(yv)+4);t.setAttribute('text-anchor','end');
+    t.setAttribute('font-size','11');t.setAttribute('fill','var(--ink-3)');t.textContent=Math.round(yv);svg.append(t);}
+  const ticks=[...new Set(series[0].pts.map(p=>p.x))].filter((_,i,a)=>a.length<=12||i%Math.ceil(a.length/12)===0);
+  ticks.forEach(v=>{const t=document.createElementNS(svg.namespaceURI,'text');
+    t.setAttribute('x',X(v));t.setAttribute('y',H-12);t.setAttribute('text-anchor','middle');
+    t.setAttribute('font-size','11');t.setAttribute('fill','var(--ink-3)');
+    t.textContent=opts.xFmt?opts.xFmt(v):v;svg.append(t);});
+  if(opts.xLabel){const t=document.createElementNS(svg.namespaceURI,'text');
+    t.setAttribute('x',(padL+W-padR)/2);t.setAttribute('y',H-0.5);t.setAttribute('text-anchor','middle');
+    t.setAttribute('font-size','10.5');t.setAttribute('fill','var(--ink-3)');t.textContent=opts.xLabel;svg.append(t);}
+  series.forEach(s=>{
+    const d=s.pts.map((p,i)=>(i?'L':'M')+X(p.x)+' '+Y(p.y)).join(' ');
+    const path=document.createElementNS(svg.namespaceURI,'path');
+    path.setAttribute('d',d);path.setAttribute('fill','none');path.setAttribute('stroke',s.color);
+    path.setAttribute('stroke-width','2');path.setAttribute('stroke-linejoin','round');path.setAttribute('stroke-linecap','round');
+    if(s.dash)path.setAttribute('stroke-dasharray','5 4');
+    svg.append(path);
+    s.pts.forEach(p=>{
+      const c=document.createElementNS(svg.namespaceURI,'circle');
+      c.setAttribute('cx',X(p.x));c.setAttribute('cy',Y(p.y));c.setAttribute('r','4');
+      c.setAttribute('fill',s.color);c.setAttribute('stroke','var(--surface-1)');c.setAttribute('stroke-width','2');svg.append(c);
+      const hit=document.createElementNS(svg.namespaceURI,'circle');
+      hit.setAttribute('cx',X(p.x));hit.setAttribute('cy',Y(p.y));hit.setAttribute('r','13');hit.setAttribute('fill','transparent');
+      hit.addEventListener('pointermove',ev=>showTT(ev,'<b>'+fmt(p.y)+(opts.unit?' '+opts.unit:'')+'</b><br>'+s.name+(p.sub?'<br><span style="color:var(--ink-3)">'+p.sub+'</span>':'')));
+      hit.addEventListener('pointerleave',hideTT);svg.append(hit);
+    });
+  });
+  if(opts.marker&&opts.marker.y!=null){
+    const l=document.createElementNS(svg.namespaceURI,'line');
+    l.setAttribute('x1',padL);l.setAttribute('x2',W-padR);l.setAttribute('y1',Y(opts.marker.y));l.setAttribute('y2',Y(opts.marker.y));
+    l.setAttribute('stroke','var(--s2)');l.setAttribute('stroke-width','2');svg.append(l);
+    const t=document.createElementNS(svg.namespaceURI,'text');
+    t.setAttribute('x',W-padR);t.setAttribute('y',Y(opts.marker.y)-5);t.setAttribute('text-anchor','end');
+    t.setAttribute('font-size','11.5');t.setAttribute('font-weight','650');t.setAttribute('fill','var(--s2)');
+    t.textContent=opts.marker.label||'';svg.append(t);
+  }
+  wrap.append(svg,pngBtn);
+  return wrap;
+}
+
+/* ================= Ansicht: Benchmark ================= */
+function renderBench(){
+  const cats=allCats();
+  const disL=[...new Set(cats.map(c=>c.disziplin))];
+  if(!state.dis||!disL.includes(state.dis))state.dis=disL[0]||null;
+  const klL=[...new Set(cats.filter(c=>c.disziplin===state.dis).map(c=>c.klasse))];
+  if(!state.klasse||!klL.includes(state.klasse))state.klasse=klL[0]||null;
+  const gL=[...new Set(cats.filter(c=>c.disziplin===state.dis&&c.klasse===state.klasse).map(c=>c.gender))];
+  if(state.gender==null||!gL.includes(state.gender))state.gender=gL[0]??'';
+  const c=el('div','card');
+  c.append(el('h2',null,'Internationale Referenzwerte (Technical Score)'));
+  {
+    const det=el('details');
+    det.append(el('summary',null,'Wie werden die Referenzwerte berechnet – und was sagen sie aus?'));
+    const bx=el('div');
+    bx.append(el('p','sec','Berechnung: Für jeden Wettbewerbstyp (WM, EM, World Cups, Europa Cup, Interland) wird je Platzierung der Durchschnitt der letzten '+JAHRE_FENSTER+' ausgetragenen Jahre gebildet. Je Jahr fließen nur die ersten '+Math.round(CUT*100)+' % des platzierten Feldes ein, damit dünn besetzte Feldenden die Referenz nicht verzerren. Unvollständige Segment-Summen sind ausgeschlossen.'));
+    bx.append(el('p','sec','Warum sinnvoll: Ein einzelnes Jahr schwankt mit Teilnehmerfeld und Tagesform. Der 3-Jahres-Durchschnitt je Platz bildet das stabile Anforderungsniveau eines Wettbewerbs ab – unabhängig davon, wer in einem bestimmten Jahr startete.'));
+    bx.append(el('p','sec','Aussage: „Mit diesem TES ergäbe sich rechnerisch Platz n“ bedeutet: Der eingegebene Wert entspricht dem historischen Durchschnittswert dieses Platzes über die letzten Jahre. Es ist eine rechnerische Prognose auf Basis historischer Referenzwerte – kein Ergebnisversprechen und keine Empfehlung.'));
+    det.append(bx); c.append(det);
+  }
+  c.append(el('p','sec','Grundlage: Durchschnittswerte je Platzierung über die letzten '+JAHRE_FENSTER+' verfügbaren Jahre. In die Durchschnitte fließen je Wettbewerb nur die ersten '+Math.round(CUT*100)+' % der platzierten Starter ein. Primäre Kennzahl ist die technische Wertung (TES) = Summe der technischen Segment-Wertungen abzüglich der Abzüge; die Components (PCS, Summe aus beiden Programmen) werden ergänzend separat ausgewiesen. Segment-Einzelauswertungen werden bewusst nicht dargestellt (unterschiedliche Faktoren je Programm).'));
+  const row=el('div','row');
+  function sel(lbl,list,val,fn){
+    const w=el('div');w.append(el('label',null,lbl));
+    const s=el('select');list.forEach(v=>{const o=el('option',null,v===''?'– (Paare)':v);o.value=v;if(v===val)o.selected=true;s.append(o);});
+    s.addEventListener('change',()=>{fn(s.value);render();});w.append(s);return w;
+  }
+  row.append(sel('Disziplin',disL,state.dis,v=>{state.dis=v;state.klasse=null;state.gender=null;}));
+  row.append(sel('Klasse',klL,state.klasse,v=>{state.klasse=v;state.gender=null;}));
+  row.append(sel('Geschlecht',gL,state.gender,v=>{state.gender=v;}));
+  const wT=el('div');wT.append(el('label',null,'Technische Wertung (TES, abzügl. Abzüge)'));
+  const iT=el('input');iT.type='text';iT.placeholder='z. B. 85,5';iT.value=state.tes;iT.style.width='110px';
+  iT.addEventListener('change',()=>{state.tes=iT.value;render();});wT.append(iT);row.append(wT);
+  const wP=el('div');wP.append(el('label',null,'Components (PCS, ergänzend)'));
+  const iP=el('input');iP.type='text';iP.placeholder='optional';iP.value=state.pcs;iP.style.width='110px';
+  iP.addEventListener('change',()=>{state.pcs=iP.value;render();});wP.append(iP);row.append(wP);
+  c.append(row);main.append(c);
+
+  /* Übersicht über ALLE Kategorien: Referenzwerte je Wettbewerbstyp */
+  {
+    const ov=el('div','card');
+    ov.append(el('h2',null,'Alle Kategorien im Überblick'));
+    ov.append(el('p','sec','Je Kategorie: Sieger-Ø / Podium-Ø (Ø Platz 3) des Technical Scores über die letzten 3 ausgetragenen Jahre. Klick auf eine Zeile öffnet die Detailansicht darunter. „–“ = Kategorie wird bei diesem Wettbewerbstyp nicht ausgetragen bzw. keine Daten.'));
+    const OVTYP=[['EM','EM'],['WM','WM'],['WC-EU','WC Europa'],['WC-SA','WC Südamerika'],['CoE','Europa Cup'],['IL','Interland']];
+    const tb=el('table');tb.className='ovtab';
+    const th=el('tr');
+    ['Disziplin','Klasse',''].forEach(x=>th.append(el('th',null,x)));
+    OVTYP.forEach(([t,l])=>{const h=el('th',null,l+' (S / P)');h.style.textAlign='right';th.append(h);});
+    tb.append(th);
+    const DISO=['Kürlaufen','Paarlauf','Solotanz','Rolltanz'];
+    const KLO=['Senioren','Junioren','Youth','Cadets','Espoir','Minis','Tots'];
+    const cats=allCats();
+    DISO.forEach(d=>{
+      KLO.forEach(kl=>{
+        ['Damen','Herren',''].forEach(g=>{
+          if(!cats.some(c=>c.disziplin===d&&c.klasse===kl&&(c.gender||'')===g))return;
+          // Zeile nur, wenn irgendein Typ Daten hat
+          const vals=OVTYP.map(([t])=>{
+            if(!eligClass(t,kl))return null;
+            const cv=curve(t,d,kl,g,'tes'); if(!cv)return null;
+            const s=cv.pts[0]&&cv.pts[0].platz===1?cv.pts[0].avg:null;
+            const p3=cv.pts.find(q=>q.platz===3);
+            return {s,p:p3?p3.avg:null};
+          });
+          if(!vals.some(Boolean))return;
+          const tr=el('tr','click');
+          tr.addEventListener('click',()=>{state.dis=d;state.klasse=kl;state.gender=g;render();window.scrollTo({top:0});});
+          rowNav(tr,'Referenzwerte für '+d+' '+kl+(g?' '+g:'')+' anzeigen');
+          tr.append(el('td',null,d));
+          tr.append(el('td','sec',kl));
+          tr.append(el('td','sec',g||'–'));
+          vals.forEach(v=>{
+            const td=el('td','num');
+            td.textContent=v?((v.s!=null?fmt(Math.round(v.s*100)/100):'–')+' / '+(v.p!=null?fmt(Math.round(v.p*100)/100):'–')):'–';
+            tr.append(td);
+          });
+          if(d===state.dis&&kl===state.klasse&&(state.gender||'')===g){tr.style.outline='2px solid var(--s1)';tr.style.outlineOffset='-2px';}
+          tb.append(tr);
+        });
+      });
+    });
+    ov.append(tb);
+    ov.append(el('p','note','S = Sieger-Ø TES (Ø Platz 1), P = Podium-Ø TES (Ø Platz 3), jeweils letzte 3 ausgetragene Jahre, erste 80 % des Feldes, nur vollständige Segment-Summen. Wettbewerbstypen nur bei Startberechtigung der Klasse (WM nur Junioren/Senioren, EM ab Cadets).'));
+    main.append(ov);
+  }
+
+  const basis=['WM','EM','WC-EU','WC-SA'];
+  const extra=['WC-F','CoE','IGC','IL'].filter(t=>curve(t,state.dis,state.klasse,state.gender,'tes'));
+  const typen=basis.concat(extra);
+  const sätze=[];
+  typen.forEach(typ=>{
+    const cvT=curve(typ,state.dis,state.klasse,state.gender,'tes');
+    const cvP=curve(typ,state.dis,state.klasse,state.gender,'pcs');
+    const cvG=curve(typ,state.dis,state.klasse,state.gender,'total');
+    const name=TYPEN.find(t=>t[0]===typ)[1];
+    const catLbl=state.dis+' · '+state.klasse+(state.gender?' '+state.gender:' (Paare)');
+    const card=el('div','card');
+    const h=el('h2');h.textContent=name+' – '+catLbl;
+    if(cvT)h.append(el('span','badge','Datenbasis: '+cvT.years.join(', ')+' · '+cvT.fields.map(f=>f.jahr+': '+f.n+' Starter (gewertet bis Platz '+f.lim+')').join(' · ')));
+    card.append(h);
+    if(!cvT){card.append(el('p','sec','Für diesen Wettbewerbstyp liegen noch keine Ergebnisdaten vor. Offizielle Ergebnis-PDFs können im Tab „Daten & Import“ eingelesen werden.'));main.append(card);return;}
+    /* Kennzahlen: Sieger, Podium, Median */
+    {
+      const winner=cvT.pts[0]&&cvT.pts[0].platz===1?cvT.pts[0].avg:null;
+      const pod=cvT.pts.find(q=>q.platz===3);
+      const md=(a=>{if(!a.length)return null;a=[...a].sort((x,y)=>x-y);const m=a.length>>1;return a.length%2?a[m]:(a[m-1]+a[m])/2;})(cvT.pts.map(q=>q.avg));
+      const bits=[];
+      const w1=cvT.pts[0]&&cvT.pts[0].platz===1?cvT.pts[0]:null;
+      if(w1)bits.push('Referenzwert Platz 1: <b>'+fmt(Math.round(w1.avg*100)/100)+'</b> (n = '+w1.n+(w1.n>1?' · Spannweite '+fmt(Math.round(w1.min*100)/100)+'–'+fmt(Math.round(w1.max*100)/100):'')+')');
+      if(pod)bits.push('Referenzwert Platz 3: <b>'+fmt(Math.round(pod.avg*100)/100)+'</b> (n = '+pod.n+(pod.n>1?' · Spannweite '+fmt(Math.round(pod.min*100)/100)+'–'+fmt(Math.round(pod.max*100)/100):'')+')');
+      if(md!=null)bits.push('Median der Platz-Ø-Werte: <b>'+fmt(Math.round(md*100)/100)+'</b>');
+      if(bits.length){const p0=el('p','sec');p0.innerHTML=bits.join(' · ');card.append(p0);}
+      const nMin=Math.min(...cvT.pts.slice(0,Math.min(3,cvT.pts.length)).map(q=>q.n));
+      if(nMin===1)card.append(el('p','note','Hinweis: Nur ein historischer Vergleichswert verfügbar – stark eingeschränkte statistische Aussagekraft.'));
+      else if(nMin===2)card.append(el('p','note','Hinweis: Kleine Datenbasis (n = 2) – Referenzwerte vorsichtig interpretieren.'));
+    }
+    const pr=project(cvT,state.tes);
+    if(pr){
+      const p=el('p','proj');
+      if(pr.platz===1&&pr.ueber)p.innerHTML='→ <b>Platz 1</b> (Wert liegt über dem '+cvT.years.length+'-Jahres-Schnitt des Siegers)';
+      else if(pr.platz!=null)p.innerHTML='→ <b>Platz '+pr.platz+'</b> (gemessen am Ø der letzten '+cvT.years.length+' Jahre)';
+      else p.innerHTML='→ unterhalb des Ø von Platz '+pr.letzt+' (letzter in die Wertung einfließender Platz)';
+      card.append(p);
+      {
+        const nRef=pr.platz!=null?(cvT.pts.find(q=>q.platz===pr.platz)||{}).n:cvT.pts[cvT.pts.length-1].n;
+        if(nRef!=null&&nRef<3)card.append(el('p','note','Prognose auf kleiner historischer Datenbasis (n = '+nRef+') – vorsichtig interpretieren.'));
+        card.append(el('p','note','Rechnerische Prognose auf Basis historischer Referenzwerte – keine Vorhersage eines tatsächlichen Ergebnisses, keine sportfachliche Bewertung, kein Nominierungskriterium.'));
+      }
+      {
+        const v=parseFloat(String(state.tes).replace(',','.'));
+        if(!isNaN(v)){
+          const winner=cvT.pts[0]&&cvT.pts[0].platz===1?cvT.pts[0].avg:null;
+          const pod=cvT.pts.find(q=>q.platz===3);
+          const gaps=[];
+          if(winner!=null)gaps.push('zum Sieger-Ø: '+(v>=winner?'+':'−')+fmt(Math.round(Math.abs(v-winner)*100)/100));
+          if(pod)gaps.push('zum Podium-Ø: '+(v>=pod.avg?'+':'−')+fmt(Math.round(Math.abs(v-pod.avg)*100)/100));
+          if(gaps.length)card.append(el('p','sec','Abstand '+gaps.join(' · ')+' Punkte.'));
+        }
+      }
+      sätze.push(name+': '+(pr.platz!=null?'Platz '+pr.platz:'unterhalb Platz '+pr.letzt));
+      const prP=project(cvP,state.pcs);
+      if(prP&&state.pcs)card.append(el('p','sec','Ergänzend Components: mit PCS '+state.pcs+' entspräche das dem historischen PCS-Durchschnittswert von Platz '+(prP.platz!=null?prP.platz:('> '+prP.letzt))+'.'));
+    } else card.append(el('p','sec','TES eingeben, um die rechnerische Platzierung zu sehen.'));
+    const lg=el('div','legend');
+    [['Ø TES je Platz','var(--s1)'],['Ø PCS je Platz (ergänzend)','var(--s2)']].forEach(([l,col])=>{const li=el('span');const sw=el('span','sw');sw.style.background=col;li.append(sw,document.createTextNode(l));lg.append(li);});
+    if(state.tes){const li=el('span');const sw=el('span','sw');sw.style.background='var(--s2)';li.append(sw,document.createTextNode('eingegebener TES'));lg.append(li);}
+    card.append(lg);
+    const series=[{name:'Ø TES je Platz',color:'var(--s1)',pts:cvT.pts.map(p=>({x:p.platz,y:p.avg,sub:'Platz '+p.platz+' · '+p.n+' Wert(e)'}))}];
+    if(cvP)series.push({name:'Ø PCS je Platz',color:'var(--s2)',dash:true,pts:cvP.pts.map(p=>({x:p.platz,y:p.avg,sub:'Platz '+p.platz}))});
+    const v=parseFloat(String(state.tes).replace(',','.'));
+    card.append(lineChart(series,{unit:'Pkt.',xLabel:'Platzierung',marker:isNaN(v)?null:{y:v,label:'TES '+fmt(v)}}));
+    card.append(el('p','note','Diagramm: historischer Referenzwert (Ø der letzten 3 Jahre, erste 80 % des Feldes) je Platzierung dieser Kategorie; gestrichelt die Components. Lesart: Die Kurve beschreibt das dokumentierte Niveau vergangener Wettbewerbe – sie ist kein Zielwert und kein Nominierungskriterium.'));
+    const tb=el('table');const trh=el('tr');
+    /* Jahres-Tabelle im Vorlagen-Format: je Platz TES/PCS/Total pro Jahr + Durchschnitt */
+    const yrs=[...cvT.years].sort();
+    const perYear={};
+    yrs.forEach(y=>{
+      DB.filter(e=>e.typ===typ&&e.jahr===y).forEach(ev=>{
+        ev.kategorien.filter(k=>k.disziplin===state.dis&&k.klasse===state.klasse&&(k.gender||'')===state.gender).forEach(k=>{
+          const lim=Math.ceil(k.rows.length*CUT);
+          k.rows.filter(r=>r.platz!=null&&r.platz<=lim).forEach(r=>{
+            const d=(perYear[r.platz]=perYear[r.platz]||{});
+            d[y]={tes:(r.tesOk!==false?r.tes:null),pcs:(r.tesOk!==false?r.pcs:null),total:r.total};
+          });
+        });
+      });
+    });
+    const trg=el('tr');
+    trg.append(el('th',null,''));
+    yrs.forEach(y=>{const th2=el('th',null,String(y));th2.colSpan=3;th2.style.textAlign='center';th2.style.borderLeft='2px solid var(--grid)';trg.append(th2);});
+    const thd=el('th',null,'Durchschnitt');thd.colSpan=3;thd.style.textAlign='center';thd.style.borderLeft='2px solid var(--grid)';trg.append(thd);
+    tb.append(trg);
+    trh.append(el('th',null,'Platz'));
+    yrs.forEach((y,i)=>{['TES','PCS','Total'].forEach((x,j)=>{const th2=el('th',null,x);if(j===0)th2.style.borderLeft='2px solid var(--grid)';trh.append(th2);});});
+    ['TES','PCS','Total'].forEach((x,j)=>{const th2=el('th',null,x);if(j===0)th2.style.borderLeft='2px solid var(--grid)';trh.append(th2);});
+    tb.append(trh);
+    Object.keys(perYear).map(Number).sort((a,b)=>a-b).forEach(pl=>{
+      const tr=el('tr');
+      tr.append(el('td','num',String(pl)));
+      const acc={tes:[],pcs:[],total:[]};
+      yrs.forEach(y=>{
+        const d=perYear[pl][y]||{};
+        ['tes','pcs','total'].forEach((m,j)=>{
+          const td=el('td','num',d[m]!=null?fmt(d[m]):'–');
+          if(j===0){td.style.borderLeft='2px solid var(--grid)';td.style.fontWeight='600';}
+          tr.append(td);
+          if(d[m]!=null)acc[m].push(d[m]);
+        });
+      });
+      ['tes','pcs','total'].forEach((m,j)=>{
+        const a=acc[m].length?acc[m].reduce((s,v)=>s+v,0)/acc[m].length:null;
+        const td=el('td','num',a!=null?fmt(Math.round(a*100)/100):'–');
+        if(j===0){td.style.borderLeft='2px solid var(--grid)';td.style.fontWeight='700';}
+        tr.append(td);
+      });
+      tb.append(tr);
+    });
+    const det=el('details');det.open=true;det.append(el('summary',null,'Werte je Platz und Jahr – '+state.dis+' '+state.klasse+(state.gender?' '+state.gender:'')+' (TES · PCS · Total, '+yrs.length+'-Jahres-Ø)'));
+    det.append(tb);
+    det.append(el('p','note','TES = technische Wertung abzüglich Abzüge; unvollständige Segment-Summen sind ausgeblendet („–“), fließen aber über die Gesamtwertung (Total) ein. Ø = Durchschnitt der verfügbaren Jahre je Platz.'));
+    card.append(det);
+    /* Nationen-Vergleich (rein deskriptiv, letzte 3 ausgetragene Jahre) */
+    {
+      const nat={};
+      yrs.forEach(y=>{
+        DB.filter(e=>e.typ===typ&&e.jahr===y).forEach(ev=>{
+          ev.kategorien.filter(k=>k.disziplin===state.dis&&k.klasse===state.klasse&&(k.gender||'')===state.gender).forEach(k=>{
+            k.rows.forEach(r=>{
+              if(r.platz==null||!r.nat)return;
+              const d=(nat[r.nat]=nat[r.nat]||{starts:0,bestP:null,bestT:null,tes:[]});
+              d.starts++;
+              if(d.bestP==null||r.platz<d.bestP)d.bestP=r.platz;
+              if(r.tes!=null&&r.tesOk!==false){d.tes.push(r.tes);if(d.bestT==null||r.tes>d.bestT)d.bestT=r.tes;}
+            });
+          });
+        });
+      });
+      const list=Object.entries(nat).sort((a,b)=>(b[1].bestT??-1)-(a[1].bestT??-1));
+      if(list.length>=2){
+        const dn=el('details');
+        dn.append(el('summary',null,'Nationen-Vergleich – '+state.dis+' '+state.klasse+(state.gender?' '+state.gender:'')+' ('+yrs.join('/')+')'));
+        const tn=el('table');const thn=el('tr');
+        [['Nation',null],['Starts',null],['Beste Platzierung',null],['Bester TES','tes'],['Ø TES','avg'],['Median TES','median']].forEach(([x,g])=>thn.append(thI(x,g)));tn.append(thn);
+        const med=a=>{if(!a.length)return null;a=[...a].sort((x,y)=>x-y);const m=a.length>>1;return a.length%2?a[m]:(a[m-1]+a[m])/2;};
+        list.forEach(([nc,d])=>{
+          const tr=el('tr');
+          const td0=el('td',null,nc); if(nc==='GER'){td0.style.fontWeight='700';}
+          tr.append(td0);
+          tr.append(el('td','num',String(d.starts)));
+          tr.append(el('td','num',d.bestP!=null?String(d.bestP):'–'));
+          tr.append(el('td','num',d.bestT!=null?fmt(d.bestT):'–'));
+          tr.append(el('td','num',d.tes.length?fmt(Math.round(d.tes.reduce((a,b)=>a+b,0)/d.tes.length*100)/100):'–'));
+          tr.append(el('td','num',d.tes.length?fmt(Math.round(med(d.tes)*100)/100):'–'));
+          tn.append(tr);
+        });
+        dn.append(tn);
+        dn.append(el('p','note','Deskriptive Übersicht der Nationen in dieser Kategorie über die letzten '+yrs.length+' ausgetragenen Jahre. TES-Kennzahlen nur aus vollständigen Segment-Summen; sortiert nach bestem TES. Keine Bewertung – historische Datenlage.'));
+        card.append(dn);
+      }
+    }
+    main.append(card);
+  });
+  if(sätze.length&&state.tes){
+    const s=el('div','card');s.style.borderLeft='3px solid var(--s1)';
+    s.append(el('h2',null,'Zusammenfassung'));
+    s.append(el('p',null,'Mit einem Technical Score von '+state.tes+' ('+state.dis+' '+state.klasse+(state.gender?' '+state.gender:'')+') ergäbe sich rechnerisch: '+sätze.join(' · ')+'.'));
+    s.append(el('p','note','Rechenweg: Vergleich mit dem Durchschnitts-TES je Platzierung der letzten '+JAHRE_FENSTER+' Jahre (nur die ersten '+Math.round(CUT*100)+' % des Feldes). Die Projektion ist eine rechnerische Einordnung, kein Ergebnisversprechen.'));
+    main.prepend(s);
+  }
+}
+
+/* ================= Ansicht: Athleten ================= */
+let DBREV=0; let _aidx=null,_aidxRev=-1; const _cvCache=new Map();
+function invalidateDB(){DBREV++;_cvCache.clear();}
+function athletIndex(){
+  if(_aidx&&_aidxRev===DBREV)return _aidx;
+  const m=new Map();
+  DB.forEach(ev=>ev.kategorien.forEach(k=>k.rows.forEach(r=>{
+    const e=m.get(r.name)||[];
+    e.push({datum:ev.datum,ev:ev.name,typ:ev.typ,herkunft:ev.herkunft||'international',dis:k.disziplin,klasse:k.klasse,gender:k.gender||'',platz:r.platz,feld:k.rows.length,tes:r.tes,pcs:r.pcs,abzuege:r.abzuege,tesOk:r.tesOk,total:r.total,nat:r.nat,segs:r.segs||null,tesRaw:r.tesRaw,nseg:r.nseg});
+    m.set(r.name,e);
+  })));
+  _aidx=m;_aidxRev=DBREV;
+  return m;
+}
+function rowsOf(name){
+  const idx=athletIndex();
+  const kd=KADER.find(k=>k.name===name);
+  const isPair=name.includes(' / ');
+  const names=(kd?(kd.varianten.length?kd.varianten:[name]):[name]).filter(n=>n.includes(' / ')===isPair);
+  const rows=[]; names.forEach(n=>{(idx.get(n)||[]).forEach(r=>rows.push(r));});
+  rows.sort((a,b)=>a.datum.localeCompare(b.datum));
+  return rows;
+}
+/* Einzel ↔ Paar: zugehörige Kader-Einträge finden */
+function relatedEntries(name){
+  const out=[];
+  if(name.includes(' / ')){
+    name.split(' / ').forEach(p=>{ if(KADER.some(k=>k.name===p))out.push(p); });
+  } else {
+    KADER.forEach(k=>{ if(k.name.includes(' / ')&&k.name.split(' / ').includes(name))out.push(k.name); });
+  }
+  return out;
+}
+function currentClassOf(rows,dis){
+  const rel=rows.filter(r=>!dis||r.dis===dis);
+  if(!rel.length)return null;
+  const last=rel[rel.length-1];
+  return {dis:last.dis,klasse:last.klasse,gender:last.gender};
+}
+function bestIntTes(rows,jahr){
+  let best=null;
+  rows.forEach(r=>{
+    if(r.herkunft!=='international'||r.tes==null||r.tesOk===false)return;
+    if(jahr&&!String(r.datum).startsWith(String(jahr)))return;
+    if(best==null||r.tes>best.tes)best=r;
+  });
+  return best;
+}
+function shortEv(n){
+  if(!n)return '';
+  return n
+   .replace(/^Deutsche Meisterschaften .*/,'DM')
+   .replace(/^AWC Semi-Final Garmisch \d+$/,'WC Garmisch')
+   .replace(/^AWC Buenos Aires \d+$/,'WC B. Aires')
+   .replace(/^AWC Finale Cesena \d+$/,'WC-Finale')
+   .replace(/^AIS-Finale Reggio Emilia \d+$/,'WC-Finale')
+   .replace(/^AIS Buenos Aires \d+$/,'WC B. Aires')
+   .replace(/^AIS Triest \d+$/,'WC Triest')
+   .replace(/^AIS Brasília \d+$/,'WC Brasília')
+   .replace(/^EM .*/,'EM')
+   .replace(/^WM .*/,'WM')
+   .replace(/^Interland Cup .*/,'Interland')
+   .replace(/^Int\. Deutschland-Pokal .*/,'IGC')
+   .replace(/^Cup of Europe .*/,'Europa Cup')
+   .replace(/^NDM\/RLW .*/,'NDM')
+   .replace(/^RLW ([^\s(]+).*$/,'RLW $1');
+}
+/* Startberechtigung je Wettbewerbstyp (Vorgabe Sportkommission):
+   WM nur Junioren/Senioren · EM ab Cadets · Europa Cup und Interland für alle Klassen */
+const ELIG={WM:['Junioren','Senioren'],EM:['Cadets','Youth','Junioren','Senioren']};
+function eligClass(typ,klasse){const e=ELIG[typ];return !e||e.includes(klasse);}
+function curveG(typ,dis,klasse,gender,metric){
+  let cv=curve(typ,dis,klasse,gender,metric);
+  if(!cv&&gender)cv=curve(typ,dis,klasse,'',metric);
+  return cv;
+}
+function projShort(dis,klasse,gender,tes){
+  if(tes==null)return '–';
+  const parts=[];
+  [['EM','EM'],['WM','WM'],['CoE','EC'],['IL','IL']].forEach(([t,lbl])=>{
+    if(!eligClass(t,klasse))return;
+    const cv=curveG(t,dis,klasse,gender,'tes'); if(!cv)return;
+    const p=project(cv,String(tes)); if(!p)return;
+    parts.push(lbl+' '+(p.platz!=null?p.platz:'>'+p.letzt));
+  });
+  return parts.join(' · ')||'–';
+}
+function projText(dis,klasse,gender,tes){
+  if(tes==null)return '–';
+  const parts=[];
+  ['WM','EM','WC-EU','WC-SA','CoE','IL'].forEach(t=>{
+    if(!eligClass(t,klasse))return;
+    const cv=curveG(t,dis,klasse,gender,'tes'); if(!cv)return;
+    const p=project(cv,String(tes)); if(!p)return;
+    parts.push(TYPEN.find(x=>x[0]===t)[1].replace('Weltmeisterschaft','WM').replace('Europameisterschaft','EM')+': '+(p.platz!=null?'Platz '+p.platz:'> Platz '+p.letzt));
+  });
+  return parts.join(' · ')||'–';
+}
+/* ---- Kaderathleten (Liste + Profil) ---- */
+function renderKader(){
+  if(state.athlet){renderProfilA(state.athlet);return;}
+  const c=el('div','card');
+  c.append(el('h2',null,'DRIV-Kaderathleten – Entwicklung & internationale Einordnung'));
+  c.append(el('p','sec','Alle Werte stammen aus offiziellen RollArt-Ergebnisprotokollen 2023–2026. Dargestellt werden rein statistische Kennzahlen: Technical Score (national und international) sowie ergänzend die Components (nur international, da nationale Wertungsgerichte nicht einheitlich besetzt sind). Es werden keine Nominierungsempfehlungen abgegeben. Ein Klick auf eine Zeile öffnet das Athletenprofil; über das Suchfeld sind auch Nicht-Kader-Athleten aus dem Datenbestand abrufbar.'));
+  const row=el('div','row');
+  const w=el('div');w.append(el('label',null,'Suche (alle Athleten im Datenbestand)'));
+  const inp=el('input');inp.type='text';inp.setAttribute('list','allnames');inp.style.width='300px';inp.placeholder='Name …';inp.value=state.search;
+  const dl=el('datalist');dl.id='allnames';
+  const idx=athletIndex();[...idx.keys()].sort((a,b)=>a.localeCompare(b,'de')).forEach(n=>{const o=el('option');o.value=n;dl.append(o);});
+  inp.addEventListener('change',()=>{state.search=inp.value;if(idx.has(inp.value)||KADER.some(k=>k.name===inp.value)){state.athlet=inp.value;}render();});
+  w.append(inp,dl);row.append(w);c.append(row);
+  main.append(c);
+
+  /* Filter-Leiste (rein ergänzend) */
+  {
+    const fc=el('div','card');
+    const bar=el('div','fltbar');
+    const mk=(lbl,list,val,fn)=>{const w=el('div');w.append(el('label',null,lbl));
+      const s=el('select');[['','(alle)'],...list.map(x=>[x,x])].forEach(([v,t])=>{const o=el('option',null,t);o.value=v;if((val||'')===v)o.selected=true;s.append(o);});
+      s.addEventListener('change',()=>{fn(s.value);render();});w.append(s);return w;};
+    bar.append(mk('Disziplin',['Kürlaufen','Paarlauf','Solotanz','Rolltanz'],state.fltDis,v=>state.fltDis=v));
+    bar.append(mk('Klasse',['Senioren','Junioren','Youth','Cadets','Espoir','Minis','Tots'],state.fltKl,v=>state.fltKl=v));
+    const rst=el('button','btn sec2 mini','Filter zurücksetzen');
+    rst.addEventListener('click',()=>{state.fltDis='';state.fltKl='';render();});
+    bar.append(rst);
+    const expX=el('button','btn mini','Excel (XLSX)');
+    expX.title='Exportiert die aktuell gefilterte Übersicht als echte Excel-Datei';
+    expX.addEventListener('click',()=>exportOverviewXLSX());
+    bar.append(expX);
+    const exp=el('button','btn sec2 mini','CSV');
+    exp.title='Exportiert die aktuell gefilterte Übersicht als CSV-Datei (Semikolon-getrennt)';
+    exp.addEventListener('click',()=>exportOverviewCSV());
+    bar.append(exp);
+    if(state.fltDis||state.fltKl){
+      bar.append(Object.assign(el('span','fltactive'),{textContent:'Aktive Filter: '+[state.fltDis,state.fltKl].filter(Boolean).join(' · ')}));
+    }
+    fc.append(bar);
+    main.append(fc);
+  }
+  const DISORD=['Kürlaufen','Paarlauf','Solotanz','Rolltanz','Inline'];
+  const KLORD=['Senioren','Junioren','Youth','Cadets','Espoir','Minis','Tots'];
+  const OLDER=new Set(['Senioren','Junioren','Youth','Cadets']);
+  // je (Athlet, Disziplin) eine Zeile; Klasse = letzte Klasse in der Disziplin
+  const entries=[];
+  KADER.forEach(kd=>{
+    const rows=rowsOf(kd.name);
+    // strikte Trennung: gelistet wird nur die Disziplin, in der in der letzten aktiven Saison gestartet wurde
+    const lastY=rows.length?rows.map(r=>r.datum.slice(0,4)).sort().pop():null;
+    const disCur=[...new Set(rows.filter(r=>r.datum.startsWith(lastY||'')).map(r=>r.dis))];
+    disCur.forEach(dis=>{
+      const rel=rows.filter(r=>r.dis===dis);
+      const cc=currentClassOf(rows,dis);
+      entries.push({kd,dis,klasse:cc.klasse,gender:cc.gender,rel});
+    });
+    if(!rows.length)entries.push({kd,dis:null,klasse:null,gender:'',rel:[]});
+  });
+  DISORD.forEach(dis=>{
+    if(state.fltDis&&dis!==state.fltDis)return;
+    let es=entries.filter(e=>e.dis===dis);
+    if(state.fltKl)es=es.filter(e=>e.klasse===state.fltKl);
+    if(!es.length)return;
+    es.sort((a,b)=>{
+      const ba=OLDER.has(a.klasse)?0:1, bb=OLDER.has(b.klasse)?0:1;
+      if(ba!==bb)return ba-bb;
+      const ka=KLORD.indexOf(a.klasse), kb=KLORD.indexOf(b.klasse);
+      if(ka!==kb)return ka-kb;
+      return a.kd.name.localeCompare(b.kd.name,'de');
+    });
+    const c2=el('div','card');
+    c2.append(el('h2',null,(dis==='Kürlaufen'?'Kürlaufen (Einzel)':dis)+' ('+es.length+')'));
+    const tb=el('table');const th=el('tr');
+    tb.className='ovtab';
+    [['Athlet/in',null],['Klasse',null],['2023','starts'],['2024','starts'],['2025','starts'],['2026','starts'],['Bester TES 2026','best'],['Prognose (EM · WM · EC · IL)','prog'],['Trend','trend']].forEach(([x,g])=>th.append(thI(x,g)));tb.append(th);
+    let lastBlock=null;
+    es.forEach(e=>{
+      const block=OLDER.has(e.klasse)?0:1;
+      if(lastBlock!==null&&block!==lastBlock){
+        const trS=el('tr');const tdS=el('td','sec','— jüngere Klassen (Espoir / Minis / Tots) —');tdS.colSpan=7;tdS.style.textAlign='center';tdS.style.color='var(--ink-3)';trS.append(tdS);tb.append(trS);
+      }
+      lastBlock=block;
+      const tr=el('tr','click');
+      tr.addEventListener('click',()=>{state.athlet=e.kd.name;render();window.scrollTo({top:0});});
+      rowNav(tr,'Athletenprofil von '+e.kd.name+' öffnen');
+      const tdn=el('td');tdn.append(el('strong',null,e.kd.name));
+      const gShow=(GRUPPE_DIS[e.kd.name]&&GRUPPE_DIS[e.kd.name][e.dis])||e.kd.gruppe;
+      if(gShow)tdn.append(el('div','yrcell',gShow));
+      {
+        const others=entries.filter(x=>x.kd===e.kd&&x.dis&&x.dis!==e.dis).map(x=>x.dis);
+        if(others.length){
+          const o=el('div','yrcell','startet auch: '+others.join(', '));
+          o.style.color='var(--s1)';o.style.fontWeight='600';
+          o.title='Doppelstarter – erscheint in jedem Disziplin-Bereich mit ausschließlich den dortigen Ergebnissen.';
+          tdn.append(o);
+        }
+      }
+      tr.append(tdn);
+      tr.append(el('td','sec',(e.klasse||'–')+(e.gender?' '+e.gender:'')));
+      ['2023','2024','2025','2026'].forEach(y=>{
+        const yr=e.rel.filter(r=>r.datum.startsWith(y));
+        const td=el('td','yrcell');
+        if(!yr.length)td.textContent='–';
+        else {
+          let bestP=null;
+          yr.forEach(r=>{if(r.platz!=null&&(bestP==null||r.platz<bestP))bestP=r.platz;});
+          let marked=false;
+          yr.forEach(r=>{
+            const d=el('div');
+            const isBest=!marked&&bestP!=null&&r.platz===bestP; if(isBest)marked=true;
+            d.append(document.createTextNode(shortEv(r.ev)+' '));
+            if(r.platz!=null){
+              const ps=el('span',null,'P'+r.platz);
+              if(isBest){ps.style.color='var(--s1)';ps.style.fontWeight='700';}
+              d.append(ps);
+            }
+            if(r.tes!=null&&r.tesOk!==false)d.append(document.createTextNode(' · '+fmt(r.tes)));
+            d.title=r.ev+' ('+r.klasse+(r.gender?' '+r.gender:'')+')'+(r.total?' · Gesamt '+fmt(r.total):'')+(isBest?' · beste Platzierung des Jahres':'');
+            if(r.herkunft==='international')d.style.fontWeight='600';
+            td.append(d);
+          });
+        }
+        tr.append(td);
+      });
+      let bRef=null;
+      e.rel.forEach(r=>{if(r.tes!=null&&r.tesOk!==false&&r.datum.startsWith('2026')&&(bRef==null||r.tes>bRef.tes))bRef=r;});
+      tr.append(el('td','num',bRef?fmt(bRef.tes)+(bRef.herkunft==='international'?' (int.)':' (nat.)'):'–'));
+      tr.append(el('td','prog',bRef?projShort(bRef.dis,bRef.klasse,bRef.gender,bRef.tes):'–'));
+      const y26=(()=>{let b=null;e.rel.forEach(r=>{if(r.tes!=null&&r.tesOk!==false&&r.datum.startsWith('2026')&&(b==null||r.tes>b))b=r.tes;});return b;})();
+      const y25=(()=>{let b=null;e.rel.forEach(r=>{if(r.tes!=null&&r.tesOk!==false&&r.datum.startsWith('2025')&&(b==null||r.tes>b))b=r.tes;});return b;})();
+      if(y26!=null&&y25!=null){
+        tr.append(el('td','num',(y26>y25?'▲ +':'▼ ')+fmt(Math.round((y26-y25)*100)/100)));
+      } else {
+        // kein Vorjahr: Verlauf innerhalb des letzten belegten Jahres (erster → letzter vollständiger TES)
+        const yr=[...e.rel].filter(r=>r.tes!=null&&r.tesOk!==false);
+        const lastY=yr.length?yr[yr.length-1].datum.slice(0,4):null;
+        const inY=yr.filter(r=>r.datum.startsWith(lastY||''));
+        if(inY.length>=2){
+          const d=Math.round((inY[inY.length-1].tes-inY[0].tes)*100)/100;
+          const td=el('td','num',(d>=0?'▲ +':'▼ ')+fmt(d)+' ('+lastY+')');
+          td.title='Kein Vorjahreswert – Verlauf innerhalb '+lastY+': '+fmt(inY[0].tes)+' ('+shortEv(inY[0].ev)+') → '+fmt(inY[inY.length-1].tes)+' ('+shortEv(inY[inY.length-1].ev)+')';
+          tr.append(td);
+        } else tr.append(el('td','num','–'));
+      }
+      tb.append(tr);
+    });
+    c2.append(tb);
+    main.append(c2);
+  });
+  main.append(Object.assign(el('p','note'),{textContent:'Reihenfolge: je Disziplin erst die Klassen Senioren–Cadets, danach Espoir/Minis/Tots; Klasse = zuletzt gelaufene Klasse in der Disziplin. Jahres-Spalten: alle Starts chronologisch mit Platzierung und vollständigem TES (fett = international; blau = beste Platzierung des Jahres; ohne TES-Angabe = Segment-Summe unvollständig; Details per Mauszeiger). Prognose: rechnerische Platzierung des besten TES 2026 gegen die 3-Jahres-Referenzkurven – EM = Europameisterschaft, WM = Weltmeisterschaft, EC = Europa Cup, IL = Interland Cup; „>n“ = unterhalb des letzten gewerteten Platzes; Prognose = rechnerische Prognose auf Basis historischer Referenzwerte (Details per ⓘ), nur für startberechtigte Wettbewerbe (WM nur Junioren/Senioren, EM ab Cadets, Europa Cup/Interland alle Klassen); maßgeblich ist immer die Startkategorie des jeweiligen Jahres; nationale TES sind formatgleich (Kennzeichnung „nat.“ in der TES-Spalte). Athleten erscheinen nur in den Disziplinen, in denen sie in ihrer letzten aktiven Saison gestartet sind (strikte Trennung; frühere Disziplinen bleiben im Athletenprofil sichtbar). Mehrfachstarter – z. B. Solotanz + Kürlaufen in derselben Saison – erscheinen je Disziplin getrennt ausgewertet, inkl. Einzel/Paar-Trennung. TES-Trend: bester vollständiger TES 2026 vs. 2025 in der Disziplin.'}));
+}
+/* ---- Athletenprofil ---- */
+
+/* Entwicklungs-Zusammenfassung je Athlet (rein datenbasiert) */
+function buildSummary(rows){
+  const pos=[],neg=[],hin=[];
+  const disList=[...new Set(rows.map(r=>r.dis))];
+  disList.forEach(dis=>{
+    const rel=rows.filter(r=>r.dis===dis);
+    const pfx=disList.length>1?dis+': ':'';
+    // Jahres-Bestwerte (vollständige TES)
+    const yb={},ybr={};
+    rel.forEach(r=>{if(r.tes!=null&&r.tesOk!==false){const y=r.datum.slice(0,4);if(yb[y]==null||r.tes>yb[y]){yb[y]=r.tes;ybr[y]=r;}}});
+    const years=Object.keys(yb).sort();
+    // TES-Trend letzte zwei belegte Jahre
+    if(years.length>=2){
+      const y1=years[years.length-2],y2=years[years.length-1];
+      const d=Math.round((yb[y2]-yb[y1])*100)/100;
+      const klWechsel=ybr[y1].klasse!==ybr[y2].klasse;
+      const kw=klWechsel?' (Klassenwechsel '+ybr[y1].klasse+' → '+ybr[y2].klasse+', andere Faktoren möglich)':'';
+      if(d>=2)pos.push(pfx+'TES-Bestwert '+y2+' um +'+fmt(d)+' über '+y1+' ('+fmt(yb[y1])+' → '+fmt(yb[y2])+')'+kw);
+      else if(d<=-2)neg.push(pfx+'TES-Bestwert '+y2+' um '+fmt(d)+' unter '+y1+' ('+fmt(yb[y1])+' → '+fmt(yb[y2])+')'+kw);
+      else hin.push(pfx+'TES-Bestwert stabil ('+y1+': '+fmt(yb[y1])+' · '+y2+': '+fmt(yb[y2])+')'+kw);
+    }
+    // Rechnerische EM-Einordnung im Jahresvergleich (misst Entwicklung unabhängig vom Klassenwechsel)
+    if(years.length>=2){
+      const proj=y=>{const r=ybr[y];const cv=curve('EM',r.dis,r.klasse,r.gender,'tes');if(!cv)return null;const p=project(cv,String(r.tes));return p?(p.platz!=null?p.platz:cv.pts[cv.pts.length-1].platz+1):null;};
+      const y1=years[years.length-2],y2=years[years.length-1];
+      const p1=proj(y1),p2=proj(y2);
+      if(p1!=null&&p2!=null){
+        if(p2<p1)pos.push(pfx+'rechnerische EM-Einordnung: Platz '+p1+' ('+y1+') → Platz '+p2+' ('+y2+')');
+        else if(p2>p1)neg.push(pfx+'rechnerische EM-Einordnung: Platz '+p1+' ('+y1+') → Platz '+p2+' ('+y2+')');
+      }
+    }
+    // DM-Platzierung im Jahresvergleich
+    const dmY={};
+    rel.forEach(r=>{if(r.ev.startsWith('Deutsche Meisterschaften')&&r.platz!=null)dmY[r.datum.slice(0,4)]=r.platz;});
+    const dys=Object.keys(dmY).sort();
+    if(dys.length>=2){
+      const a=dys[dys.length-2],b=dys[dys.length-1];
+      if(dmY[b]<dmY[a])pos.push(pfx+'DM-Platzierung: '+dmY[a]+'. ('+a+') → '+dmY[b]+'. ('+b+')');
+      else if(dmY[b]>dmY[a])neg.push(pfx+'DM-Platzierung: '+dmY[a]+'. ('+a+') → '+dmY[b]+'. ('+b+')');
+    }
+    // Internationale PCS-Entwicklung
+    const pcsY={};
+    rel.forEach(r=>{if(r.herkunft==='international'&&r.pcs!=null&&r.tesOk!==false){const y=r.datum.slice(0,4);if(pcsY[y]==null||r.pcs>pcsY[y])pcsY[y]=r.pcs;}});
+    const pys=Object.keys(pcsY).sort();
+    if(pys.length>=2){
+      const a=pys[pys.length-2],b=pys[pys.length-1];
+      const d=Math.round((pcsY[b]-pcsY[a])*100)/100;
+      if(d>=1.5)pos.push(pfx+'Components international: '+fmt(pcsY[a])+' ('+a+') → '+fmt(pcsY[b])+' ('+b+')');
+      else if(d<=-1.5)neg.push(pfx+'Components international: '+fmt(pcsY[a])+' ('+a+') → '+fmt(pcsY[b])+' ('+b+')');
+    }
+    // Abzüge im Jahresvergleich
+    const abzAvg=y=>{const rs=rel.filter(r=>r.datum.startsWith(y)&&r.abzuege!=null);return rs.length?Math.round(rs.reduce((s,r)=>s+r.abzuege,0)/rs.length*100)/100:null;};
+    if(years.length>=2){
+      const y1=years[years.length-2],y2=years[years.length-1];
+      const a1=abzAvg(y1),a2=abzAvg(y2);
+      if(a1!=null&&a2!=null){
+        if(a2<=a1-0.5)pos.push(pfx+'Abzüge je Start: Ø '+fmt(a1)+' ('+y1+') → Ø '+fmt(a2)+' ('+y2+')');
+        else if(a2>=a1+0.5)neg.push(pfx+'Abzüge je Start: Ø '+fmt(a1)+' ('+y1+') → Ø '+fmt(a2)+' ('+y2+')');
+      }
+    }
+    if(years.length===1){
+      const inY=rel.filter(r=>r.tes!=null&&r.tesOk!==false&&r.datum.startsWith(years[0]));
+      if(inY.length>=2){
+        const d=Math.round((inY[inY.length-1].tes-inY[0].tes)*100)/100;
+        const txt=pfx+'Verlauf innerhalb '+years[0]+': '+fmt(inY[0].tes)+' ('+shortEv(inY[0].ev)+') → '+fmt(inY[inY.length-1].tes)+' ('+shortEv(inY[inY.length-1].ev)+')';
+        if(d>=2)pos.push(txt); else if(d<=-2)neg.push(txt); else hin.push(txt);
+      }
+    }
+    if(!years.some(y=>y==='2026'))hin.push(pfx+'kein vollständiger TES 2026 im Datenbestand');
+  });
+  return {pos,neg,hin};
+}
+
+const SEGNAME={'Short Program':'Kurzprogramm','Long Program':'Kür','Free Program':'Kür','Free Skating':'Kür','Style Dance':'Style Dance','Free Dance':'Free Dance','Compulsory Dance':'Pflichttanz','Compulsory 1':'Pflichttanz 1','Compulsory 2':'Pflichttanz 2'};
+const EXPECTED={'Kürlaufen':'Kurzprogramm + Kür','Solotanz':'Style Dance + Free Dance (Espoir/Minis: Pflichttänze + Free Dance)','Rolltanz':'Style Dance + Free Dance','Paarlauf':'Kurzprogramm + Kür'};
+function rechenwegBox(r){
+  const box=el('div');
+  box.append(el('p','statline','Rechenweg (offizielles RollArt-Protokoll):'));
+  let sumNet=0, sumRaw=0, sumDed=0, sumPcs=0;
+  r.segs.forEach(s=>{
+    const label=SEGNAME[s.seg]||s.seg||'Programm';
+    const net=Math.round((s.tes-s.ded)*100)/100;
+    sumNet+=net; sumRaw+=s.tes; sumDed+=s.ded; sumPcs+=s.pcs;
+    box.append(el('p','sec',label+': Technische Elemente '+fmt(s.tes)+(s.ded>0?' − Abzug '+fmt(s.ded):' − Abzug 0')+' = TES '+fmt(net)+'  ·  Components '+fmt(s.pcs)+'  ·  Segment-Total '+fmt(Math.round((s.tes+s.pcs-s.ded)*100)/100)+' (lt. Protokoll)'));
+  });
+  sumNet=Math.round(sumNet*100)/100; sumRaw=Math.round(sumRaw*100)/100; sumDed=Math.round(sumDed*100)/100; sumPcs=Math.round(sumPcs*100)/100;
+  box.append(el('p','sec','Gesamt-TES: '+r.segs.map(s=>fmt(Math.round((s.tes-s.ded)*100)/100)).join(' + ')+' = '+fmt(sumNet)));
+  if(r.tes!=null&&Math.abs(sumNet-r.tes)>0.02)
+    box.append(el('p','sec','Hinweis: Der ausgewiesene TES ('+fmt(r.tes)+') ist über die Identität Gesamtwertung − PCS abgesichert; die Segment-Summe weicht um '+fmt(Math.round(Math.abs(sumNet-r.tes)*100)/100)+' ab (z. B. Rundung/REVISED-Protokoll).'));
+  box.append(el('p','sec','Components (PCS): '+r.segs.map(s=>fmt(s.pcs)).join(' + ')+' = '+fmt(sumPcs)+' – die offiziellen RollArt-Component-Werte je Programm enthalten den Programm-Faktor bereits.'));
+  if(r.total!=null&&r.tes!=null&&r.pcs!=null)
+    box.append(el('p','sec','Kontrolle: TES '+fmt(r.tes)+' + PCS '+fmt(r.pcs)+' = Gesamt '+fmt(Math.round((r.tes+r.pcs)*100)/100)+(Math.abs(r.tes+r.pcs-r.total)<=0.03?' ✓':' ≠ '+fmt(r.total)+' ⚠')));
+  if(r.tesOk===false)
+    box.append(el('p','sec','⚠ Unvollständig: erwartet werden '+(EXPECTED[r.dis]||'2 Programme')+'; im Datenbestand: '+r.segs.map(s=>SEGNAME[s.seg]||s.seg||'?').join(', ')+'. Der Wert fließt nicht in Auswertungen ein.'));
+  return box;
+}
+function renderProfilA(name){
+  const back=el('button','back','← zurück zur Kaderliste');
+  back.addEventListener('click',()=>{state.athlet='';state.search='';render();});
+  const prt=el('button','back','Athletenblatt drucken / PDF');
+  prt.style.marginLeft='8px';
+  prt.title='Druckt die aktuelle Profilansicht bzw. speichert sie über den Druckdialog als PDF (ohne Kopf- und Fußbereich).';
+  prt.addEventListener('click',()=>window.print());
+  main.append(back,prt);
+  const rows=rowsOf(name);
+  const kd=KADER.find(k=>k.name===name);
+  const head=el('div','card');
+  const hh=el('div','athlete-head');
+  const left=el('div');left.append(el('div','nm',name));
+  const meta=[kd?kd.gruppe:null,kd?kd.lv:null].filter(Boolean).join(' · ');
+  if(meta)left.append(el('div','sec',meta));
+  hh.append(left);
+  const bd=el('div');
+  const nInt=rows.filter(r=>r.herkunft==='international').length;
+  bd.append(el('span','badge',rows.length+' Starts 2023–2026'));
+  bd.append(el('span','badge',nInt+' international'));
+  const s1=rows.filter(r=>r.platz===1).length;
+  if(s1)bd.append(el('span','badge gold',s1+'× Platz 1'));
+  hh.append(bd);head.append(hh);
+  /* Saison-Historie: Klasse je Jahr, Klassenwechsel, int./nat. Starts */
+  {
+    const years=[...new Set(rows.map(r=>r.datum.slice(0,4)))].sort();
+    if(years.length){
+      const chips=el('div','chips');
+      let prevKl=null;
+      years.forEach(y=>{
+        const yr=rows.filter(r=>r.datum.startsWith(y));
+        const kls=[...new Set(yr.map(r=>r.klasse))];
+        const kl=kls.join('/');
+        const nI=yr.filter(r=>r.herkunft==='international').length, nN=yr.length-nI;
+        const c=el('span','chip');
+        c.innerHTML='<b>'+esc(y)+'</b> '+esc(kl)+(prevKl&&kl!==prevKl?' ↗':'')+' · '+yr.length+' Start'+(yr.length>1?'s':'')+' ('+nI+' int. / '+nN+' nat.)';
+        if(prevKl&&kl!==prevKl)c.title='Klassenwechsel gegenüber Vorsaison ('+prevKl+' → '+kl+') – andere Programm-Faktoren möglich.';
+        chips.append(c);
+        prevKl=kl;
+      });
+      head.append(chips);
+    }
+  }
+  if(!kd)head.append(el('p','note','Athlet/in außerhalb des Kaders – dargestellt werden alle im Datenbestand vorhandenen Ergebnisse.'));
+  const rel=relatedEntries(name);
+  if(rel.length){
+    const p=el('p','sec');
+    p.append(document.createTextNode((name.includes(' / ')?'Einzelprofile der Partner: ':'Startet zusätzlich im Paar – Ergebnisse dort getrennt geführt: ')));
+    rel.forEach((rn,i)=>{
+      if(i)p.append(document.createTextNode(' · '));
+      const a=el('a',null,rn);a.href='javascript:void(0)';a.style.fontWeight='600';
+      a.addEventListener('click',()=>{state.athlet=rn;render();window.scrollTo({top:0});});
+      p.append(a);
+    });
+    head.append(p);
+  }
+  main.append(head);
+  if(!rows.length){main.append(Object.assign(el('div','card'),{textContent:'Keine Ergebnisse im Datenbestand.'}));return;}
+  /* strikte Disziplin-Trennung: Primär-Disziplin (laut Kader-Gruppe) zuerst, dann feste Reihenfolge */
+  const PRIM=(g=>{g=(g||'').toLowerCase();
+    if(g.includes('solo'))return 'Solotanz';
+    if(g.includes('kür')||g.includes('kuer'))return 'Kürlaufen';
+    if(g.includes('rolltanz')||g.includes('tanz'))return 'Rolltanz';
+    if(g.includes('paar'))return 'Paarlauf';
+    return null;})(kd?kd.gruppe:null);
+  const ORD=['Solotanz','Rolltanz','Kürlaufen','Paarlauf','Inline'];
+  const disList=[...new Set(rows.map(r=>r.dis))].sort((a,b)=>{
+    if(PRIM){if(a===PRIM&&b!==PRIM)return -1;if(b===PRIM&&a!==PRIM)return 1;}
+    return ORD.indexOf(a)-ORD.indexOf(b);
+  });
+  disList.forEach(dis=>{
+    const rel=rows.filter(r=>r.dis===dis);
+    const card=el('div','card');
+    card.append(el('h2',null,dis+' – Entwicklung ('+rel.length+' Starts)'));
+    const cc=currentClassOf(rows,dis);
+    const klJahre=[...new Set(rel.map(r=>r.datum.slice(0,4)))].sort().map(y=>{
+      const rr=rel.filter(r=>r.datum.startsWith(y)); return y+' '+rr[rr.length-1].klasse; });
+    card.append(el('p','sec','Klassen-Verlauf: '+klJahre.join(' · ')+' – unterschiedliche Faktoren je Altersklasse können Punktsprünge erklären.'));
+    {
+      const y26=rel.filter(r=>r.tes!=null&&r.tesOk!==false&&r.datum.startsWith('2026')).map(r=>r.tes);
+      if(y26.length>=3){
+        const m=y26.reduce((a,b)=>a+b,0)/y26.length;
+        const sd=Math.sqrt(y26.reduce((a,b)=>a+(b-m)*(b-m),0)/y26.length);
+        const p=el('p','sec','Konstanz 2026: σ '+fmt(Math.round(sd*100)/100)+' bei Ø '+fmt(Math.round(m*100)/100)+' über '+y26.length+' vollständige Starts – je kleiner σ, desto konstanter.');
+        p.append(infoI('konst'));
+        card.append(p);
+      }
+    }
+    const b26=bestIntTes(rel,2026)||bestIntTes(rel,2025);
+    if(b26){
+      const p=el('p','statline');
+      p.innerHTML='Bester internationaler TES '+b26.datum.slice(0,4)+': <b>'+fmt(b26.tes)+'</b> ('+esc(b26.klasse+(b26.gender?' '+b26.gender:''))+', '+esc(b26.ev)+') – rechnerische Prognose: '+esc(projText(b26.dis,b26.klasse,b26.gender,b26.tes));
+      card.append(p);
+      let bAll=null;
+      rel.forEach(r=>{if(r.tes!=null&&r.tesOk!==false&&r.datum.startsWith(b26.datum.slice(0,4))&&(bAll==null||r.tes>bAll.tes))bAll=r;});
+      if(bAll&&bAll.tes>b26.tes+0.005){
+        const p2=el('p','statline');
+        p2.innerHTML='Saison-Höchstwert '+bAll.datum.slice(0,4)+': <b>'+fmt(bAll.tes)+'</b> ('+esc(bAll.ev)+', national, zeitlich nach dem internationalen Start) – rechnerische Prognose dieses Wertes: '+esc(projText(bAll.dis,bAll.klasse,bAll.gender,bAll.tes));
+        card.append(p2);
+      }
+      if(b26.pcs!=null)card.append(el('p','sec','Components dazu (international): '+fmt(b26.pcs)+' – PCS-Vergleich: '+(function(){const cv=curve('EM',b26.dis,b26.klasse,b26.gender,'pcs');const pr=cv?project(cv,String(b26.pcs)):null;return pr&&pr.platz!=null?'entspricht dem historischen EM-Referenzwert (PCS) von Platz '+pr.platz:'–';})()));
+    }
+    /* Benchmark-Verlauf: je Jahr bester TES und internationale Einordnung */
+    const years=[...new Set(rel.map(r=>r.datum.slice(0,4)))].sort();
+    if(years.length){
+      const tbY=el('table');const thY=el('tr');
+      [['Jahr',null],['Klasse',null],['Bester TES (vollständig)','tes'],['Quelle',null],['Beste Platzierung int.',null],['Beste Platzierung nat.',null],['Rechnerische Prognose (hist. Referenzkurven)','prog']].forEach(([x,g])=>thY.append(thI(x,g)));tbY.append(thY);
+      years.forEach(y=>{
+        let best=null;
+        rel.forEach(r=>{if(r.datum.startsWith(y)&&r.tes!=null&&r.tesOk!==false&&(best==null||r.tes>best.tes))best=r;});
+        const yr=rel.filter(r=>r.datum.startsWith(y)&&r.platz!=null);
+        let bi=null,bn=null;
+        yr.forEach(r=>{
+          if(r.herkunft==='international'){if(!bi||r.platz<bi.platz)bi=r;}
+          else {if(!bn||r.platz<bn.platz)bn=r;}
+        });
+        if(!best&&!bi&&!bn)return;
+        const tr=el('tr');
+        tr.append(el('td','num',y));
+        const kref=best||bi||bn;
+        tr.append(el('td','sec',kref.klasse+(kref.gender?' '+kref.gender:'')));
+        tr.append(el('td','num',best?fmt(best.tes):'–'));
+        tr.append(el('td','sec',best?(best.ev+(best.herkunft==='national'?' (national)':'')):'–'));
+        tr.append(el('td','sec',bi?('Platz '+bi.platz+' · '+shortEv(bi.ev)):'–'));
+        tr.append(el('td','sec',bn?('Platz '+bn.platz+' · '+shortEv(bn.ev)):'–'));
+        tr.append(el('td','sec',best?projText(best.dis,best.klasse,best.gender,best.tes):'–'));
+        tbY.append(tr);
+      });
+      const bx=el('div');bx.append(el('p','statline','Referenzwert-Verlauf – bester TES je Jahr im internationalen Vergleich:'));
+      bx.append(tbY);
+      bx.append(el('p','note','Einordnung jeweils gegen die aktuellen internationalen Referenzkurven (Ø je Platz, letzte 3 Jahre, erste 80 % des Feldes) der Klasse, in der der Jahres-Bestwert erzielt wurde – so ist die Entwicklung über Klassenwechsel hinweg am heutigen internationalen Niveau ablesbar. Nationale TES sind formatgleich (RollArt) und daher direkt vergleichbar; Components fließen nur international ein.'));
+      card.append(bx);
+    }
+    const pts=rel.filter(r=>r.tes!=null&&r.tesOk!==false).map(r=>({x:new Date(r.datum).getTime(),y:r.tes,sub:r.ev}));
+    const ptsT=rel.filter(r=>r.total!=null).map(r=>({x:new Date(r.datum).getTime(),y:r.total,sub:r.ev}));
+    const ptsP=rel.filter(r=>r.pcs!=null&&r.tesOk!==false&&r.herkunft==='international').map(r=>({x:new Date(r.datum).getTime(),y:r.pcs,sub:r.ev}));
+    if(pts.length>=2||ptsT.length>=2){
+      const lg=el('div','legend');
+      [['Technical Score','var(--s1)'],['Gesamtwertung','var(--deemph)'],['Components (nur int.)','var(--s2)']].forEach(([l,col])=>{const li=el('span');const sw=el('span','sw');sw.style.background=col;li.append(sw,document.createTextNode(l));lg.append(li);});
+      card.append(lg);
+      const series=[];
+      if(ptsT.length)series.push({name:'Gesamtwertung',color:'var(--deemph)',pts:ptsT});
+      if(pts.length)series.push({name:'Technical Score',color:'var(--s1)',pts:pts});
+      if(ptsP.length)series.push({name:'Components (int.)',color:'var(--s2)',dash:true,pts:ptsP});
+      card.append(lineChart(series,{unit:'Pkt.',xFmt:v=>new Date(v).toLocaleDateString('de-DE',{month:'short',year:'2-digit'})}));
+      card.append(el('p','note','Diagramm: zeitlicher Verlauf der Wettkampfwerte dieser Disziplin (Punkte je Start, 2023–2026, offizielle Protokolle). Lesart: Jeder Punkt ist ein einzelnes Wettkampfergebnis; Sprünge können durch Klassenwechsel und unterschiedliche Programm-Faktoren entstehen. Rein deskriptive Darstellung.'));
+    }
+    main.append(card);
+  });
+  disList.forEach(disT=>{
+  const rowsD=rows.filter(r=>r.dis===disT);
+  if(!rowsD.length)return;
+  const card=el('div','card');
+  {
+    const h=el('h2',null,'Alle Ergebnisse – '+disT+' (chronologisch)');
+    const exX=el('button','btn sec2 mini','Excel');
+    exX.title='Alle Ergebnisse dieses Profils als Excel-Datei exportieren (alle Disziplinen)';
+    exX.addEventListener('click',()=>exportAthletXLSX(name));
+    const ex=el('button','btn sec2 mini','CSV');
+    ex.title='Alle Ergebnisse dieses Profils als CSV exportieren (alle Disziplinen)';
+    ex.addEventListener('click',()=>exportAthletCSV(name));
+    h.append(exX,ex); card.append(h);
+  }
+  const tb=el('table');const trh=el('tr');
+  [['Datum',null],['Wettbewerb',null],['Klasse',null],['Platz',null],['TES (abz. Abzüge)','tes'],['Abzüge','abz'],['PCS (int.)','pcs'],['Gesamt','total'],['Rechenweg',null]].forEach(([x,g])=>trh.append(thI(x,g)));tb.append(trh);
+  rowsD.forEach(r=>{const tr=el('tr');
+    tr.append(el('td',null,new Date(r.datum).toLocaleDateString('de-DE',{year:'numeric',month:'long'})));
+    tr.append(el('td',null,r.ev));
+    tr.append(el('td','sec',r.klasse+(r.gender?' '+r.gender:'')));
+    tr.append(el('td','num',(r.platz!=null?r.platz:'–')+' / '+r.feld));
+    tr.append(el('td','num',r.tes!=null?(fmt(r.tes)+(r.tesOk===false?' ¹':'')):'–'));
+    tr.append(el('td','num',r.abzuege!=null?(r.abzuege>0?'−'+fmt(r.abzuege):'0'):'–'));
+    tr.append(el('td','num',r.herkunft==='international'&&r.pcs!=null?(fmt(r.pcs)+(r.tesOk===false?' ¹':'')):'–'));
+    tr.append(el('td','num',fmt(r.total)));
+    const tdD=el('td','sec');
+    if(r.segs&&r.segs.length){
+      const a=el('a',null,'anzeigen');a.href='javascript:void(0)';
+      let open=null;
+      a.addEventListener('click',()=>{
+        if(open){open.remove();open=null;a.textContent='anzeigen';return;}
+        open=el('tr');const td=el('td','calc');td.colSpan=9;
+        td.append(rechenwegBox(r));
+        open.append(td);tr.after(open);a.textContent='schließen';
+      });
+      tdD.append(a);
+    } else if(r.tesOk===false){ tdD.textContent='unvollständig'; tdD.title='Nicht alle Programm-Protokolle im Datenbestand – Details siehe Datenqualität.'; }
+    else tdD.textContent='–';
+    tr.append(tdD);
+    tb.append(tr);});
+  card.append(tb);
+  if(disT===disList[disList.length-1])card.append(el('p','note','TES = Summe der technischen Segment-Wertungen abzüglich der Abzüge (Vorgabe Sportkommission); PCS = Summe der Components aus beiden Programmen. ¹ = unvollständig (nicht alle Segment-Protokolle im Datenbestand) – fließt nicht in Auswertungen ein. PCS nur bei internationalen Wettbewerben. Platz „– / n“ = Finale nicht erreicht. Disziplinen werden strikt getrennt geführt. Achtung bei Jahresvergleichen: in den Altersklassen gelten teils unterschiedliche Faktoren – Punktsprünge beim Klassenwechsel sind darüber erklärbar.'));
+  main.append(card);
+  });
+  /* Zusammenfassung der Entwicklung */
+  {
+    const s=buildSummary(rows);
+    const cz=el('div','card');
+    cz.append(el('h2',null,'Zusammenfassung – Entwicklung (datenbasiert)'));
+    if(s.pos.length){
+      const h=el('p','statline');h.textContent='▲ Anstiege gegenüber dem Vorzeitraum (Datenvergleich)';cz.append(h);
+      s.pos.forEach(x=>cz.append(el('p','sec','▲ '+x)));
+    }
+    if(s.neg.length){
+      const h=el('p','statline');h.textContent='▼ Rückgänge gegenüber dem Vorzeitraum (Datenvergleich)';cz.append(h);
+      s.neg.forEach(x=>cz.append(el('p','sec','▼ '+x)));
+    }
+    if(!s.pos.length&&!s.neg.length)cz.append(el('p','sec','Keine auffälligen Veränderungen zwischen den letzten beiden belegten Jahren.'));
+    if(s.hin.length){
+      cz.append(el('p','statline','Hinweise'));
+      s.hin.forEach(x=>cz.append(el('p','sec','· '+x)));
+    }
+    {
+      const pn=el('div','printonly');
+      pn.textContent='DRIV Rollkunstlauf – Leistungsdaten-Analyse v'+VERSION+' · Datenstand '+BUILD+' · Athletenblatt: '+name+' · Statistische Auswertung historischer Wettkampfdaten aus offiziellen RollArt-Protokollen. Enthaltene Prognosen sind rein rechnerische Ableitungen aus historischen Referenzwerten – keine Garantie, keine sportfachliche Bewertung, keine Empfehlung für Kader-, Förder- oder Nominierungsentscheidungen. Methodik: 3-Jahres-Referenzkurven, erste 80 % des Feldes; TES = technische Elemente − Abzüge.';
+      cz.append(pn);
+    }
+    cz.append(el('p','note','Automatisch aus den Jahres-Bestwerten der letzten beiden belegten Jahre abgeleitet (TES, rechnerische EM-Einordnung, DM-Platzierung, internationale Components, Abzüge je Start). ▲/▼ bezeichnen ausschließlich die Richtung der Veränderung der Kennzahl, keine Bewertung. Bei Klassenwechseln gelten teils andere Faktoren; die EM-Einordnung vergleicht deshalb jeweils gegen die Referenzkurve der gelaufenen Klasse.'));
+    main.append(cz);
+  }
+}
+/* ---- Athleten-Vergleich ---- */
+function renderVergleich(){
+  const idx=athletIndex();
+  const names=[...idx.keys()].sort((a,b)=>a.localeCompare(b,'de'));
+  const c=el('div','card');
+  c.append(el('h2',null,'Athleten-Vergleich'));
+  c.append(el('p','sec','Bis zu drei Athleten direkt vergleichen: Verlauf des Technical Scores (bzw. Gesamtwertung / Components) über die Zeit sowie die wichtigsten Kennzahlen nebeneinander. Kaderathleten werden über alle Schreibweisen zusammengeführt; auch Nicht-Kader-Athleten aus dem Datenbestand sind wählbar.'));
+  const row=el('div','row');
+  const dl=el('datalist');dl.id='cmpnames';
+  KADER.forEach(k=>{const o=el('option');o.value=k.name;dl.append(o);});
+  names.forEach(n=>{if(!KADER.some(k=>k.name===n)){const o=el('option');o.value=n;dl.append(o);}});
+  c.append(dl);
+  state.cmp.forEach((v,i)=>{
+    const w=el('div');w.append(el('label',null,'Athlet/in '+(i+1)));
+    const inp=el('input');inp.type='text';inp.setAttribute('list','cmpnames');inp.style.width='250px';inp.value=v;inp.placeholder=i<2?'Name …':'optional';
+    inp.addEventListener('change',()=>{state.cmp[i]=inp.value;render();});
+    w.append(inp);row.append(w);
+  });
+  const disAll=['(alle)','Kürlaufen','Paarlauf','Solotanz','Rolltanz'];
+  const wd=el('div');wd.append(el('label',null,'Disziplin'));
+  const sd=el('select');disAll.forEach(v=>{const o=el('option',null,v);o.value=v==='(alle)'?'':v;if((state.cmpDis||'')===o.value)o.selected=true;sd.append(o);});
+  sd.addEventListener('change',()=>{state.cmpDis=sd.value;render();});
+  wd.append(sd);row.append(wd);
+  const wm=el('div');wm.append(el('label',null,'Kennzahl'));
+  const sm=el('select');[['tes','Technical Score'],['total','Gesamtwertung'],['pcs','Components (nur int.)']].forEach(([v,l])=>{const o=el('option',null,l);o.value=v;if(v===state.cmpMetric)o.selected=true;sm.append(o);});
+  sm.addEventListener('change',()=>{state.cmpMetric=sm.value;render();});
+  wm.append(sm);row.append(wm);
+  c.append(row);main.append(c);
+  const sel=state.cmp.filter(n=>n&&(idx.has(n)||KADER.some(k=>k.name===n)));
+  if(sel.length<2)return;
+  /* strikte Disziplin-Trennung: je (Athlet × Disziplin) eine eigene Linie und Spalte */
+  const units=[];
+  sel.forEach(n=>{
+    let rows=rowsOf(n);
+    if(state.cmpDis)rows=rows.filter(r=>r.dis===state.cmpDis);
+    const diss=[...new Set(rows.map(r=>r.dis))];
+    diss.forEach(d=>{
+      units.push({label:n+(diss.length>1?' – '+d:''),name:n,dis:d,rows:rows.filter(r=>r.dis===d)});
+    });
+    if(!diss.length)units.push({label:n,name:n,dis:null,rows:[]});
+  });
+  const card=el('div','card');
+  card.append(el('h2',null,'Verlauf: '+[['tes','Technical Score'],['total','Gesamtwertung'],['pcs','Components (nur int.)']].find(x=>x[0]===state.cmpMetric)[1]));
+  const lg=el('div','legend');
+  const series=[];
+  units.forEach((u,i)=>{
+    const pts=u.rows.filter(r=>{
+      if(state.cmpMetric==='total')return r.total!=null;
+      if(state.cmpMetric==='pcs')return r.pcs!=null&&r.tesOk!==false&&r.herkunft==='international';
+      return r.tes!=null&&r.tesOk!==false;
+    }).map(r=>({x:new Date(r.datum).getTime(),y:r[state.cmpMetric],sub:r.ev+' · '+r.klasse}));
+    if(pts.length)series.push({name:u.label,color:COLORS[i%COLORS.length],pts});
+    const li=el('span');const sw=el('span','sw');sw.style.background=COLORS[i%COLORS.length];li.append(sw,document.createTextNode(u.label));lg.append(li);
+  });
+  card.append(lg);
+  if(series.length)card.append(lineChart(series,{unit:'Pkt.',xFmt:v=>new Date(v).toLocaleDateString('de-DE',{month:'short',year:'2-digit'})}));
+  card.append(el('p','note','Diagramm: zeitlicher Verlauf der gewählten Kennzahl je Athlet/in und Disziplin (jeder Punkt ein Wettkampfergebnis, 2023–2026). Lesart: Linien sind getrennt je Disziplin; Niveauunterschiede zwischen Klassen und Disziplinen sind nicht direkt vergleichbar. Rein deskriptive Gegenüberstellung.'));
+  main.append(card);
+  const c3=el('div','card');
+  c3.append(el('h2',null,'Kennzahlen im Vergleich'));
+  const tb=el('table');const th=el('tr');
+  th.append(el('th',null,'Kennzahl'));units.forEach(u=>th.append(el('th',null,u.label)));tb.append(th);
+  const rowsBy=units.map(u=>u.rows);
+  function addRow(label,fn,cls){
+    const tr=el('tr');tr.append(el('td','sec',label));
+    rowsBy.forEach(rws=>tr.append(el('td',cls||'num',fn(rws))));
+    tb.append(tr);
+  }
+  const bestOf=(rws,f)=>{let b=null;rws.forEach(r=>{const v=f(r);if(v!=null&&(b==null||v>b))b=v;});return b;};
+  addRow('Starts 2023–2026',r=>String(r.length));
+  addRow('davon international',r=>String(r.filter(x=>x.herkunft==='international').length));
+  addRow('Aktuelle Klasse',r=>{const c=currentClassOf(r);return c?c.dis+' '+c.klasse+(c.gender?' '+c.gender:''):'–';},'sec');
+  addRow('Bester TES international',r=>fmt(bestOf(r,x=>x.herkunft==='international'&&x.tesOk!==false?x.tes:null)));
+  addRow('Bester TES national',r=>fmt(bestOf(r,x=>x.herkunft==='national'&&x.tesOk!==false?x.tes:null)));
+  addRow('Beste Components international',r=>fmt(bestOf(r,x=>x.herkunft==='international'&&x.tesOk!==false?x.pcs:null)));
+  addRow('Beste Gesamtwertung',r=>fmt(bestOf(r,x=>x.total)));
+  addRow('Podiumsplätze (1–3)',r=>String(r.filter(x=>x.platz!=null&&x.platz<=3).length));
+  addRow('Konstanz 2026 (σ TES)',r=>{const v=r.filter(x=>x.tes!=null&&x.tesOk!==false&&x.datum.startsWith('2026')).map(x=>x.tes);if(v.length<3)return '–';const m=v.reduce((a,b)=>a+b,0)/v.length;return fmt(Math.round(Math.sqrt(v.reduce((a,b)=>a+(b-m)*(b-m),0)/v.length)*100)/100);},'num');
+  addRow('Rechnerische Prognose (bester TES 2026, int. oder nat.)',r=>{let b=null;r.forEach(x=>{if(x.tes!=null&&x.tesOk!==false&&x.datum.startsWith('2026')&&(b==null||x.tes>b.tes))b=x;});if(!b)b=bestIntTes(r);return b?projText(b.dis,b.klasse,b.gender,b.tes):'–';},'sec');
+  c3.append(tb);
+  c3.append(el('p','note','Disziplinen werden strikt getrennt: Athleten mit mehreren Disziplinen erscheinen je Disziplin als eigene Linie und Spalte. Bestwerte über alle Klassen 2023–2026; bei Klassenwechseln Kennzahlen im Kontext des Verlaufs-Charts lesen. Components ausschließlich aus internationalen Wettbewerben. Rein statistische Gegenüberstellung – keine Nominierungsempfehlung.'));
+  main.append(c3);
+}
+
+/* ================= Ansicht: Methodik ================= */
+function renderMethodik(){
+  const mk=(t,ps)=>{const c=el('div','card');c.append(el('h2',null,t));ps.forEach(x=>c.append(el('p','sec',x)));main.append(c);return c;};
+  mk('Datenquellen',[
+    'Sämtliche Werte stammen aus offiziellen RollArt-Ergebnisprotokollen (World Skate bzw. DRIV) der Jahre 2023–2026: Welt- und Europameisterschaften, World-Cup-Serie (Artistic International Series / Artistic World Cup), Europa Cup, Internationaler Deutschland-Pokal, Interland Cup, Deutsche Meisterschaften und DRIV-Ranglistenwettbewerbe.',
+    'Jedes Ergebnis ist über den aufklappbaren „Rechenweg“ im Athletenprofil bis auf die Programm-Ebene des Originalprotokolls nachvollziehbar. Eine automatische Validierung (Tab „Daten & Import“) prüft den kompletten Datenbestand bei jedem Aufruf.']);
+  mk('Berechnung der technischen Wertung (TES)',[
+    'TES = Summe der technischen Element-Wertungen aller Programme abzüglich der Abzüge. Die technische Endpunktzahl wird nicht aus den PDFs übernommen, sondern aus den Programm-Protokollen berechnet und über die Kontrollgleichung TES + PCS = Gesamtwertung gegen den offiziellen Endstand abgesichert.',
+    'Beispiel: Kurzprogramm 41,25 − 1,00 = 40,25 · Kür 56,80 − 2,00 = 54,80 → Gesamt-TES 95,05.',
+    'Nationale und internationale TES werden nach derselben rechnerischen RollArt-Struktur ermittelt und sind daher formal bzw. formatseitig vergleichbar. Unterschiede bei Wertungsgerichten, Teilnehmerfeldern und Wettbewerbskontexten bleiben davon unberührt; nationale Werte sind im Dashboard stets als „(nat.)“ gekennzeichnet.']);
+  mk('Berechnung der Components (PCS)',[
+    'PCS = Component-Wertung Kurzprogramm + Component-Wertung Kür (bzw. Style Dance + Free Dance). Die je Wettbewerb und Programm geltenden RollArt-Faktoren sind in den offiziellen Component-Werten der Protokolle bereits enthalten und werden unverändert übernommen – der Rechenweg weist die Werte je Programm aus.',
+    'Components werden nur aus internationalen Wettbewerben ausgewertet, da nationale Wertungsgerichte nicht einheitlich besetzt sind.']);
+  mk('Internationale Referenzwerte',[
+    'Die Referenzwerte je Platzierung sind Durchschnitte der letzten drei ausgetragenen Jahre eines Wettbewerbstyps; je Jahr fließen nur die ersten 80 % des platzierten Feldes ein. Unvollständige Segment-Summen sind ausgeschlossen und im gesamten Dashboard markiert.',
+    'Zur 80-Prozent-Grenze: Je Wettbewerb und Jahr werden die ersten 80 % des platzierten Feldes berücksichtigt. Dadurch sollen außergewöhnlich niedrige Werte am Ende großer Teilnehmerfelder die Referenzkurve nicht überproportional beeinflussen. Die 80-Prozent-Grenze ist eine methodische Festlegung dieses Dashboards und kein offizieller RollArt-, World-Skate- oder DRIV-Standard.',
+    'Die Referenzwerte sind deskriptive historische Vergleichswerte. Aufgrund der teilweise kleinen Zahl verfügbarer Wettbewerbsjahrgänge sind sie nicht als statistisch stabile Schwellen-, Mindest- oder Zielwerte zu verstehen; bei kleiner Datenbasis (n < 3) erscheint im Dashboard ein entsprechender Hinweis.',
+    'Es handelt sich ausschließlich um historische Vergleichswerte internationaler Wettbewerbe – nicht um Zielwerte, nicht um Mindestwerte und nicht um Nominierungskriterien. Die „Rechnerische Einordnung“ beschreibt, auf welchem historischen Platzierungsniveau ein Wert gelegen hätte; sie ist keine Vorhersage.',
+    'Berücksichtigt wird stets die Startkategorie des jeweiligen Jahres. Einordnungen erscheinen nur für Wettbewerbe, bei denen die Klasse startberechtigt ist (WM nur Junioren/Senioren, EM ab Cadets, Europa Cup und Interland Cup für alle Klassen).']);
+  mk('Grenzen der Datenbasis',[
+    'Das Dashboard bildet ausschließlich dokumentierte Wettkampfergebnisse ab. Nicht enthalten sind: Technikqualität im Detail, Trainingsentwicklung, gesundheitliche Umstände, Tagesform-Kontexte sowie taktische oder strategische Erwägungen. Aussagen über künftige Leistungen oder über die Eignung von Athletinnen und Athleten lassen sich aus diesen Daten nicht ableiten.',
+    'Bei Klassenwechseln gelten teils unterschiedliche Programm-Faktoren; Jahresvergleiche sind in diesem Kontext zu lesen (Kennzeichnung im Profil).']);
+}
+/* ================= Ansicht: Daten & Import ================= */
+function validateDB(){
+  const v={rows:0,complete:0,incomplete:0,noTes:0,idErr:0,sumErr:0,segsN:0,segsOk:0,dups:0,evts:[]};
+  DB.forEach(ev=>{
+    let inc=0,no=0;
+    ev.kategorien.forEach(k=>{
+      const seen=new Set();
+      k.rows.forEach(r=>{
+        v.rows++;
+        if(seen.has(r.name))v.dups++; seen.add(r.name);
+        if(r.tes==null){v.noTes++;no++;}
+        else if(r.tesOk===false){v.incomplete++;inc++;}
+        else v.complete++;
+        if(r.tesRaw!=null&&Math.abs(r.tesRaw-(r.abzuege||0)-r.tes)>0.03)v.idErr++;
+        if(r.tesOk&&r.tes!=null&&r.total&&r.pcs!=null&&Math.abs(r.tes+r.pcs-r.total)>0.03)v.sumErr++;
+        if(r.segs&&r.segs.length){v.segsN++;
+          if(r.tesRaw==null||Math.abs(r.segs.reduce((s,x)=>s+x.tes,0)-r.tesRaw)<=0.05)v.segsOk++;}
+      });
+    });
+    if(inc||no)v.evts.push({name:ev.name,inc,no});
+  });
+  return v;
+}
+function renderDaten(){
+  {
+    const v=validateDB();
+    const cq=el('div','card');
+    cq.append(el('h2',null,'Datenqualität & Validierung (automatisch)'));
+    const tb=el('table');
+    [['Einzelergebnisse im Datenbestand',String(v.rows),''],
+     ['davon TES vollständig (alle Programme)',String(v.complete),'✓'],
+     ['unvollständig (Programm fehlt – mit ¹ markiert, nicht in Auswertungen)',String(v.incomplete),v.incomplete?'⚠':'✓'],
+     ['ohne TES (nur Endstand im Protokoll)',String(v.noTes),v.noTes?'ℹ':'✓'],
+     ['Prüfung: TES roh − Abzüge = TES',v.idErr?v.idErr+' Verstöße':'0 Verstöße',v.idErr?'⚠':'✓'],
+     ['Prüfung: TES + PCS = Gesamtwertung',v.sumErr?v.sumErr+' Verstöße':'0 Verstöße',v.sumErr?'⚠':'✓'],
+     ['Prüfung: Rechenweg je Programm (Segment-Summen)',v.segsOk+' / '+v.segsN+' konsistent',(v.segsN-v.segsOk)>0?'⚠':'✓'],
+     ['Prüfung: doppelte Athleten je Kategorie',v.dups?v.dups+' Duplikate':'0 Duplikate',v.dups?'⚠':'✓']
+    ].forEach(([l,val,st])=>{const tr=el('tr');tr.append(el('td','sec',l),el('td','num',val),el('td',null,st));tb.append(tr);});
+    cq.append(tb);
+    if(v.evts.length){
+      const det=el('details');det.append(el('summary',null,'Wettbewerbe mit unvollständigen Werten ('+v.evts.length+')'));
+      const t2=el('table');const th=el('tr');['Wettbewerb','Programm fehlt','ohne TES'].forEach(x=>th.append(el('th',null,x)));t2.append(th);
+      v.evts.sort((a,b)=>(b.inc+b.no)-(a.inc+a.no)).forEach(e=>{const tr=el('tr');tr.append(el('td','sec',e.name),el('td','num',String(e.inc)),el('td','num',String(e.no)));t2.append(tr);});
+      det.append(t2);cq.append(det);
+    }
+    cq.append(el('p','note','Alle Prüfungen laufen bei jedem Aufruf über den kompletten Datenbestand (inkl. selbst importierter PDFs). Unvollständige Werte werden markiert und fließen nicht in Benchmarks, Bestwerte oder Trends ein.'));
+    main.append(cq);
+  }
+  const c=el('div','card');
+  c.append(el('h2',null,'Zentrale Schnittstelle: offizielle Ergebnis-PDFs einlesen'));
+  c.append(el('p','sec','RollArt-Ergebnis-PDFs (World Skate / DRIV) hier ablegen. Das Tool liest Kategorien, Platzierungen, Gesamtwertungen sowie TES/PCS aus den Segment-Protokollen aus und aktualisiert alle Auswertungen automatisch. Mehrere Dateien gleichzeitig möglich.'));
+  const row=el('div','row');
+  const w1=el('div');w1.append(el('label',null,'Wettbewerbstyp für die nächsten Dateien'));
+  const selT=el('select');TYPEN.forEach(([v,l])=>{const o=el('option',null,l);o.value=v;selT.append(o);});w1.append(selT);row.append(w1);
+  const w2=el('div');w2.append(el('label',null,'Wettbewerbsname (optional, sonst aus PDF)'));
+  const inpN=el('input');inpN.type='text';inpN.style.width='260px';w2.append(inpN);row.append(w2);
+  c.append(row);
+  const drop=el('div','drop','PDF-Dateien hierher ziehen oder klicken zum Auswählen');
+  const fi=el('input');fi.type='file';fi.multiple=true;fi.accept='application/pdf';fi.style.display='none';
+  drop.addEventListener('click',()=>fi.click());
+  drop.addEventListener('dragover',e=>{e.preventDefault();drop.classList.add('over');});
+  drop.addEventListener('dragleave',()=>drop.classList.remove('over'));
+  drop.addEventListener('drop',e=>{e.preventDefault();drop.classList.remove('over');importFiles(e.dataTransfer.files,selT.value,inpN.value);});
+  fi.addEventListener('change',()=>importFiles(fi.files,selT.value,inpN.value));
+  c.append(drop,fi);
+  const status=el('div','note');status.id='impstatus';c.append(status);
+  const rep=el('div');rep.id='impreport';c.append(rep);
+  IMPLOG.forEach(h=>{const d=el('div','sec');d.style.borderLeft='3px solid var(--s1)';d.style.paddingLeft='10px';d.style.margin='6px 0';d.innerHTML=h;rep.append(d);});
+  main.append(c);
+  const c2=el('div','card');
+  c2.append(el('h2',null,'Datenbestand'));
+  const tb=el('table');const trh=el('tr');
+  ['Wettbewerb','Typ','Datum','Kategorien','Starter','Herkunft',''].forEach(x=>trh.append(el('th',null,x)));tb.append(trh);
+  DB.slice().sort((a,b)=>(a.datum||'').localeCompare(b.datum||'')).forEach(ev=>{
+    const tr=el('tr');
+    tr.append(el('td',null,ev.name));
+    tr.append(el('td','sec',(TYPEN.find(t=>t[0]===ev.typ)||[ev.typ,ev.typ])[1]));
+    tr.append(el('td','sec',ev.datum||'–'));
+    tr.append(el('td','num',String(ev.kategorien.length)));
+    tr.append(el('td','num',String(ev.kategorien.reduce((s,k)=>s+k.rows.length,0))));
+    tr.append(el('td','sec',ev.herkunft||'international'));
+    const td=el('td');const del=el('button','btn sec2','entfernen');del.style.padding='2px 9px';del.style.fontSize='12px';
+    del.addEventListener('click',()=>{if(confirm('„'+ev.name+'“ aus dem Datenbestand entfernen?')){DB=DB.filter(x=>x!==ev);render();}});
+    td.append(del);tr.append(td);tb.append(tr);
+  });
+  c2.append(tb);
+  const rowB=el('div','row');rowB.style.marginTop='12px';
+  const bE=el('button','btn','Datenbestand als Datei sichern (JSON)');
+  bE.addEventListener('click',()=>{
+    const blob=new Blob([JSON.stringify(DB,null,1)],{type:'application/json'});
+    const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='driv_analyse_datenbestand.json';a.click();
+  });
+  const bI=el('button','btn sec2','Gesicherten Datenbestand laden');
+  const fiJ=el('input');fiJ.type='file';fiJ.accept='application/json';fiJ.style.display='none';
+  bI.addEventListener('click',()=>fiJ.click());
+  fiJ.addEventListener('change',()=>{const f=fiJ.files[0];if(!f)return;const r=new FileReader();
+    r.onload=()=>{try{const d=JSON.parse(r.result);if(Array.isArray(d)){DB=d;render();}else alert('Ungültiges Format.');}catch(e){alert('Datei konnte nicht gelesen werden.');}};
+    r.readAsText(f);});
+  rowB.append(bE,bI,fiJ);c2.append(rowB);
+  c2.append(el('p','note','Der Datenbestand lebt im Browser-Speicher der geöffneten Datei. Zum dauerhaften Speichern den Datenbestand als JSON sichern und beim nächsten Öffnen wieder laden. Auswertungsregeln: '+JAHRE_FENSTER+'-Jahres-Fenster, nur die ersten '+Math.round(CUT*100)+' % der Platzierten je Wettbewerb, TES primär, PCS ergänzend und nur international.'));
+  main.append(c2);
+}
+
+/* ---- PDF-Import (pdf.js) – gleiche Logik wie der Referenz-Parser ---- */
+async function importFiles(files,typ,nameOverride){
+  const status=document.getElementById('impstatus');
+  if(!window.pdfjsLib){status.textContent='PDF-Bibliothek nicht verfügbar.';return;}
+  if(!pdfjsLib.GlobalWorkerOptions.workerSrc){
+    const wsrc=document.getElementById('pdfworkersrc').textContent;
+    pdfjsLib.GlobalWorkerOptions.workerSrc=URL.createObjectURL(new Blob([wsrc],{type:'text/javascript'}));
+  }
+  for(const f of files){
+    try{
+      status.textContent='Lese '+f.name+' …';
+      const buf=await f.arrayBuffer();
+      const pdf=await pdfjsLib.getDocument({data:buf}).promise;
+      let lines=[];
+      for(let p=1;p<=pdf.numPages;p++){
+        const pg=await pdf.getPage(p);
+        const tc=await pg.getTextContent();
+        const items=tc.items.filter(it=>it.str.trim()).map(it=>({x:it.transform[4],y:it.transform[5],s:it.str})).sort((a,b)=>b.y-a.y||a.x-b.x);
+        // Zeilen mit Toleranz clustern (RollArt-Zeilen haben leichte Basislinien-Versätze)
+        const rows=[];
+        items.forEach(it=>{
+          const r=rows.find(r=>Math.abs(r.y-it.y)<=4);
+          if(r){r.items.push(it);r.y=(r.y*r.items.length+it.y)/(r.items.length+1);}
+          else rows.push({y:it.y,items:[it]});
+        });
+        rows.sort((a,b)=>b.y-a.y).forEach(r=>{
+          lines.push(r.items.sort((a,b)=>a.x-b.x).map(i=>i.s).join(' ').replace(/\s+/g,' ').trim());
+        });
+        lines.push('');
+      }
+      let autoName='';
+      const t0=lines.find(l=>l.length>5&&!/FINAL|RESULT|Pl\./.test(l));
+      const mOrt=lines.map(l=>l.match(/^(.+?)\s*-\s*\d\d\/\d\d\/(\d\d\d\d)\s*$/)).find(Boolean);
+      if(t0){const tt=t0.replace(/\s+/g,' ').trim();const ort=mOrt?mOrt[1].trim():'';autoName=tt+((ort&&!tt.toLowerCase().includes(ort.toLowerCase()))?' '+ort:'')+(mOrt?' '+mOrt[2]:'');}
+      const ev=parseRollArt(lines,typ,nameOverride||autoName||f.name.replace(/\.pdf$/i,''));
+      const rep=document.getElementById('impreport');
+      if(ev&&ev.kategorien.length){
+        let dupCats=0;
+        const same=DB.find(x=>x.name===ev.name&&x.typ===ev.typ);
+        if(same){ // Kategorien mergen (z. B. Free/Solo/Dance-PDFs desselben Events)
+          ev.kategorien.forEach(k=>{ if(!same.kategorien.some(q=>catKey(q)===catKey(k))) same.kategorien.push(k); else dupCats++; });
+        } else DB.push(ev);
+        invalidateDB();
+        const nRows=ev.kategorien.reduce((s,k)=>s+k.rows.length,0);
+        const nSeg=ev.kategorien.reduce((s,k)=>s+k.rows.filter(r=>r.segs&&r.segs.length).length,0);
+        const nInc=ev.kategorien.reduce((s,k)=>s+k.rows.filter(r=>r.tes==null).length,0);
+        status.textContent=f.name+': eingelesen.';
+        IMPLOG.unshift('<b>'+esc(f.name)+'</b> → „'+esc(ev.name)+'“ ('+esc((TYPEN.find(t=>t[0]===ev.typ)||[,ev.typ])[1])+', '+esc(ev.datum)+')<br>'+
+            esc(ev.kategorien.map(k=>k.disziplin+' '+k.klasse+(k.gender?' '+k.gender:'')+' ('+k.rows.length+')').join(' · '))+'<br>'+
+            nRows+' Starter · '+nSeg+' mit Programm-Protokollen (Rechenweg verfügbar)'+
+            (nInc?' · <b>⚠ '+nInc+' ohne TES</b> (nur Endstand im PDF)':'')+
+            (dupCats?' · '+dupCats+' Kategorie(n) bereits vorhanden – übersprungen':''));
+      } else {
+        status.textContent=f.name+': keine auswertbaren Ergebnistabellen gefunden (RollArt-Format erwartet).';
+        IMPLOG.unshift('<b>'+esc(f.name)+'</b>: übersprungen – keine RollArt-Ergebnistabellen erkannt.');
+      }
+    }catch(e){status.textContent=f.name+': Fehler beim Einlesen ('+e.message+').';}
+  }
+  render(); state.view='daten'; syncTabs();
+}
+function parseRollArt(lines,typ,name){
+  const DIS={'Free Skating':'Kürlaufen','Solo Dance':'Solotanz','Couple Dance':'Rolltanz','Pairs':'Paarlauf'};
+  const FULL=/^((?:Free Skating|Solo Dance|Couple Dance|Pairs)\s*(?:Ladies|Men)?\s*(?:Seniores|Juniores|Youth|Cadets|Espoire?|Minis|Tots))\s*(?:-\s*(.+?))?\s*(?:REVISED.*)?$/;
+  const KL={'Seniores':'Senioren','Juniores':'Junioren','Youth':'Youth','Cadets':'Cadets','Espoire':'Espoir','Espoir':'Espoir','Minis':'Minis','Tots':'Tots'};
+  const tcase=n=>n.toLowerCase().replace(/(^|[\s\-'’\/\.])\S/g,m=>m.toUpperCase());
+  let datum=null;
+  for(const ln of lines){const m=ln.match(/-\s*(\d\d)\/(\d\d)\/(\d\d\d\d)\s*$/);if(m){datum=m[3]+'-'+m[2]+'-'+m[1];break;}}
+  const jahr=datum?parseInt(datum.slice(0,4)):new Date().getFullYear();
+  const cats={};let cat=null,catname=null,mode=null,lastKind=null,lastName=null,curseg=null;
+  const isCouple=()=>catname&&(/Couple|Pairs/.test(catname));
+  for(const raw of lines){
+    const s=raw.trim();if(!s){continue;}
+    const mh=s.match(FULL);
+    if(mh){catname=mh[1].trim();curseg=(mh[2]||'').trim()||null;cat=cats[catname]=cats[catname]||{final:{},seg:{}};mode=null;lastKind=null;continue;}
+    if(/FINAL RESULT/.test(s)){mode='final';lastKind=null;continue;}
+    if(/RESULTS DETAILS/.test(s)){mode='seg';lastKind=null;continue;}
+    if(/JUDGES DETAILS/.test(s)){mode=null;lastKind=null;continue;}
+    if(/^Pl\.?\s+Name\b/.test(s)){mode=/TES/.test(s)?'seg':(/Points|Nation/.test(s)?'final':mode);lastKind=null;continue;}
+    if(!cat||!mode){lastKind=null;continue;}
+    if(mode==='final'){
+      let mf=s.match(/^(\d+)\s+(.+?)\s+([A-Z]{3})\s+(\d+\.\d\d)\b/);
+      let nat=mf?mf[3]:null;
+      if(!mf){ // nationale Protokolle: Vereinsname statt Nationen-Kürzel
+        mf=s.match(/^(\d+)\s+(.+?)\s+(?:REV|SC|TV|TGS|VER|VFL|REC|RSV|MTV|PSV|ERC|ERB|RST|FT|SV|OSC|ERV|SF|RRV|1\.|WEDDINGER|ROLLSCHUHPARADIES|KSG|RRD|TSV|SG|REG|TBV|TUS|NORDHEIMER)\b.*?(\d+\.\d\d)\b/);
+        if(mf){mf=[mf[0],mf[1],mf[2],'GER',mf[3]];nat='GER';}
+      }
+      if(mf){const nm=tcase(mf[2]);cat.final[nm]={platz:+mf[1],nat:nat,total:+mf[4]};lastKind='final';lastName=nm;continue;}
+    } else {
+      let ms=s.match(/^(\d+)\s+(.+?)\s+([A-Z]{3})\s+(\d+\.\d\d)\s+(\d+\.\d\d)\s+(-?\d+\.?\d*)\s+(\d+\.\d\d)\b/);
+      if(!ms){
+        ms=s.match(/^(\d+)\s+(.+?)\s+(?:REV|SC|TV|TGS|VER|VFL|REC|RSV|MTV|PSV|ERC|ERB|RST|FT|SV|OSC|ERV|SF|RRV|1\.|WEDDINGER|ROLLSCHUHPARADIES|KSG|RRD|TSV|SG|REG|TBV|TUS|NORDHEIMER)\b.*?(\d+\.\d\d)\s+(\d+\.\d\d)\s+(-?\d+\.?\d*)\s+(\d+\.\d\d)\b/);
+        if(ms)ms=[ms[0],ms[1],ms[2],'GER',ms[3],ms[4],ms[5],ms[6]];
+      }
+      if(ms){const nm=tcase(ms[2]);const d=cat.seg[nm]=cat.seg[nm]||{tes:0,pcs:0,nseg:0,list:[]};
+        d.tes=Math.round((d.tes+ +ms[4])*100)/100;d.pcs=Math.round((d.pcs+ +ms[5])*100)/100;d.nseg++;
+        (d.list=d.list||[]).push({seg:curseg,tes:+ms[4],pcs:+ms[5],ded:Math.abs(+ms[6])||0});
+        lastKind='seg';lastName=nm;continue;}
+    }
+    if(lastKind&&isCouple()&&/^[A-ZÄÖÜÉÈÍÓÚÑÇ'’\-\. ]{4,}$/.test(s)&&!/(PANEL|JUDGES|RESULT|REVISED|DETAILS|VERIFIED|WORLDSKATE|TECHNICAL)/.test(s)){
+      const p=tcase(s);
+      if(lastKind==='final'){const rec=cat.final[lastName];delete cat.final[lastName];lastName=lastName+' / '+p;cat.final[lastName]=rec;}
+      else{const d=cat.seg[lastName];delete cat.seg[lastName];const nk=lastName+' / '+p;const t=cat.seg[nk];
+        if(t){t.tes=Math.round((t.tes+d.tes)*100)/100;t.pcs=Math.round((t.pcs+d.pcs)*100)/100;t.nseg+=d.nseg;(t.list=t.list||[]).push(...(d.list||[]));}
+        else cat.seg[nk]=d;
+        lastName=nk;}
+      continue;
+    }
+    lastKind=null;
+  }
+  const kategorien=[];
+  Object.entries(cats).forEach(([base,c])=>{
+    const md=base.match(/^(Free Skating|Solo Dance|Couple Dance|Pairs)\s*(Ladies|Men)?\s*(\S+)$/);
+    if(!md)return;
+    const rows=Object.entries(c.final).map(([nm,f])=>{
+      const sg=c.seg[nm]||c.seg[nm.split(' / ')[0]]||{};
+      return {name:nm,nat:f.nat,platz:f.platz,total:f.total,tes:sg.tes??null,pcs:sg.pcs??null,nseg:sg.nseg||0,segs:(sg.list&&sg.list.length)?sg.list:null};
+    }).sort((a,b)=>a.platz-b.platz);
+    if(rows.length)kategorien.push({disziplin:DIS[md[1]],klasse:KL[md[3]]||md[3],gender:{Ladies:'Damen',Men:'Herren'}[md[2]]||'',rows});
+  });
+  return {typ,jahr,name,datum:datum||jahr+'-01-01',herkunft:(typ==='National'?'national':'international'),kategorien};
+}
+
+
+/* ================= Router ================= */
+function syncTabs(){document.querySelectorAll('nav.tabs button').forEach(b=>{const on=b.dataset.v===state.view;b.classList.toggle('on',on);b.setAttribute('aria-selected',on?'true':'false');b.tabIndex=on?0:-1;if(on)document.getElementById('main').setAttribute('aria-labelledby',b.id);});}
+/* Pfeiltasten-/Home-/End-Navigation für die Tabs (ARIA-Empfehlung) */
+document.querySelector('nav.tabs').addEventListener('keydown',ev=>{
+  const tabs=[...document.querySelectorAll('nav.tabs button')];
+  const i=tabs.indexOf(document.activeElement);
+  if(i<0)return;
+  let j=null;
+  if(ev.key==='ArrowRight')j=(i+1)%tabs.length;
+  else if(ev.key==='ArrowLeft')j=(i-1+tabs.length)%tabs.length;
+  else if(ev.key==='Home')j=0;
+  else if(ev.key==='End')j=tabs.length-1;
+  if(j!=null){ev.preventDefault();tabs[j].focus();tabs[j].click();}
+});
+document.querySelectorAll('nav.tabs button').forEach(b=>b.addEventListener('click',()=>{state.view=b.dataset.v;syncTabs();render();}));
+function renderFoot(){
+  const f=document.getElementById('foot'); if(!f)return;
+  const nRes=DB.reduce((s,e)=>s+e.kategorien.reduce((x,k)=>x+k.rows.length,0),0);
+  f.textContent='DRIV Rollkunstlauf – Leistungsdaten-Analyse · Version '+VERSION+' · Build/Datenimport: '+BUILD+' · Datenzeitraum 2023–2026 · '+DB.length+' Wettbewerbe / '+nRes.toLocaleString('de-DE')+' Einzelergebnisse (offizielle RollArt-Protokolle) · Methodik v'+METHODIK_VERSION+': historische 3-Jahres-Referenzkurven, erste 80 % des Feldes; TES = technische Elemente − Abzüge (Kontrolle TES + PCS = Gesamt) · Prognosen: rein rechnerisch auf Basis historischer Referenzwerte, ohne sportfachliche Aussage · ausschließlich statistische Auswertung historischer Wettkampfdaten.';
+}
+function render(){
+  renderMeta(); renderFoot();
+  main.replaceChildren();
+  if(state.view==='kader')renderKader();
+  else if(state.view==='vergleich')renderVergleich();
+  else if(state.view==='bench')renderBench();
+  else if(state.view==='methodik')renderMethodik();
+  else renderDaten();
+}
+render();
+</script>
+</body>
+</html>
