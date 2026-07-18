@@ -125,6 +125,7 @@ tr.click:focus-visible{outline:2px solid var(--s1);outline-offset:-2px}
   <button id="tab-kader" data-v="kader" class="on" role="tab" aria-selected="true" aria-controls="main" tabindex="0">Kaderathleten</button>
   <button id="tab-vergleich" data-v="vergleich" role="tab" aria-selected="false" aria-controls="main" tabindex="-1">Athleten-Vergleich</button>
   <button id="tab-bench" data-v="bench" role="tab" aria-selected="false" aria-controls="main" tabindex="-1">Internationale Referenzwerte</button>
+  <button id="tab-vereine" data-v="vereine" role="tab" aria-selected="false" aria-controls="main" tabindex="-1">Vereine &amp; Verbände</button>
   <button id="tab-methodik" data-v="methodik" role="tab" aria-selected="false" aria-controls="main" tabindex="-1">Methodik</button>
   <button id="tab-daten" data-v="daten" role="tab" aria-selected="false" aria-controls="main" tabindex="-1">Daten &amp; Import</button>
 </nav>
@@ -138,8 +139,8 @@ tr.click:focus-visible{outline:2px solid var(--s1);outline-offset:-2px}
 let DB = /*__SEED__*/;
 const KADER = /*__KADER__*/;
 const TYPEN=[['WM','Weltmeisterschaft'],['EM','Europameisterschaft'],['WC-EU','World Cup Europa'],['WC-SA','World Cup Südamerika'],['WC-F','World Cup Finale'],['CoE','Europa Cup'],['IGC','Int. Deutschland-Pokal'],['IL','Interland Cup'],['National','National (DM / Ranglistenwettbewerb)'],['Sonstige','Sonstiger Wettbewerb']];
-const VERSION='3.4';
-const METHODIK_VERSION='1.2'; // historische 3-Jahres-Referenzkurven, 80-%-Regel, Rückstand auf Platz 1–3
+const VERSION='3.5';
+const METHODIK_VERSION='1.3'; // 3-Jahres-Referenzkurven, 80-%-Regel, Rückstand Platz 1–3, Vereins-/Verbands-Zählung
 const BUILD='/*__BUILD__*/';
 const GRUPPE_DIS={ // Gruppen-Anzeige je Disziplin-Bereich (Festlegung Marcel)
  'Anne Sophie Schiefer':{'Kürlaufen':'DRIV 1 Kür'},
@@ -683,7 +684,7 @@ function renderBench(){
 
 /* ================= Ansicht: Athleten ================= */
 let DBREV=0; let _aidx=null,_aidxRev=-1; const _cvCache=new Map();
-function invalidateDB(){DBREV++;_cvCache.clear();}
+function invalidateDB(){DBREV++;_cvCache.clear();_vsCache=null;}
 function athletIndex(){
   if(_aidx&&_aidxRev===DBREV)return _aidx;
   const m=new Map();
@@ -1403,6 +1404,144 @@ function renderVergleich(){
   main.append(c3);
 }
 
+/* ================= Ansicht: Vereine & Verbände ================= */
+let _vsCache=null;
+function vereinsStats(){
+  if(_vsCache&&_vsCache.rev===DBREV)return _vsCache.v;
+  const clubs=new Map(); const athClub=new Map();
+  const get=c=>{let d=clubs.get(c);
+    if(!d){d={lvC:{},athN:new Set(),startsN:0,siegeN:0,podN:0,bestT:null,startsI:0,siegeI:0,podI:0,athI:new Set()};clubs.set(c,d);}
+    return d;};
+  DB.forEach(ev=>{ if(ev.herkunft!=='national')return;
+    ev.kategorien.forEach(k=>k.rows.forEach(r=>{
+      if(!r.club)return; const d=get(r.club);
+      d.startsN++; d.athN.add(r.name);
+      if(r.platz===1)d.siegeN++;
+      if(r.platz!=null&&r.platz<=3)d.podN++;
+      if(r.tes!=null&&r.tesOk!==false&&(d.bestT==null||r.tes>d.bestT))d.bestT=r.tes;
+      if(r.lv)d.lvC[r.lv]=(d.lvC[r.lv]||0)+1;
+      const prev=athClub.get(r.name);
+      if(!prev||(ev.datum||'')>(prev.datum||''))athClub.set(r.name,{club:r.club,datum:ev.datum||''});
+    }));
+  });
+  DB.forEach(ev=>{ if(ev.herkunft!=='international')return;
+    ev.kategorien.forEach(k=>k.rows.forEach(r=>{
+      if(r.nat!=='GER')return; const m2=athClub.get(r.name); if(!m2)return;
+      const d=get(m2.club);
+      d.startsI++; d.athI.add(r.name);
+      if(r.platz===1)d.siegeI++;
+      if(r.platz!=null&&r.platz<=3)d.podI++;
+    }));
+  });
+  const list=[...clubs.entries()].map(([club,d])=>({club,
+    lv:(Object.entries(d.lvC).sort((a,b)=>b[1]-a[1])[0]||[''])[0],
+    ath:d.athN.size,startsN:d.startsN,siegeN:d.siegeN,podN:d.podN,bestT:d.bestT,
+    startsI:d.startsI,siegeI:d.siegeI,podI:d.podI}));
+  list.sort((a,b)=>b.podN-a.podN||b.siegeN-a.siegeN||b.startsN-a.startsN||a.club.localeCompare(b.club,'de'));
+  _vsCache={rev:DBREV,v:{list,athClub}};
+  return _vsCache.v;
+}
+function renderVereine(){
+  const {list}=vereinsStats();
+  const intro=el('div','card');
+  intro.append(el('h2',null,'Vereine & Verbände – nationale und internationale Bilanz'));
+  intro.append(el('p','sec','Rein zählende Auswertung der offiziellen Ergebnisprotokolle 2023–2026: je Verein die Starts, Siege (Platz 1) und Podestplätze (Platz 1–3) bei nationalen Wettbewerben (DM und Ranglistenwettbewerbe) sowie die internationalen Starts und Podestplätze der Athletinnen und Athleten des Vereins. Die Vereins-Zuordnung stammt aus der Vereins-Spalte der nationalen Protokolle; internationale Ergebnisse werden über den zuletzt dokumentierten Verein der Person zugeordnet. Landesverband laut Protokoll-Angabe.'));
+  main.append(intro);
+  /* Vereins-Vergleich */
+  {
+    const c=el('div','card');
+    c.append(el('h2',null,'Vereins-Vergleich ('+list.length+' Vereine)'));
+    const tb=el('table');tb.className='ovtab';
+    const th=el('tr');
+    [['Verein',null],['Landesverband',null],['Athleten',null],['Starts nat.',null],['Siege nat.',null],['Podest nat. (1–3)',null],['Starts int.',null],['Podest int.',null],['Bester TES',null]].forEach(([x,g])=>th.append(thI(x,g)));
+    tb.append(th);
+    list.forEach(v=>{
+      const tr=el('tr');
+      const td=el('td');td.append(el('strong',null,v.club));tr.append(td);
+      tr.append(el('td','sec',v.lv||'–'));
+      tr.append(el('td','num',String(v.ath)));
+      tr.append(el('td','num',String(v.startsN)));
+      tr.append(el('td','num',String(v.siegeN)));
+      tr.append(el('td','num',String(v.podN)));
+      tr.append(el('td','num',v.startsI?String(v.startsI):'–'));
+      tr.append(el('td','num',v.podI?String(v.podI):'–'));
+      tr.append(el('td','num',v.bestT!=null?fmt(v.bestT):'–'));
+      tb.append(tr);
+    });
+    c.append(tb);
+    c.append(el('p','note','Sortierung: Podestplätze national, dann Siege, dann Starts. Athleten = Anzahl unterschiedlicher Personen/Paare mit Starts für den Verein im Datenbestand. Paare mit zwei Vereinen werden dem erstgenannten Verein zugeordnet. Lesart: Die Zahlen hängen von Meldezahlen, Feldgrößen und besuchten Wettbewerben ab – sie beschreiben dokumentierte Ergebnisse und sind keine Bewertung der Vereinsarbeit.'));
+    main.append(c);
+  }
+  /* Landesverbände */
+  {
+    const byLv=new Map();
+    list.forEach(v=>{ if(!v.lv)return;
+      let d=byLv.get(v.lv); if(!d){d={vereine:0,ath:0,startsN:0,siegeN:0,podN:0,startsI:0,podI:0,kader:0};byLv.set(v.lv,d);}
+      d.vereine++;d.ath+=v.ath;d.startsN+=v.startsN;d.siegeN+=v.siegeN;d.podN+=v.podN;d.startsI+=v.startsI;d.podI+=v.podI;
+    });
+    KADER.forEach(k=>{ if(k.lv&&byLv.has(k.lv))byLv.get(k.lv).kader++; else if(k.lv){byLv.set(k.lv,{vereine:0,ath:0,startsN:0,siegeN:0,podN:0,startsI:0,podI:0,kader:1});} });
+    const rows=[...byLv.entries()].sort((a,b)=>b[1].podN-a[1].podN||b[1].startsN-a[1].startsN);
+    const c=el('div','card');
+    c.append(el('h2',null,'Landesverbände ('+rows.length+')'));
+    const tb=el('table');tb.className='ovtab';
+    const th=el('tr');
+    [['Landesverband',null],['Vereine',null],['Athleten',null],['DRIV-Kader',null],['Starts nat.',null],['Siege nat.',null],['Podest nat.',null],['Starts int.',null],['Podest int.',null]].forEach(([x,g])=>th.append(thI(x,g)));
+    tb.append(th);
+    rows.forEach(([lv,d])=>{
+      const tr=el('tr');
+      const td=el('td');td.append(el('strong',null,lv));tr.append(td);
+      tr.append(el('td','num',d.vereine?String(d.vereine):'–'));
+      tr.append(el('td','num',d.ath?String(d.ath):'–'));
+      tr.append(el('td','num',d.kader?String(d.kader):'–'));
+      tr.append(el('td','num',String(d.startsN)));
+      tr.append(el('td','num',String(d.siegeN)));
+      tr.append(el('td','num',String(d.podN)));
+      tr.append(el('td','num',d.startsI?String(d.startsI):'–'));
+      tr.append(el('td','num',d.podI?String(d.podI):'–'));
+      tb.append(tr);
+    });
+    c.append(tb);
+    c.append(el('p','note','Zusammenfassung der Vereins-Zahlen je Landesverband (Landesverband laut Protokoll-Angabe; Vereine ohne dokumentierte Verbandsangabe fehlen hier). DRIV-Kader = Kaderathleten/-paare laut Kaderliste. Rein deskriptive Zählung – kein Leistungsranking der Verbandsarbeit.'));
+    main.append(c);
+  }
+  /* Nationen international */
+  {
+    const nats=new Map();
+    DB.forEach(ev=>{ if(ev.herkunft!=='international')return;
+      ev.kategorien.forEach(k=>k.rows.forEach(r=>{
+        if(!r.nat)return;
+        let d=nats.get(r.nat); if(!d){d={starts:0,siege:0,pod:0,ath:new Set(),jahre:new Set()};nats.set(r.nat,d);}
+        d.starts++; d.ath.add(r.name); d.jahre.add(ev.jahr);
+        if(r.platz===1)d.siege++;
+        if(r.platz!=null&&r.platz<=3)d.pod++;
+      }));
+    });
+    const rows=[...nats.entries()].sort((a,b)=>b[1].pod-a[1].pod||b[1].starts-a[1].starts);
+    const c=el('div','card');
+    c.append(el('h2',null,'Nationen im internationalen Vergleich ('+rows.length+')'));
+    c.append(el('p','sec','Alle internationalen Wettbewerbe im Datenbestand (WM, EM, World Cups, Europa Cup, Int. Deutschland-Pokal, Interland Cup) über alle Kategorien und Jahre – Deutschland (GER) hervorgehoben.'));
+    const tb=el('table');tb.className='ovtab';
+    const th=el('tr');
+    [['Nation',null],['Athleten/Paare',null],['Starts',null],['Siege',null],['Podestplätze (1–3)',null],['Jahre',null]].forEach(([x,g])=>th.append(thI(x,g)));
+    tb.append(th);
+    rows.forEach(([nat,d])=>{
+      const tr=el('tr');
+      if(nat==='GER'){tr.style.outline='2px solid var(--s1)';tr.style.outlineOffset='-2px';}
+      const td=el('td');td.append(el('strong',null,nat));tr.append(td);
+      tr.append(el('td','num',String(d.ath.size)));
+      tr.append(el('td','num',String(d.starts)));
+      tr.append(el('td','num',String(d.siege)));
+      tr.append(el('td','num',String(d.pod)));
+      tr.append(el('td','sec',[...d.jahre].sort().join(', ')));
+      tb.append(tr);
+    });
+    c.append(tb);
+    c.append(el('p','note','Lesart: Die Wettbewerbe unterscheiden sich stark in Teilnehmerfeld und Beschickung (z. B. reisen nicht alle Nationen zu allen World Cups); die Zählung beschreibt ausschließlich die dokumentierten Ergebnisse des Datenbestands 2023–2026 und ist kein vollständiges Weltranking.'));
+    main.append(c);
+  }
+  main.append(Object.assign(el('p','note'),{textContent:'Datenbasis: Vereins- und Verbandsangaben aus den offiziellen nationalen Ergebnisprotokollen (einige wenige Zeilen ohne lesbare Vereinsangabe bleiben unberücksichtigt); internationale Zuordnung über den zuletzt dokumentierten Verein der jeweiligen Person. Alle Zahlen rein deskriptiv – keine Bewertung von Vereinen, Verbänden oder Trainerarbeit.'}));
+}
+
 /* ================= Ansicht: Methodik ================= */
 function renderMethodik(){
   const mk=(t,ps)=>{const c=el('div','card');c.append(el('h2',null,t));ps.forEach(x=>c.append(el('p','sec',x)));main.append(c);return c;};
@@ -1423,6 +1562,9 @@ function renderMethodik(){
     'Es handelt sich ausschließlich um historische Vergleichswerte internationaler Wettbewerbe – nicht um Zielwerte, nicht um Mindestwerte und nicht um Nominierungskriterien. Die „Rechnerische Einordnung“ beschreibt, auf welchem historischen Platzierungsniveau ein Wert gelegen hätte; sie ist keine Vorhersage.',
     'Berücksichtigt wird stets die Startkategorie des jeweiligen Jahres. Einordnungen erscheinen nur für Wettbewerbe, bei denen die Klasse startberechtigt ist (WM nur Junioren/Senioren, EM ab Cadets, Europa Cup und Interland Cup für alle Klassen).',
     'Der ausgewiesene „Rückstand auf Platz 1–3“ (Übersicht, Athletenprofil, Vergleich) ist die rechnerische Differenz zwischen dem besten vollständigen TES der letzten Saison (bzw. dem besten internationalen PCS) und dem historischen Referenzwert des jeweiligen Platzes. Er dient ausschließlich der Entwicklungs-Orientierung – er beschreibt den Abstand zu historischen Durchschnittswerten und ist weder Trainingsvorgabe noch Ziel-, Mindest- oder Nominierungswert.']);
+  mk('Vereins- und Verbandsauswertung',[
+    'Der Tab „Vereine & Verbände“ zählt Starts, Siege (Platz 1) und Podestplätze (Platz 1–3) je Verein aus der Vereins-Spalte der nationalen Ergebnisprotokolle; der Landesverband stammt aus der Verbandsangabe der Protokolle. Internationale Starts und Podestplätze werden einer Person über ihren zuletzt dokumentierten Verein zugeordnet. Paare mit zwei Vereinen zählen für den erstgenannten Verein.',
+    'Diese Zählung ist rein deskriptiv: Sie hängt von Meldezahlen, Feldgrößen und den tatsächlich besuchten Wettbewerben ab und stellt keine Bewertung von Vereins-, Verbands- oder Trainerarbeit dar.']);
   mk('Grenzen der Datenbasis',[
     'Das Dashboard bildet ausschließlich dokumentierte Wettkampfergebnisse ab. Nicht enthalten sind: Technikqualität im Detail, Trainingsentwicklung, gesundheitliche Umstände, Tagesform-Kontexte sowie taktische oder strategische Erwägungen. Aussagen über künftige Leistungen oder über die Eignung von Athletinnen und Athleten lassen sich aus diesen Daten nicht ableiten.',
     'Bei Klassenwechseln gelten teils unterschiedliche Programm-Faktoren; Jahresvergleiche sind in diesem Kontext zu lesen (Kennzeichnung im Profil).']);
@@ -1679,6 +1821,7 @@ function render(){
   if(state.view==='kader')renderKader();
   else if(state.view==='vergleich')renderVergleich();
   else if(state.view==='bench')renderBench();
+  else if(state.view==='vereine')renderVereine();
   else if(state.view==='methodik')renderMethodik();
   else renderDaten();
 }

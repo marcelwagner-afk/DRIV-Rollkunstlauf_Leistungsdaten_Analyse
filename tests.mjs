@@ -17,7 +17,7 @@ await p.goto(FILE);
 await p.waitForFunction(() => document.querySelectorAll('.ovtab').length > 0, { timeout: 30000 });
 
 // 1) Tabs
-for (const v of ['kader','vergleich','bench','methodik','daten']) {
+for (const v of ['kader','vergleich','bench','vereine','methodik','daten']) {
   await p.evaluate(x => { state.view = x; state.athlet=''; render(); syncTabs(); }, v);
   await p.waitForTimeout(120);
   check('Tab '+v, await p.evaluate(() => main.children.length > 0));
@@ -68,6 +68,25 @@ const gap = await p.evaluate(() => {
 check('Rückstand: Rechenwert konsistent', gap.manuell !== null && gap.dT === gap.manuell, gap.dT+' vs '+gap.manuell);
 check('Rückstand: Kurzform plausibel', /^(WM|EM|EC|IL) P\d: (fehlen |✓)/.test(gap.kurz), gap.kurz);
 check('Rückstand: Profil-Box und Übersichts-Spalte vorhanden', gap.boxDa && gap.spalteDa, JSON.stringify({box:gap.boxDa,spalte:gap.spalteDa}));
+
+// 4c) Vereine & Verbände: Zählung konsistent mit Datenbestand
+const ver = await p.evaluate(() => {
+  const {list} = vereinsStats();
+  let rowsMitVerein = 0, podest = 0;
+  DB.forEach(ev => { if (ev.herkunft !== 'national') return;
+    ev.kategorien.forEach(k => k.rows.forEach(r => {
+      if (!r.club) return; rowsMitVerein++;
+      if (r.platz != null && r.platz <= 3) podest++;
+    }));
+  });
+  const sumStarts = list.reduce((s, v) => s + v.startsN, 0);
+  const sumPod = list.reduce((s, v) => s + v.podN, 0);
+  return { n: list.length, sumStarts, rowsMitVerein, sumPod, podest,
+           erb: list.some(v => v.club === 'ERB Bremen' && v.lv === 'Bremen') };
+});
+check('Vereine: Starts-Summe = Zeilen mit Verein', ver.sumStarts === ver.rowsMitVerein, ver.sumStarts+' vs '+ver.rowsMitVerein);
+check('Vereine: Podest-Summe konsistent', ver.sumPod === ver.podest, ver.sumPod+' vs '+ver.podest);
+check('Vereine: Liste plausibel (ERB Bremen/Bremen enthalten)', ver.n >= 50 && ver.erb, 'n='+ver.n);
 
 // 5) Exporte (XLSX + CSV)
 let dl = p.waitForEvent('download', { timeout: 15000 }).catch(() => null);

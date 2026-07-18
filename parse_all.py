@@ -6,6 +6,60 @@ BAD=('PANEL','JUDGES','RESULT','REVISED','DETAILS','VERIFIED','WORLDSKATE','TECH
 FULL=re.compile(r'((?:Free Skating|Solo Dance|Couple Dance|Pairs)\s*(?:Ladies|Men)?\s*(?:Seniores|Juniores|Youth|Cadets|Espoire|Espoir|Minis|Tots))\s*(?:-\s*(.+?))?\s*(?:REVISED.*)?$')
 CLUB=r'(?:REV|SC|TV|TGS|VER|VFL|REC|RSV|MTV|PSV|ERC|ERB|RST|FT|SV|OSC|ERV|SF|RRV|1\.|WEDDINGER|WEDDIMGER|NEUKÖLLNER|GÜSTROWER|FREIBURGER|ESCHWEILER|HANAUER|ROLLSCHUHPARADIES|KSG|RRD|TSV|SG|REG|TBV|TUS|NORDHEIMER)'
 def tcase(n): return ' '.join(w.capitalize() for w in n.title().split())
+_CLUBUP={'REV','SC','TV','TGS','VFL','REC','RSV','MTV','PSV','ERC','ERB','RST','FT','SV','OSC','ERV','SF','RRV','KSG','RRD','TSV','SG','REG','TBV','TUS','RSC','EV','VER','VFR','DJK','ESV'}
+def _capw(w):
+    core=w.rstrip('.')
+    if core.upper() in _CLUBUP: return core.upper()+('.' if w.endswith('.') else '')
+    return '-'.join(p.capitalize() for p in w.split('-'))
+def clubcase(c):
+    # Vereinsnamen lesbar machen: bekannte Kürzel groß, Rest wortweise (auch nach Bindestrich) groß
+    return ' '.join(_capw(w) for w in c.split())
+_LVFIX={'Nied':'Niedersachsen','Niedersachen':'Niedersachsen','Brem':'Bremen','Schl':'Schleswig-Holstein',
+        'Berl':'Berlin','Nrw':'Nordrhein-Westfalen','Wriv':'Württemberg','Württtemberg':'Württemberg',
+        'Sriv':'Südbaden','Hamb':'Hamburg','Hess':'Hessen','Bay':'Bayern','Sach':'Sachsen'}
+# abgeschnittene Zusatzspalten (Nation/LV) am Vereinsende → entfernen, ggf. als LV übernehmen
+_TAIL={'ger':'','nie':'Niedersachsen','nied':'Niedersachsen','hes':'Hessen','hess':'Hessen','bay':'Bayern',
+       'nrw':'Nordrhein-Westfalen','san':'Sachsen','sach':'Sachsen','schl':'Schleswig-Holstein',
+       's-h':'Schleswig-Holstein','sh':'Schleswig-Holstein','berl':'Berlin','brem':'Bremen','hamb':'Hamburg',
+       'b-w':'','wriv':'Württemberg','sriv':'Südbaden'}
+# Schreibweisen-Kanonisierung (offensichtliche Tippfehler/Varianten aus den Protokollen)
+_CLUBFIX={'Weddimger ERC':'Weddinger ERC','FT Freiburh V. 1844':'FT 1844 Freiburg','FT Freiburg V. 1844':'FT 1844 Freiburg',
+ 'Freiburger FT V. 1844':'FT 1844 Freiburg','Freiburger Turnerschaft':'FT 1844 Freiburg',
+ 'Freiburger Turnerschaft 1844':'FT 1844 Freiburg','Freiburger Turnerschaft V. 1844':'FT 1844 Freiburg',
+ 'Freiburger Turnerschaft V.':'FT 1844 Freiburg','Freiburger Turnerschaft Von 1844':'FT 1844 Freiburg',
+ 'REV Helbronn':'REV Heilbronn','ERC Bremverhaven':'ERC Bremerhaven','TV Jahn Wofsburg':'TV Jahn Wolfsburg',
+ 'RSV Weil':'RSV Weil Am Rhein','RSV Weil Am Rheim':'RSV Weil Am Rhein','REG Kiel E.v.':'REG Kiel',
+ '1.rc Göttingen':'1. RC Göttingen','Eschweiler SG':'SG Eschweiler','Eschweiler SG Rollsport':'SG Eschweiler',
+ 'MTV Lüneburg':'MTV Treubund Lüneburg','TV Jahn Alverdissen':'TBV Jahn Alverdissen',
+ 'ERC Bergedorf':'ERV Bergedorf','ERV Viernheim':'ERC Viernheim','TGS Vorwaerts Frankfurt':'TGS Vorwärts Frankfurt',
+ 'SC Hameln Hilligsfeld':'SC Hameln-Hilligsfeld','SV Wuppertal Neuenhof':'SV Wuppertal-Neuenhof',
+ 'SV Wuppertal-Neuenhof 1930':'SV Wuppertal-Neuenhof','SV Dresden-Mitte':'SV Dresden Mitte',
+ 'SV Dresden-Mitte 1950':'SV Dresden Mitte','TV Walsum-Aldenrade':'TV Walsum Aldenrade 07',
+ 'TV Walsum-Aldenrade 07':'TV Walsum Aldenrade 07','TV Datteln 09':'TV Datteln',
+ 'RST Hummetal SC Hameln Hilligsfeld':'RST Hummetal','RST Hummetal SC Hameln-Hilligsfeld':'RST Hummetal',
+ '1. Kieler REV S-H':'1. Kieler REV'}
+def splitclub(raw, prefix=''):
+    # "ERB BREMEN (BREMEN) GER" → ('ERB Bremen', 'Bremen'); Klammerzusatz = Landesverband
+    raw=raw.strip(); lv=None
+    m=re.search(r'\(([^)]+)\)',raw)
+    if m:
+        lv=' '.join('-'.join(p.capitalize() for p in w.split('-')) for w in m.group(1).strip().split())
+        lv=_LVFIX.get(lv,lv)
+        raw=(raw[:m.start()]+' '+raw[m.end():]).strip()
+    # abgeschnittene Nations-/LV-Spalten am Ende entfernen
+    while True:
+        ws=raw.split()
+        if len(ws)>1 and ws[-1].lower() in _TAIL:
+            t=_TAIL[ws[-1].lower()]
+            if t and not lv: lv=t
+            raw=' '.join(ws[:-1])
+        else: break
+    if prefix: raw=prefix+' '+raw
+    cl=clubcase(raw)
+    cl=cl.split(' / ')[0].strip()        # Paare mit zwei Vereinen: erster Verein zählt
+    cl=_CLUBFIX.get(cl,cl)
+    if cl in ('SF','SV','TV','SC','REV','ERC'): return None, lv   # abgeschnitten/unbrauchbar
+    return cl, lv
 def cleanclub(n):
     # Vereinsreste am Namensende entfernen (z. B. "1." / "1. Kieler" / "Kieler" von "1. Kieler REV")
     return re.sub(r'(\s+1\.)?(\s+Kieler)?$','',n).strip()
@@ -38,8 +92,8 @@ def parse_pdf(path, fmt='nation'):
         FIN=re.compile(r'(\d+)\s+(.+?)\s+([A-Z]{3})\s+(\d+\.\d\d)\b')
         SEG=re.compile(r'(\d+)\s+(.+?)\s+([A-Z]{3})\s+(\d+\.\d\d)\s+(\d+\.\d\d)\s+(-?\d+\.?\d*)\s+(\d+\.\d\d)\b')
     else:
-        FIN=re.compile(r'(\d+)\s+(.+?)\s+'+CLUB+r'\b.*?\s(\d+\.\d\d)\b')
-        SEG=re.compile(r'(\d+)\s+(.+?)\s+'+CLUB+r'\b.*?\s(\d+\.\d\d)\s+(\d+\.\d\d)\s+(-?\d+\.?\d*)\s+(\d+\.\d\d)\b')
+        FIN=re.compile(r'(\d+)\s+(.+?)\s+('+CLUB+r'\b.*?)\s(\d+\.\d\d)\b')
+        SEG=re.compile(r'(\d+)\s+(.+?)\s+('+CLUB+r'\b.*?)\s(\d+\.\d\d)\s+(\d+\.\d\d)\s+(-?\d+\.?\d*)\s+(\d+\.\d\d)\b')
     for ln in txt.split('\n'):
         s=ln.strip()
         # Intermediate-/Breitensport-Kategorien erkennen und getrennt halten (werden nicht ausgewertet)
@@ -69,16 +123,24 @@ def parse_pdf(path, fmt='nation'):
                         nm=tcase(m2.group(1)); cat['final'][nm]={'platz':int(m2.group(4)),'nat':m2.group(2),'total':float(m2.group(3))}
                         lastRow=('final',nm); continue
                 else:
-                    m2=re.match(r"([A-ZÄÖÜÉÈÍÓÚÑÇ][^\d]*?)\s+"+CLUB+r"\b.*?\s(\d+\.\d\d)\s+(\d+)\s*$",s)
+                    m2=re.match(r"([A-ZÄÖÜÉÈÍÓÚÑÇ][^\d]*?)\s+("+CLUB+r"\b.*?)\s(\d+\.\d\d)\s+(\d+)\s*$",s)
                     if m2:
-                        nm=cleanclub(tcase(m2.group(1))); cat['final'][nm]={'platz':int(m2.group(3)),'nat':'GER','total':float(m2.group(2))}
+                        nm_raw=tcase(m2.group(1)); nm=cleanclub(nm_raw)
+                        cl,lv=splitclub(m2.group(2), prefix=nm_raw[len(nm):].strip())
+                        cat['final'][nm]={'platz':int(m2.group(4)),'nat':'GER','total':float(m2.group(3))}
+                        if cl: cat['final'][nm]['club']=cl
+                        if lv: cat['final'][nm]['lv']=lv
                         lastRow=('final',nm); continue
             if mf:
-                nm=tcase(mf.group(2))
-                if fmt=='club': nm=cleanclub(nm)
+                nm_raw=tcase(mf.group(2)); nm=nm_raw
+                if fmt=='club': nm=cleanclub(nm_raw)
                 nat=mf.group(3) if fmt=='nation' else 'GER'
-                tot=float(mf.group(4) if fmt=='nation' else mf.group(3))
+                tot=float(mf.group(4))
                 cat['final'][nm]={'platz':int(mf.group(1)),'nat':nat,'total':tot}
+                if fmt=='club':
+                    cl,lv=splitclub(mf.group(3), prefix=nm_raw[len(nm):].strip())
+                    if cl: cat['final'][nm]['club']=cl
+                    if lv: cat['final'][nm]['lv']=lv
                 lastRow=('final',nm); continue
         else:
             ms=SEG.match(s)
@@ -101,7 +163,7 @@ def parse_pdf(path, fmt='nation'):
                 nm=tcase(ms.group(2))
                 if fmt=='club': nm=cleanclub(nm)
                 if fmt=='nation': tes,pcs,ded=float(ms.group(4)),float(ms.group(5)),abs(float(ms.group(6)))
-                else: tes,pcs,ded=float(ms.group(3)),float(ms.group(4)),abs(float(ms.group(5)))
+                else: tes,pcs,ded=float(ms.group(4)),float(ms.group(5)),abs(float(ms.group(6)))
                 d=cat['seg'].setdefault(nm,{'tes':0.0,'pcs':0.0,'nseg':0,'list':[]})
                 d['tes']=round(d['tes']+tes,2); d['pcs']=round(d['pcs']+pcs,2); d['nseg']+=1
                 d.setdefault('list',[]).append({'seg':curseg,'tes':tes,'pcs':pcs,'ded':ded})
@@ -143,8 +205,11 @@ def cats_to_kats(cats):
         if c['final']:
             for nm,f in c['final'].items():
                 sg=c['seg'].get(nm) or c['seg'].get(nm.split(' / ')[0]) or {}
-                rows.append({'name':nm,'nat':f['nat'],'platz':f['platz'],'total':f['total'],
-                             'tes':sg.get('tes'),'pcs':sg.get('pcs'),'nseg':sg.get('nseg',0),'segs':sg.get('list') or None})
+                row={'name':nm,'nat':f['nat'],'platz':f['platz'],'total':f['total'],
+                     'tes':sg.get('tes'),'pcs':sg.get('pcs'),'nseg':sg.get('nseg',0),'segs':sg.get('list') or None}
+                if f.get('club'): row['club']=f['club']
+                if f.get('lv'): row['lv']=f['lv']
+                rows.append(row)
         else:
             for nm,sg in c['seg'].items():
                 rows.append({'name':nm,'nat':None,'platz':None,'total':None,
@@ -173,6 +238,8 @@ def merge_event(ev, cats):
                 if r['total'] and not t.get('total'): t['total']=r['total']
                 if r['platz'] and not t.get('platz'): t['platz']=r['platz']
                 if r['nat'] and not t.get('nat'): t['nat']=r['nat']
+                if r.get('club') and not t.get('club'): t['club']=r['club']
+                if r.get('lv') and not t.get('lv'): t['lv']=r['lv']
             else:
                 ex['rows'].append(r); byname[r['name']]=r; byfirst[r['name'].split(' / ')[0]]=r
         ex['rows'].sort(key=lambda r:(r['platz'] is None, r['platz'] or 0))
