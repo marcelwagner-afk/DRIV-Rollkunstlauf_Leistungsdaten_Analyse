@@ -1,15 +1,11 @@
-# Baut das Dashboard bei jedem Push neu, prüft die Datenqualität und
-# committet die aktualisierte HTML-Datei zurück – damit zeigt die
-# GitHub-Pages-Live-Seite immer den neuesten Stand.
+# Prüft bei jedem Push, ob Daten und Build fehlerfrei sind (nur Kontrolle –
+# veröffentlicht nichts; das Dashboard ist verschlüsselt in index.html).
 name: Build & Datenprüfung
 on:
   push:
     branches: [main]
   pull_request:
   workflow_dispatch:
-
-permissions:
-  contents: write
 
 jobs:
   build:
@@ -19,24 +15,7 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
-      - name: Dashboard bauen
+      - name: Dashboard bauen (Kontrolle)
         run: python3 build.py
       - name: Datenprüfung (Invarianten, Duplikate, Register-Kreuzcheck)
         run: python3 check_data.py
-      - name: Fertiges Dashboard als Artefakt ablegen
-        uses: actions/upload-artifact@v4
-        with:
-          name: dashboard
-          path: Analyse_Tool_DRIV_Rollkunstlauf.html
-      - name: Aktualisiertes Dashboard committen (aktualisiert die Live-Seite)
-        if: github.event_name != 'pull_request'
-        run: |
-          git config user.name "dashboard-bot"
-          git config user.email "actions@github.com"
-          git add Analyse_Tool_DRIV_Rollkunstlauf.html
-          if git diff --cached --quiet; then
-            echo "Dashboard unverändert."
-          else
-            git commit -m "Dashboard neu gebaut [skip ci]"
-            git push
-          fi
