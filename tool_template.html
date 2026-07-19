@@ -412,7 +412,7 @@ function lineChart(series,opts){
       c.setAttribute('fill',s.color);c.setAttribute('stroke','var(--surface-1)');c.setAttribute('stroke-width','2');svg.append(c);
       const hit=document.createElementNS(svg.namespaceURI,'circle');
       hit.setAttribute('cx',X(p.x));hit.setAttribute('cy',Y(p.y));hit.setAttribute('r','13');hit.setAttribute('fill','transparent');
-      hit.addEventListener('pointermove',ev=>showTT(ev,'<b>'+fmt(p.y)+(opts.unit?' '+opts.unit:'')+'</b><br>'+s.name+(p.sub?'<br><span style="color:var(--ink-3)">'+p.sub+'</span>':'')));
+      hit.addEventListener('pointermove',ev=>showTT(ev,'<b>'+fmt(p.y)+(opts.unit?' '+opts.unit:'')+'</b><br>'+esc(s.name)+(p.sub?'<br><span style="color:var(--ink-3)">'+esc(p.sub)+'</span>':'')));
       hit.addEventListener('pointerleave',hideTT);svg.append(hit);
     });
   });
@@ -1103,6 +1103,8 @@ function rechenwegBox(r){
   if(r.tes!=null&&Math.abs(sumNet-r.tes)>0.02)
     box.append(el('p','sec','Hinweis: Der ausgewiesene TES ('+fmt(r.tes)+') ist über die Identität Gesamtwertung − PCS abgesichert; die Segment-Summe weicht um '+fmt(Math.round(Math.abs(sumNet-r.tes)*100)/100)+' ab (z. B. Rundung/REVISED-Protokoll).'));
   box.append(el('p','sec','Components (PCS): '+r.segs.map(s=>fmt(s.pcs)).join(' + ')+' = '+fmt(sumPcs)+' – die offiziellen RollArt-Component-Werte je Programm enthalten den Programm-Faktor bereits.'));
+  if(r.abzuege!=null&&Math.abs(sumDed-r.abzuege)>0.02)
+    box.append(el('p','sec','Hinweis: Die Abzugsspalten des Protokolls (Summe '+fmt(sumDed)+') weichen von der rechnerischen Abzugssumme ('+fmt(r.abzuege)+') ab – einzelne Abzüge sind im Protokoll faktoriert ausgewiesen. Maßgeblich ist die Kontrollgleichung TES + PCS = Gesamtwertung.'));
   if(r.total!=null&&r.tes!=null&&r.pcs!=null)
     box.append(el('p','sec','Kontrolle: TES '+fmt(r.tes)+' + PCS '+fmt(r.pcs)+' = Gesamt '+fmt(Math.round((r.tes+r.pcs)*100)/100)+(Math.abs(r.tes+r.pcs-r.total)<=0.03?' ✓':' ≠ '+fmt(r.total)+' ⚠')));
   if(r.tesOk===false)

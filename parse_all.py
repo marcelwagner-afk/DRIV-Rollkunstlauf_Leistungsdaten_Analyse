@@ -3,7 +3,7 @@ import subprocess, re, json, glob, os
 DIS={'Free Skating':'Kürlaufen','Solo Dance':'Solotanz','Couple Dance':'Rolltanz','Pairs':'Paarlauf'}
 KL={'Seniores':'Senioren','Juniores':'Junioren','Youth':'Youth','Cadets':'Cadets','Espoire':'Espoir','Espoir':'Espoir','Minis':'Minis','Tots':'Tots'}
 BAD=('PANEL','JUDGES','RESULT','REVISED','DETAILS','VERIFIED','WORLDSKATE','TECHNICAL','OFFICIAL')
-FULL=re.compile(r'((?:Free Skating|Solo Dance|Couple Dance|Pairs)\s*(?:Ladies|Men)?\s*(?:Seniores|Juniores|Youth|Cadets|Espoire|Espoir|Minis|Tots))\s*(?:-\s*(.+?))?\s*(?:REVISED.*)?$')
+FULL=re.compile(r'((?:Free Skating|Solo Dance|Couple Dance|Pairs)\s*(?:Ladies|Men)?\s*(?:Seniores|Juniores|Youth|Cadets|Espoire|Espoir|Minis|Tots))(?:\s+((?:19|20)\d\d))?\s*(?:-\s*(.+?))?\s*(?:REVISED.*)?$')
 CLUB=r'(?:REV|SC|TV|TGS|VER|VFL|REC|RSV|MTV|PSV|ERC|ERB|RST|FT|SV|OSC|ERV|SF|RRV|1\.|WEDDINGER|WEDDIMGER|NEUKÖLLNER|NEUKÖLLER|NEUKÖLNER|GÜSTROWER|FREIBURGER|ESCHWEILER|HANAUER|ROLLSCHUHPARADIES|KSG|RRD|TSV|SG|REG|TBV|TUS|NORDHEIMER|DELMENHORSTER|ALTONAER|REMSCHEIDER)'
 def tcase(n): return ' '.join(w.capitalize() for w in n.title().split())
 _CLUBUP={'REV','SC','TV','TGS','VFL','REC','RSV','MTV','PSV','ERC','ERB','RST','FT','SV','OSC','ERV','SF','RRV','KSG','RRD','TSV','SG','REG','TBV','TUS','RSC','EV','VER','VFR','DJK','ESV'}
@@ -88,6 +88,7 @@ def parse_pdf(path, fmt='nation'):
     m=re.search(r'-\s*(\d\d)/(\d\d)/(\d\d\d\d)\s*$',txt,flags=re.M)
     datum=f'{m.group(3)}-{m.group(2)}-{m.group(1)}' if m else None
     cats={}; cat=None; catname=None; mode=None; lastRow=None; curseg=None
+    curjg=None; fresh_jg=None; lastbase=None
     if fmt=='nation':
         FIN=re.compile(r'(\d+)\s+(.+?)\s+([A-Z]{3})\s+(\d+\.\d\d)\b')
         SEG=re.compile(r'(\d+)\s+(.+?)\s+([A-Z]{3})\s+(\d+\.\d\d)\s+(\d+\.\d\d)\s+(-?\d+\.?\d*)\s+(\d+\.\d\d)\b')
@@ -96,6 +97,13 @@ def parse_pdf(path, fmt='nation'):
         SEG=re.compile(r'(\d+)\s+(.+?)\s+('+CLUB+r'\b.*?)\s(\d+\.\d\d)\s+(\d+\.\d\d)\s+(-?\d+\.?\d*)\s+(\d+\.\d\d)\b')
     for ln in txt.split('\n'):
         s=ln.strip()
+        # Jahrgangs-Wertungen (z. B. Schüler-B-DM) als eigene Wertungen führen – Marker in den
+        # Protokollen unterschiedlich: "Jahrgang 2013", "Jg. 2013" (einmal je Abschnitt) oder im Titel
+        mjg=re.search(r'\b(?:Jahrgang|Jg\.?)\s*((?:19|20)\d\d)\b',s)
+        if mjg and len(s)<80 and not re.match(r'\d+\s+\S',s): fresh_jg=mjg.group(1); continue
+        # nackte Jahreszahl als eigene Zeile (Vorspann einer Gruppen-Finaltabelle, z. B. "2014")
+        mjg2=re.fullmatch(r'((?:19|20)\d\d)',s)
+        if mjg2: fresh_jg=mjg2.group(1); continue
         # Intermediate-/Breitensport-Kategorien erkennen und getrennt halten (werden nicht ausgewertet)
         if re.match(r'(?:Free Skating|Solo Dance|Couple Dance|Pairs)\s*(?:Ladies|Men)?\s*\w*\s*Intermediate\b',s):
             catname=s.split(' - ')[0].strip()
@@ -108,8 +116,15 @@ def parse_pdf(path, fmt='nation'):
             mode=None; lastRow=None; continue
         mh=FULL.match(s)
         if mh:
-            catname=mh.group(1).strip()
-            curseg=(mh.group(2) or '').strip() or None
+            base=mh.group(1).strip()
+            yr=mh.group(2)                       # Jahrgang direkt im Titel (z. B. "Espoire 2012")
+            curseg=(mh.group(3) or '').strip() or None
+            if yr: curjg=yr                      # Titel-Jahrgang hat Vorrang
+            elif fresh_jg is not None: curjg=fresh_jg   # frischer Abschnitts-Marker
+            elif base!=lastbase: curjg=None      # neuer Abschnitt ohne Marker → kein Jahrgang
+            # gleicher Abschnitt (base unverändert): Jahrgang bleibt "klebend" erhalten
+            lastbase=base; fresh_jg=None
+            catname=base+((' #JG'+curjg) if curjg else '')
             cat=cats.setdefault(catname,{'final':{}, 'seg':{}})
             mode=None; lastRow=None; continue
         if 'FINAL RESULT' in s: mode='final'; lastRow=None; continue
@@ -204,6 +219,9 @@ def parse_pdf(path, fmt='nation'):
 def cats_to_kats(cats):
     out=[]
     for base,c in cats.items():
+        jg=None
+        mj=re.search(r' #JG(\d{4})$',base)
+        if mj: jg=mj.group(1); base=base[:mj.start()]
         md=re.match(r'(Free Skating|Solo Dance|Couple Dance|Pairs)\s*(Ladies|Men)?\s*(\S+)$',base)
         if not md or (not c['final'] and not c['seg']): continue
         rows=[]
@@ -220,12 +238,14 @@ def cats_to_kats(cats):
                 rows.append({'name':nm,'nat':None,'platz':None,'total':None,
                              'tes':sg['tes'],'pcs':sg['pcs'],'nseg':sg['nseg'],'segs':sg.get('list') or None})
         rows.sort(key=lambda r:(r['platz'] is None, r['platz'] or 0))
-        out.append({'disziplin':DIS[md.group(1)],'klasse':KL.get(md.group(3),md.group(3)),'gender':{'Ladies':'Damen','Men':'Herren'}.get(md.group(2) or '',''),'rows':rows})
+        kat={'disziplin':DIS[md.group(1)],'klasse':KL.get(md.group(3),md.group(3)),'gender':{'Ladies':'Damen','Men':'Herren'}.get(md.group(2) or '',''),'rows':rows}
+        if jg: kat['jahrgang']=jg
+        out.append(kat)
     return out
 
 def merge_event(ev, cats):
     for k in cats_to_kats(cats):
-        ex=next((q for q in ev['kategorien'] if q['disziplin']==k['disziplin'] and q['klasse']==k['klasse'] and q['gender']==k['gender']),None)
+        ex=next((q for q in ev['kategorien'] if q['disziplin']==k['disziplin'] and q['klasse']==k['klasse'] and q['gender']==k['gender'] and q.get('jahrgang')==k.get('jahrgang')),None)
         if ex is None: ev['kategorien'].append(k); continue
         byname={r['name']:r for r in ex['rows']}
         byfirst={r['name'].split(' / ')[0]:r for r in ex['rows']}

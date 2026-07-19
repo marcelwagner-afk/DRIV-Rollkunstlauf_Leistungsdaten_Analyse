@@ -55,6 +55,7 @@ print('Netto-TES:',conv)
 def norm_tokens(s):
     s=unicodedata.normalize('NFD',s.lower())
     s=''.join(c for c in s if unicodedata.category(c)!='Mn')
+    for ch in ("'", '’', '´', '`'): s=s.replace(ch,'')   # Apostroph-Varianten (z. B. Nicolò/Nicolo'/Nicolo´)
     return tuple(sorted(s.replace('-',' ').replace('/',' ').replace('~',' ').split()))
 def ed(a,b):
     if abs(len(a)-len(b))>1: return 2
@@ -179,6 +180,73 @@ for e in seed:
         if len(newrows)!=len(k['rows']):
             k['rows']=sorted(newrows,key=lambda r:(r['platz'] is None, r['platz'] or 0))
 print('Kategorie-Duplikate gemergt:',merged)
+
+# ---------- 5b) Zwischenstands-Zeilen entwerten ----------
+# Teilen sich zwei Athleten einen Platz und einem fehlt ein Segment (z. B. nur Kurzprogramm
+# gelaufen, danach zurückgezogen), stammt dessen Platz aus dem Zwischenstand – er wird als
+# „nicht im Endklassement" markiert (platz=None, tesOk=False), damit weder Referenzkurven
+# noch Bestwerte verfälscht werden. Echte Punktgleichheit (beide vollständig) bleibt unberührt.
+zw=0
+for e in seed:
+    for k in e['kategorien']:
+        plc=Counter(r['platz'] for r in k['rows'] if r.get('platz') is not None)
+        dup={p:n for p,n in plc.items() if n>1}
+        if not dup: continue
+        # Sind (fast) alle Plätze mehrfach vergeben, handelt es sich um zusammengelegte
+        # Gruppen-/Jahrgangswertungen ohne erkannten Marker – nicht antasten.
+        if len(dup)/len(plc)>0.5: continue
+        for p in dup:
+            rows=[r for r in k['rows'] if r.get('platz')==p]
+            grpmax=max((r.get('nseg') or 0) for r in rows)
+            for r in rows:
+                if (r.get('nseg') or 0)<grpmax:
+                    r['platz']=None; r['tesOk']=False; zw+=1
+print('Zwischenstands-Zeilen entwertet (Platz aus Kurzprogramm-Zwischenstand):',zw)
+
+# ---------- 5c) Über Jahrgangs-Gruppen verstreute Segmente heilen ----------
+# Bei Protokollen mit uneinheitlichen Gruppen-Markern können Segment-Zeilen einer Person in
+# einer anderen (Jahrgangs-)Teilwertung landen als ihr Endresultat. Solche verwaisten
+# Segment-Zeilen (ohne Platz und Gesamtwert) werden in die Endresultat-Zeile derselben Person
+# im selben Event/derselben Klasse zurückgeführt (mit Kontrollgleichungs-Guard) und entfernt.
+heal=0
+for e in seed:
+    bykey=defaultdict(list)
+    for k in e['kategorien']:
+        bykey[(k['disziplin'],k['klasse'],k.get('gender',''))].append(k)
+    for key,kats in bykey.items():
+        if len(kats)<2: continue
+        fin={}
+        for k in kats:
+            for r in k['rows']:
+                if r.get('total') is not None: fin[r['name']]=r
+        for k in kats:
+            keep=[]
+            for r in k['rows']:
+                t=fin.get(r['name'])
+                if (r.get('total') is None and r.get('platz') is None and t is not None and t is not r
+                    and r.get('tes') is not None and r.get('nseg')):
+                    newTes=round((t.get('tes') or 0)+r['tes'],2)
+                    newPcs=round((t.get('pcs') or 0)+(r.get('pcs') or 0),2)
+                    dedsum=round(sum(sx['ded'] for sx in (t.get('segs') or [])+(r.get('segs') or [])),2)
+                    sraw=newTes+newPcs
+                    if (t.get('total') is None or -0.01<=sraw-t['total']<=12.01
+                        or abs(sraw-dedsum-t['total'])<=0.06):
+                        t['tes']=newTes; t['pcs']=newPcs; t['nseg']=(t.get('nseg') or 0)+r['nseg']
+                        if r.get('segs'): t['segs']=(t.get('segs') or [])+r['segs']
+                        # Konsistenz + Netto-TES für die geheilte Zeile nachziehen
+                        if t.get('total') and t['tes'] is not None:
+                            ssum=t['tes']+(t['pcs'] or 0)
+                            if -0.01<=ssum-t['total']<=12:
+                                t['tesOk']=True
+                                raw=t['tes']; net=round(t['total']-(t['pcs'] or 0),2); abz=round(raw-net,2)
+                                if -0.06<=abz<=12:
+                                    t['tesRaw']=raw; t['abzuege']=abz if abz>0.005 else 0.0; t['tes']=net
+                        heal+=1
+                        continue
+                keep.append(r)
+            k['rows']=keep
+    e['kategorien']=[k for k in e['kategorien'] if k['rows']]
+print('Verstreute Segment-Zeilen zurückgeführt:',heal)
 
 json.dump(seed,open('data/seed_v2.json','w'),ensure_ascii=False,indent=1)
 
