@@ -121,6 +121,8 @@ td{padding:5px 6px;vertical-align:middle}
 td input{padding:7px 9px;font-size:13.5px}
 .rowbtns{display:flex;gap:8px;flex-wrap:wrap;margin-top:16px}
 .full{width:100%}
+.tblwrap{overflow-x:auto;-webkit-overflow-scrolling:touch;margin:10px 0}
+.tblwrap table{min-width:560px}
 </style>
 </head>
 <body>
@@ -189,7 +191,7 @@ function showChooser(){
   c.append(el('h1',null,'Angemeldet als Verwalter'));
   c.append(el('p','sub','Dashboard öffnen – oder Benutzerzugänge online verwalten.'));
   const b1=el('button','full','Dashboard öffnen');b1.addEventListener('click',openDash);
-  const b2=el('button','sec full','Benutzerverwaltung');b2.style.marginTop='10px';b2.addEventListener('click',showAdmin);
+  const b2=el('button','sec full','Benutzerverwaltung');b2.style.marginTop='10px';b2.addEventListener('click',()=>showAdmin());
   c.append(b1,b2);
 }
 function pwRandom(){
@@ -216,7 +218,7 @@ function showAdmin(msg){
       bd.type='button';bd.addEventListener('click',()=>{LIST.splice(idx,1);showAdmin();});t5.append(bd);
     tr.append(t1,t2,t3,t4,t5);tb.append(tr);
   });
-  c.append(tb);
+  const tw=el('div','tblwrap');tw.append(tb);c.append(tw);
   const add=el('button','mini sec','+ Person hinzufügen');
   add.addEventListener('click',()=>{LIST.push({u:'',pw:pwRandom(),admin:false});showAdmin();});
   c.append(add);
@@ -226,7 +228,7 @@ function showAdmin(msg){
   const back=el('button','sec','Zurück');back.addEventListener('click',showChooser);
   row.append(save,back);c.append(row);
   const st=el('p','err');st.id='ast';c.append(st);
-  if(msg){const ok=el('p','ok',msg);c.append(ok);}
+  if(msg&&typeof msg==='string'){const ok=el('p','ok',msg);c.append(ok);}
   c.append(el('p','note','Veröffentlichen erzeugt die Seite mit frischer Verschlüsselung komplett neu. '+
     'Tipp: Nach Änderungen zusätzlich „benutzer.txt herunterladen“ und die Datei lokal im Ordner zugang/ ersetzen, '+
     'damit künftige Neu-Verschlüsselungen am Rechner dieselbe Liste verwenden.'));
