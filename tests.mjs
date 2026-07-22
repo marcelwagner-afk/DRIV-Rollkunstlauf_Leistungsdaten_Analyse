@@ -130,8 +130,10 @@ const v37 = await p.evaluate(async () => {
   state.exclEvents = ['EM Ponte di Legno 2023']; render();
   const after = curveG('EM','Kürlaufen','Senioren','Herren','tes').years.join(',');
   out.exclWirkt = before !== after && !after.includes('2023');
-  out.exclBanner = document.body.textContent.includes('Experimentelle Referenzbasis');
+  const mainEl = document.getElementById('main');
+  out.exclBanner = mainEl.textContent.includes('Experimentelle Referenzbasis');
   state.exclEvents = []; render();
+  out.exclBannerWeg = !mainEl.textContent.includes('Experimentelle Referenzbasis');
   out.exclReset = curveG('EM','Kürlaufen','Senioren','Herren','tes').years.join(',') === before;
   // e) Kader-Verwaltung: aufnehmen als Beobachtung + entfernen + zurücksetzen
   const n0 = KADER.length;
@@ -156,7 +158,7 @@ const v37 = await p.evaluate(async () => {
 check('v3.7 PCS national sichtbar + (nat.)-Kennzeichnung', v37.natPcs);
 check('v3.7 Cut-Kennzeichnung (nicht beendet) im Datenmodell', v37.cutFlag);
 check('v3.7 Schalter TES je Programmteil', v37.segCol && v37.segVals);
-check('v3.7 Referenz-Ausschluss wirkt + Banner + Reset', v37.exclWirkt && v37.exclBanner && v37.exclReset, JSON.stringify({w:v37.exclWirkt,b:v37.exclBanner,r:v37.exclReset}));
+check('v3.7 Referenz-Ausschluss wirkt + Banner + Reset', v37.exclWirkt && v37.exclBanner && v37.exclBannerWeg && v37.exclReset, JSON.stringify({w:v37.exclWirkt,b:v37.exclBanner,weg:v37.exclBannerWeg,r:v37.exclReset}));
 check('v3.7 Beobachtungs-Athlet + Badge + Zurücksetzen', v37.beobBadge && v37.kaderReset);
 check('v3.7 Vergleichs-Scopes Nationen/Landesverbände', v37.scopeWelt && v37.scopeAlle);
 check('v3.7 Kader-Verwaltung im Daten-Tab', v37.verwaltungDa);
