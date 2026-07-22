@@ -163,6 +163,44 @@ check('v3.7 Beobachtungs-Athlet + Badge + Zurücksetzen', v37.beobBadge && v37.k
 check('v3.7 Vergleichs-Scopes Nationen/Landesverbände', v37.scopeWelt && v37.scopeAlle);
 check('v3.7 Kader-Verwaltung im Daten-Tab', v37.verwaltungDa);
 
+// 4e) v3.8: Element-Konstanz & Schwächen + Component-Profil
+const v38 = await p.evaluate(() => {
+  const out = {};
+  // Detaildaten vorhanden und plausibel
+  out.dataDa = !!(DETAILS && DETAILS.det && DETAILS.refc && DETAILS.names);
+  out.profileN = DETAILS ? Object.keys(DETAILS.det).length : 0;
+  // Martino-Profil: Konstanz-Karte + Element-Status + Component-Balken
+  state.view='kader'; state.athlet='Tiziano Martino'; render();
+  const heads=[...document.querySelectorAll('#main h2')].map(h=>h.textContent);
+  out.kzCard = heads.some(h=>h.includes('Element-Konstanz'));
+  out.estat = document.querySelectorAll('.estat').length;
+  out.bars  = document.querySelectorAll('.cbar').length;
+  // 3S (Salchow) muss als Baustelle erkannt sein (Ø GOE stark negativ, viele Unterrotationen)
+  const d = DETAILS.det['Tiziano Martino|Kürlaufen'];
+  const s3 = d.el.find(e=>e.c==='3S');
+  out.s3neg = s3 && s3.q < -0.3 && s3.dg > 10;
+  // Schritte sicher (positive GOE): St2
+  const st = d.el.find(e=>e.c==='St2');
+  out.stOk = st && st.q >= 0;
+  // Klassifikation: NJ ist ausgeblendet
+  out.njRaw = d.el.some(e=>e.c==='NJ');            // roh vorhanden
+  out.njShown = classifyEl(d.el.find(e=>e.c==='NJ')) === null; // aber ausgeblendet
+  // Component-Profil international vorhanden + Referenzmarke
+  const cp = compProfile('Tiziano Martino','Kürlaufen');
+  out.cpDa = !!cp && cp.querySelectorAll('.cbar i.ref').length >= 3;
+  // Konsistenz: konstanz.json Panel-Summe stimmt (Stichprobe: Element-Ø plausibel)
+  out.qFinite = d.el.filter(e=>e.c!=='NJ').every(e=>e.q==null||(e.q>-5&&e.q<5));
+  state.athlet=''; render();
+  return out;
+});
+check('v3.8 Detaildaten eingebettet (Elemente + Referenz + Namen)', v38.dataDa, 'Profile: '+v38.profileN);
+check('v3.8 Konstanz-Karte im Profil (Status-Badges + Component-Balken)', v38.kzCard && v38.estat >= 10 && v38.bars >= 3, JSON.stringify({estat:v38.estat,bars:v38.bars}));
+check('v3.8 Schwäche erkannt (3S Salchow: neg. GOE + Unterrotationen)', v38.s3neg);
+check('v3.8 Stärke erkannt (Schrittfolge St2 positive GOE)', v38.stOk);
+check('v3.8 Kombi-Platzhalter „No Jump" ausgeblendet', v38.njRaw && v38.njShown);
+check('v3.8 Component-Profil mit int. Referenzmarken', v38.cpDa);
+check('v3.8 Element-GOE-Werte plausibel (keine Ausreißer)', v38.qFinite);
+
 // 5) Exporte (XLSX + CSV)
 let dl = p.waitForEvent('download', { timeout: 15000 }).catch(() => null);
 await p.click('button:has-text("Excel (XLSX)")');
