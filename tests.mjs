@@ -110,6 +110,57 @@ check('Vereine: Starts-Summe = Zeilen mit Verein', ver.sumStarts === ver.rowsMit
 check('Vereine: Podest-Summe konsistent', ver.sumPod === ver.podest, ver.sumPod+' vs '+ver.podest);
 check('Vereine: Liste plausibel (ERB Bremen/Bremen enthalten)', ver.n >= 50 && ver.erb, 'n='+ver.n);
 
+// 4d) v3.7: Sven/Tim-Feedback – Quercheck aller neuen Funktionen
+const v37 = await p.evaluate(async () => {
+  const out = {};
+  // a) Nationale PCS sichtbar + gekennzeichnet (Profil-Tabelle)
+  state.view='kader'; state.athlet='Noah Hirsch'; state.showSegs=false; render();
+  out.natPcs = [...document.querySelectorAll('td.natv')].some(td => td.textContent.includes('(nat.)'));
+  // b) Cut-Kennzeichnung im Datenmodell (Beispiel: Rückzug nach Kurzprogramm, AWC Finale)
+  const izadi = (athletIndex().get('Izadi Ruiz Monge') || []).find(r => r.ev.includes('Finale Cesena'));
+  out.cutFlag = !!(izadi && izadi.cut);
+  // c) Schalter TES je Programmteil
+  state.showSegs = true; render();
+  out.segCol = [...document.querySelectorAll('th')].some(th => th.textContent.includes('TES je Programmteil'));
+  const resTbl = [...document.querySelectorAll('table')].find(t => t.textContent.includes('Rechenweg'));
+  out.segVals = resTbl ? /(KP|Kür|SD|KT|PT) \d/.test(resTbl.textContent) : false;
+  state.showSegs = false; state.athlet=''; render();
+  // d) Referenz-Ausschluss (experimentell): EM 2023 ausblenden → EM-Kurvenfenster ändert sich
+  const before = curveG('EM','Kürlaufen','Senioren','Herren','tes').years.join(',');
+  state.exclEvents = ['EM Ponte di Legno 2023']; render();
+  const after = curveG('EM','Kürlaufen','Senioren','Herren','tes').years.join(',');
+  out.exclWirkt = before !== after && !after.includes('2023');
+  out.exclBanner = document.body.textContent.includes('Experimentelle Referenzbasis');
+  state.exclEvents = []; render();
+  out.exclReset = curveG('EM','Kürlaufen','Senioren','Herren','tes').years.join(',') === before;
+  // e) Kader-Verwaltung: aufnehmen als Beobachtung + entfernen + zurücksetzen
+  const n0 = KADER.length;
+  KADER.push({name:'Catarina Cunha Craveiro',gruppe:'Beobachtung',lv:null,varianten:['Catarina Cunha Craveiro'],inoffiziell:true});
+  invalidateDB(); state.view='kader'; render();
+  out.beobBadge = document.body.textContent.includes('Beobachtung (inoffiziell)');
+  kaderReset(); invalidateDB(); render();
+  out.kaderReset = KADER.length === n0 && !KADER.some(k => k.inoffiziell);
+  // f) Nationen-/LV-Scopes
+  state.view='vereine'; state.natScope='welt'; state.lvScope='dm'; render();
+  const txtWelt = document.body.textContent;
+  out.scopeWelt = txtWelt.includes('weltoffene Wettbewerbe') && txtWelt.includes('nur Deutsche Meisterschaften');
+  state.natScope='alle'; state.lvScope='alle'; render();
+  out.scopeAlle = document.body.textContent.includes('eingeschränkt vergleichbar');
+  state.natScope='welt'; state.lvScope='dm'; state.view='kader'; render();
+  // g) Kader-Verwaltung sichtbar im Daten-Tab
+  state.view='daten'; render();
+  out.verwaltungDa = document.body.textContent.includes('Kaderliste & Beobachtung – Verwaltung');
+  state.view='kader'; render();
+  return out;
+});
+check('v3.7 PCS national sichtbar + (nat.)-Kennzeichnung', v37.natPcs);
+check('v3.7 Cut-Kennzeichnung (nicht beendet) im Datenmodell', v37.cutFlag);
+check('v3.7 Schalter TES je Programmteil', v37.segCol && v37.segVals);
+check('v3.7 Referenz-Ausschluss wirkt + Banner + Reset', v37.exclWirkt && v37.exclBanner && v37.exclReset, JSON.stringify({w:v37.exclWirkt,b:v37.exclBanner,r:v37.exclReset}));
+check('v3.7 Beobachtungs-Athlet + Badge + Zurücksetzen', v37.beobBadge && v37.kaderReset);
+check('v3.7 Vergleichs-Scopes Nationen/Landesverbände', v37.scopeWelt && v37.scopeAlle);
+check('v3.7 Kader-Verwaltung im Daten-Tab', v37.verwaltungDa);
+
 // 5) Exporte (XLSX + CSV)
 let dl = p.waitForEvent('download', { timeout: 15000 }).catch(() => null);
 await p.click('button:has-text("Excel (XLSX)")');
