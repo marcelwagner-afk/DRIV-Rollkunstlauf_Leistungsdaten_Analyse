@@ -93,6 +93,14 @@ TPL = """<!doctype html>
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="robots" content="noindex,nofollow">
 <title>DRIV Rollkunstlauf – Leistungsdaten-Analyse · Anmeldung</title>
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#2563c4">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="DRIV Analyse">
 <style>
 :root{--ink:#1a2233;--sub:#5b6474;--line:#d9dee8;--acc:#1d4ed8;--bg:#f3f5f9;--err:#b3261e;--ok:#166534}
 *{box-sizing:border-box}
@@ -142,9 +150,19 @@ td input{padding:7px 9px;font-size:13.5px}
      <b>marcel.wagner&#64;w-dfs.de</b> (Sportkommission). Statistische Auswertung
      historischer Wettkampfdaten aus offiziellen RollArt-Protokollen – keine
      Nominierungsempfehlung.</p>
+  <p class="note" id="pwahint" style="display:none">📱 Als App nutzen: iPhone/iPad – in Safari <b>Teilen → Zum Home-Bildschirm</b>.
+     Android – Menü <b>„App installieren“</b>. Mac – Safari <b>Ablage → Zum Dock hinzufügen</b> (oder Installationssymbol in Chrome/Edge).
+     Windows – <b>Installationssymbol</b> in der Adressleiste von Chrome/Edge. Danach startet die Analyse wie eine eigene App und ist
+     nach der ersten Anmeldung auch offline verfügbar (Passwort weiterhin erforderlich).</p>
 </div>
 <script>
 'use strict';
+/* PWA: Service Worker registrieren (nur über http/https möglich, nicht bei lokaler Datei) */
+if('serviceWorker' in navigator && location.protocol.startsWith('http')){
+  navigator.serviceWorker.register('sw.js').catch(function(){});
+  var ph=document.getElementById('pwahint');
+  if(ph && !window.matchMedia('(display-mode: standalone)').matches && !navigator.standalone) ph.style.display='block';
+}
 const DATA=__DATA__;
 const OWNER='__OWNER__',REPO='__REPO__',BRANCH='main';
 const ENC=new TextEncoder(),DEC=new TextDecoder();
