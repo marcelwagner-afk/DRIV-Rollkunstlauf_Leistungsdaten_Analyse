@@ -163,7 +163,8 @@ for key,progs in podprog.items():
     for p in cur:
         for c,(panel,g) in p['prog'].items():
             codes[c][0]+=1; codes[c][1]+=panel; codes[c][2]=g
-    el={c:[r2(v[0]/n),r2(v[1]/v[0]),v[2]] for c,v in codes.items() if v[0]/n>=0.25}
+    # Nur echte Wert-Elemente: gescheiterte/No-Level-Ausführungen (Ø Panel ≈ 0) sind kein "Podium-Inhalt"
+    el={c:[r2(v[0]/n),r2(v[1]/v[0]),v[2]] for c,v in codes.items() if v[0]/n>=0.25 and v[1]/v[0]>0.05}
     if el: REFEL[key]={'n':n,'jahre':jahre,'el':el}
 
 names=json.load(open('data/element_names.json'))

@@ -227,6 +227,35 @@ check('v3.9 Podium-Element-Inventar eingebettet + plausibel (2A Junioren)', v39.
 check('v3.9 Profil: Podium-Vergleich + Abzugsmuster', v39.podiumSec && v39.abzugSec);
 check('v3.9 Konstanz-Übersicht (Zeilen + Ampel-Badges + Klick öffnet Profil)', v39.ovRows && v39.ovBadges && v39.navWorks, JSON.stringify(v39));
 
+// 4g) Audit-Fixes: 0-Punkte-Elemente nie "sicher", Podium-Inventar ohne 0-Werte, Component-Text korrekt
+const aud = await p.evaluate(() => {
+  const out = {};
+  // Kein Element mit Grundwert ~0 darf als "sicher"/"ok" klassifiziert werden – über ALLE Profile
+  out.zeroOk = 0; out.zeroFail = 0;
+  Object.values(DETAILS.det).forEach(d => d.el.forEach(e => {
+    const c = classifyEl(e);
+    if (c && e.b != null && e.b <= 0.05) { (c.cls === 'fail') ? out.zeroFail++ : (c.cls === 'ok' ? out.zeroOk++ : 0); }
+  }));
+  // refel enthält keine 0-Punkte-Codes mehr
+  out.refelClean = Object.values(DETAILS.refel).every(r => Object.values(r.el).every(v => v[1] > 0.05));
+  // Component-Text: kein Doppel-Minus, korrekte Formulierung bei Athleten ÜBER der Referenz (Martino)
+  state.view='kader'; state.athlet='Tiziano Martino'; render();
+  const txt = document.getElementById('main').textContent;
+  out.noDblMinus = !txt.includes('−-') && !txt.includes('--');
+  out.aboveRefTxt = txt.includes('auf oder über dem Podium-Referenzwert') || txt.includes('Größter Component-Rückstand');
+  // Übersicht: "stärkste Elemente" enthalten kein "No Level"
+  state.view='konstanz'; state.athlet=''; render();
+  const rows=[...document.querySelectorAll('#main table tr')];
+  const okColIdx=7; // Spalte "stärkste Elemente"
+  out.noNLinTop = rows.slice(1).every(tr => { const td=tr.children[okColIdx]; return !td || !/No [Ll]evel/.test(td.textContent); });
+  state.view='kader'; render();
+  return out;
+});
+check('Audit: 0-Punkte-Elemente = "ohne Level", nie "sicher"', aud.zeroOk === 0 && aud.zeroFail > 0, JSON.stringify({ok:aud.zeroOk,fail:aud.zeroFail}));
+check('Audit: Podium-Inventar ohne 0-Punkte-Codes', aud.refelClean);
+check('Audit: Component-Fazit ohne Doppel-Minus, korrekt formuliert', aud.noDblMinus && aud.aboveRefTxt);
+check('Audit: Übersicht "stärkste Elemente" ohne No-Level-Einträge', aud.noNLinTop);
+
 // 5) Exporte (XLSX + CSV)
 let dl = p.waitForEvent('download', { timeout: 15000 }).catch(() => null);
 await p.click('button:has-text("Excel (XLSX)")');

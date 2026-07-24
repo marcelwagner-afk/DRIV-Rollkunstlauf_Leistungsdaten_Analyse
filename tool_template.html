@@ -137,7 +137,7 @@ tr.click:focus-visible{outline:2px solid var(--s1);outline-offset:-2px}
   <button class="btn sec2 mini" onclick="window.print()" title="Aktuelle Ansicht drucken oder als PDF sichern">Drucken / PDF</button></div>
 <div class="sub">Objektive Auswertung historischer Wettkampfdaten auf Basis offizieller Ergebnisprotokolle · RollArt (World Skate / DRIV) · 2023–2026</div>
 <div class="metacards" id="metacards"></div>
-<details class="disclaim" open><summary style="cursor:pointer;font-weight:600">Wichtige Hinweise zur Einordnung (auf- und zuklappbar)</summary><p style="margin:8px 0 0">Dieses Dashboard dient ausschließlich der transparenten statistischen Auswertung historischer Wettkampfdaten aus offiziellen Ergebnisprotokollen. Enthaltene Prognosen sind rein rechnerische Ableitungen aus historischen Referenzwerten. Sie stellen keine Garantie, keine sportfachliche Bewertung und keine Empfehlung oder Hilfestellung für Kader-, Förder- oder Nominierungsentscheidungen dar. Das Dashboard bewertet weder Athletinnen und Athleten noch Trainerinnen und Trainer oder getroffene Entscheidungen. Nicht berücksichtigt sind insbesondere Technikqualität im Detail, Trainingsentwicklung, gesundheitliche Umstände, Tagesform sowie taktische oder strategische Erwägungen.</p></details>
+<details class="disclaim" open><summary style="cursor:pointer;font-weight:600">Wichtige Hinweise zur Einordnung (auf- und zuklappbar)</summary><p style="margin:8px 0 0">Dieses Dashboard dient ausschließlich der transparenten statistischen Auswertung historischer Wettkampfdaten aus offiziellen Ergebnisprotokollen. Enthaltene Einordnungen sind rein rechnerische Ableitungen aus historischen Referenzwerten. Sie stellen keine Garantie, keine sportfachliche Bewertung und keine Empfehlung oder Hilfestellung für Kader-, Förder- oder Nominierungsentscheidungen dar. Das Dashboard bewertet weder Athletinnen und Athleten noch Trainerinnen und Trainer oder getroffene Entscheidungen. Nicht berücksichtigt sind insbesondere Technikqualität im Detail, Trainingsentwicklung, gesundheitliche Umstände, Tagesform sowie taktische oder strategische Erwägungen.</p></details>
 <nav class="tabs" role="tablist" aria-label="Hauptnavigation">
   <button id="tab-kader" data-v="kader" class="on" role="tab" aria-selected="true" aria-controls="main" tabindex="0">Kaderathleten</button>
   <button id="tab-vergleich" data-v="vergleich" role="tab" aria-selected="false" aria-controls="main" tabindex="-1">Athleten-Vergleich</button>
@@ -182,8 +182,8 @@ kaderLoad();
    Component-Profil im Athletenprofil. Nur deutsche Szene + Kaderathleten. */
 const DETAILS = /*__DETAILS__*/;
 const TYPEN=[['WM','Weltmeisterschaft'],['EM','Europameisterschaft'],['WC-EU','World Cup Europa'],['WC-SA','World Cup Südamerika'],['WC-F','World Cup Finale'],['CoE','Europa Cup'],['IGC','Int. Deutschland-Pokal'],['IL','Interland Cup'],['National','National (DM / Ranglistenwettbewerb)'],['Sonstige','Sonstiger Wettbewerb']];
-const VERSION='3.9';
-const METHODIK_VERSION='1.7'; // + Podium-Inhaltsvergleich, Konstanz-Übersicht (alle Kaderathleten), Abzugsmuster je Programmteil
+const VERSION='3.9.1';
+const METHODIK_VERSION='1.7'; // + Podium-Inhaltsvergleich, Konstanz-Übersicht, Abzugsmuster; Profi-Audit: neutrale Terminologie („Einordnung" statt „Prognose"), präzisierte σ-Definition, verständliche Import-Meldungen
 const BUILD='/*__BUILD__*/';
 const GRUPPE_DIS={ // Gruppen-Anzeige je Disziplin-Bereich (Festlegung Marcel)
  'Anne Sophie Schiefer':{'Kürlaufen':'DRIV 1 Kür'},
@@ -209,24 +209,24 @@ let state={view:'kader',dis:null,klasse:null,gender:null,tes:'',pcs:'',athlet:''
 const GLOSS={
  tes:['TES – Technical Score','Summe der technischen Element-Wertungen aller Programme abzüglich der Abzüge (Vorgabe Sportkommission). Nationale und internationale TES werden nach derselben rechnerischen RollArt-Struktur ermittelt und sind daher formal bzw. formatseitig vergleichbar; Unterschiede bei Wertungsgerichten, Teilnehmerfeldern und Wettbewerbskontexten bleiben davon unberührt.'],
  tesraw:['Technische Elemente (roh)','Summe der technischen Element-Wertungen vor Abzügen, wie im offiziellen Protokoll je Programm ausgewiesen.'],
- pcs:['PCS – Components','Summe der Component-Wertungen (Programmteile) aus allen Programmen. Der Programm-Faktor ist in den offiziellen RollArt-Werten bereits enthalten. Nationale Component-Werte werden vollständig angezeigt (bernsteinfarben gekennzeichnet), sind aber wegen nicht einheitlich besetzter Wertungsgerichte häufig höher als international – sie fließen deshalb NICHT in internationale Referenzwerte und Prognosen ein und sind nur mit anderen nationalen Werten vergleichbar.'],
+ pcs:['PCS – Components','Summe der Component-Wertungen (Programmteile) aus allen Programmen. Der Programm-Faktor ist in den offiziellen RollArt-Werten bereits enthalten. Nationale Component-Werte werden vollständig angezeigt (bernsteinfarben gekennzeichnet), sind aber wegen nicht einheitlich besetzter Wertungsgerichte häufig höher als international – sie fließen deshalb NICHT in internationale Referenzwerte und Einordnungen ein und sind nur mit anderen nationalen Werten vergleichbar.'],
  abz:['Abzüge','Punktabzüge (z. B. Stürze) laut offiziellem Protokoll, über alle Programme summiert. TES = technische Elemente − Abzüge.'],
  total:['Gesamtwertung','Offizieller Endstand laut Protokoll. Kontrollgleichung: TES + PCS = Gesamt.'],
  bench:['Historischer Referenzwert','Durchschnitt je Platzierung über die letzten 3 ausgetragenen Jahre eines Wettbewerbstyps, wobei je Jahr nur die ersten 80 % des platzierten Feldes einfließen (methodische Festlegung dieses Dashboards, kein offizieller Standard). Referenzwerte sind historische Vergleichswerte – keine Ziel-, Mindest- oder Nominierungswerte.'],
  benchpct:['% des Referenzwerts Platz 3','Eigener TES geteilt durch den historischen Durchschnittswert von Platz 3. 100 % bedeutet, dass der TES dem historischen Durchschnittswert von Platz 3 entspricht.'],
- prog:['Rechnerische Prognose auf Basis historischer Referenzwerte','Die Prognose vergleicht den Basis-TES 2026 (vorrangig der beste internationale Wert; ohne internationalen Start ersatzweise der beste nationale, gekennzeichnet) mit den historischen Referenzkurven (letzte 3 Jahre) – nur für Wettbewerbe, bei denen die Klasse startberechtigt ist (WM nur Junioren/Senioren, EM ab Cadets, Europa Cup EC und Interland IL für alle Klassen). „>n“ = unterhalb des letzten gewerteten Platzes. Sie ist eine rein rechnerische, datenbasierte Ableitung aus historischen Wettkampfergebnissen: keine Garantie, keine Vorhersage eines tatsächlichen Ergebnisses, keine sportfachliche Bewertung, kein Mindestwert und kein offizielles Nominierungskriterium. Nicht berücksichtigt: Trainingsentwicklung, gesundheitliche Umstände, Technikqualität, Tagesform, Wertungsrichterbesetzung, taktische Entscheidungen.'],
+ prog:['Rechnerische Einordnung auf Basis historischer Referenzwerte','Die Einordnung vergleicht den Basis-TES 2026 (vorrangig der beste internationale Wert; ohne internationalen Start ersatzweise der beste nationale, gekennzeichnet) mit den historischen Referenzkurven (letzte 3 Jahre) – nur für Wettbewerbe, bei denen die Klasse startberechtigt ist (WM nur Junioren/Senioren, EM ab Cadets, Europa Cup EC und Interland IL für alle Klassen). „>n“ = unterhalb des letzten gewerteten Platzes. Sie ist eine rein rechnerische, datenbasierte Ableitung aus historischen Wettkampfergebnissen: keine Garantie, keine Vorhersage eines tatsächlichen Ergebnisses, keine sportfachliche Bewertung, kein Mindestwert und kein offizielles Nominierungskriterium. Nicht berücksichtigt: Trainingsentwicklung, gesundheitliche Umstände, Technikqualität, Tagesform, Wertungsrichterbesetzung, taktische Entscheidungen.'],
  trend:['Trend','Bester vollständiger TES 2026 minus bester vollständiger TES 2025 derselben Disziplin (Veränderung in Punkten). Ohne Vorjahreswert: Verlauf innerhalb der Saison (erster → letzter vollständiger Wert). ▲/▼ beschreiben ausschließlich die rechnerische Richtung der Veränderung, keine sportfachliche Bewertung. Bei Klassenwechsel andere Programm-Faktoren möglich.'],
  avg:['Durchschnitt (Ø)','Arithmetisches Mittel der verfügbaren Jahre je Platzierung.'],
  median:['Median','Mittlerer Wert der sortierten Reihe – robuster gegen Ausreißer als der Durchschnitt.'],
- best:['Basis-TES (int. vor nat.)','Grundlage für Prognosen und Rückstände: der höchste vollständige INTERNATIONALE TES der Saison. Nur wenn kein internationaler Start vorliegt, wird ersatzweise der beste nationale Wert verwendet – stets gekennzeichnet mit (nat.). Grund: Nationale Wertungsgerichte sind nicht einheitlich besetzt; nationale Werte können daher vom internationalen Niveau abweichen. Internationale Einordnungen werden deshalb vorrangig aus internationalen Werten abgeleitet (methodische Festlegung).'],
- konst:['Konstanz (σ)','Standardabweichung der vollständigen TES-Werte einer Saison – je kleiner, desto konstanter die Leistungen.'],
+ best:['Basis-TES (int. vor nat.)','Grundlage für Einordnungen und Rückstände: der höchste vollständige INTERNATIONALE TES der Saison. Nur wenn kein internationaler Start vorliegt, wird ersatzweise der beste nationale Wert verwendet – stets gekennzeichnet mit (nat.). Grund: Nationale Wertungsgerichte sind nicht einheitlich besetzt; nationale Werte können daher vom internationalen Niveau abweichen. Internationale Einordnungen werden deshalb vorrangig aus internationalen Werten abgeleitet (methodische Festlegung).'],
+ konst:['Konstanz (σ)','Standardabweichung der vollständigen TES-Werte einer Saison (Populations-σ über alle gewerteten Starts der Saison, keine Stichproben-Korrektur) – je kleiner, desto konstanter die Leistungen. Bei weniger als 3 Starts wird kein σ ausgewiesen.'],
  starts:['Jahres-Spalten','Alle Starts des Jahres in zeitlicher Reihenfolge: Kurzname des Wettbewerbs, Platzierung, vollständiger TES. Fett = internationaler Start. Details per Mauszeiger.'],
  unvoll:['Unvollständig (¹)','Nicht alle Programm-Protokolle im Datenbestand – der Wert fließt nicht in Referenzwerte, Bestwerte oder Trends ein.'],
  gap:['Rückstand auf Referenz Platz 1–3','Rechnerische Differenz zwischen dem Basis-TES der letzten Saison (vorrangig bester internationaler Wert; ohne internationalen Start ersatzweise national, gekennzeichnet) bzw. dem besten internationalen PCS und dem historischen Referenzwert des jeweiligen Platzes (Ø der letzten 3 Jahre, erste 80 % des Feldes). „fehlen x“ = der Wert liegt x Punkte unter dem historischen Durchschnitt dieses Platzes; „✓ erreicht“ = der Wert liegt darauf oder darüber. In der Übersicht wird der höchste startberechtigte Wettbewerbstyp gezeigt (WM vor EM vor Europa Cup vor Interland). Rein rechnerische Vergleichswerte zur Entwicklungs-Orientierung – keine Ziel-, Mindest- oder Nominierungswerte; nicht berücksichtigt: Trainingsentwicklung, Technikqualität, Tagesform, Wertungsrichterbesetzung.'],
  goe:['GOE / Ausführungs-Bewertung (Ø QOE)','Durchschnittliche Ausführungsnote (Quality of Execution) eines Elements über alle Versuche 2023–2026, aus den offiziellen Judges-Detail-Blättern. Positiv = die Wertungsrichter honorieren die Ausführung im Schnitt (sauber, hoch, kontrolliert), negativ = im Schnitt Abwertung (unsauber, Landungsfehler, zu niedrig). Rein deskriptiv aus den Protokollen; keine sportfachliche Bewertung.'],
- konstEl:['Element-Konstanz','Einordnung eines Elements aus allen protokollierten Versuchen: „sicher“ = im Schnitt positive/neutrale Ausführung, kaum Abwertungen; „schwankend“ = uneinheitliche Ausführung; „Baustelle“ = häufig negative Ausführungsnote, Unterrotationen/Abwertungen oder Stürze. Grundlage sind Ausführungsnote (Ø GOE), Anteil negativ bewerteter Versuche, Unterrotationen/ungültige Elemente (bei Sprüngen: „<“, „<<“, „<<<“, „*“) und die Streuung (σ) der Punktwerte. Rein rechnerisch/deskriptiv – kein Ersatz für die technische Einschätzung der Trainer.'],
+ konstEl:['Element-Konstanz','Einordnung eines Elements aus allen protokollierten Versuchen: „sicher“ = im Schnitt positive/neutrale Ausführung, kaum Abwertungen; „schwankend“ = uneinheitliche Ausführung; „Baustelle“ = häufig negative Ausführungsnote, Unterrotationen/Abwertungen oder Stürze; „ohne Level (0 P.)“ = Element erhielt kein Level bzw. war ungültig und brachte 0 Punkte (zählt stets als Baustelle). Grundlage sind Ausführungsnote (Ø GOE), Anteil negativ bewerteter Versuche, Unterrotationen/ungültige Elemente (bei Sprüngen: „<“, „<<“, „<<<“, „*“) und die Streuung (σ) der Punktwerte. Rein rechnerisch/deskriptiv – kein Ersatz für die technische Einschätzung der Trainer.'],
  negrate:['Anteil abgewerteter Versuche','Anteil der protokollierten Versuche eines Elements mit negativer Ausführungsnote (GOE < 0). Hoch = das Element gelingt selten sauber; niedrig = überwiegend sauber ausgeführt.'],
- unterrot:['Unterrotationen / ungültig','Anzahl der Versuche, bei denen ein Sprung als unterrotiert („<“ = knapp, „<<“ = halbe, „<<<“ = ganze Umdrehung fehlt) oder als ungültig („*“, nicht erlaubt) gewertet wurde. Kostet Grundwert und Ausführungsnote – ein häufiges Muster bei zu spät gesprungenen/rotationsschwachen Elementen.'],
+ unterrot:['Unterrotationen / ungültig','Anzahl der Versuche, bei denen ein Sprung als unterrotiert („<“ = knapp, „<<“ = halbe, „<<<“ = ganze Umdrehung fehlt) oder als ungültig („*“, nicht erlaubt) gewertet wurde. Kostet Grundwert und Ausführungsnote – ein typisches Protokoll-Muster bei nicht vollständig ausgedrehten Sprüngen.'],
  compprof:['Component-Profil','Die vier Programm-Components (Skating Skills = Lauftechnik/Kanten, Transitions = Verbindungselemente/Schrittvielfalt, Performance = Präsentation/Ausstrahlung, Choreography = Choreografie/Raumnutzung) im aktuellsten Saison-Durchschnitt, verglichen mit den internationalen Referenzwerten der eigenen Klasse (Ø Podium bzw. Top 8 der letzten Jahre). Zeigt, welche Component-Facette relativ am stärksten bzw. am schwächsten ausgeprägt ist. Nur internationale Werte fließen in den Vergleich ein (nationale Component-Wertungen sind nicht einheitlich besetzt und liegen häufig höher).']
 };
 function infoI(key){
@@ -238,7 +238,7 @@ function infoI(key){
   s.addEventListener('mouseleave',hideTT); s.addEventListener('focus',e=>{const r=s.getBoundingClientRect();showTT({clientX:r.left,clientY:r.bottom},'<b>'+g[0]+'</b><br>'+g[1]);}); s.addEventListener('blur',hideTT);
   return s;
 }
-function thI(text,key){const t=el('th',null,text);if(key)t.append(infoI(key));return t;}
+function thI(text,key){const t=el('th',null,text);t.scope='col';if(key)t.append(infoI(key));return t;}
 function rowNav(tr,label){ // klickbare Tabellenzeilen per Tastatur bedienbar machen
   tr.tabIndex=0; tr.setAttribute('role','button'); tr.setAttribute('aria-label',label);
   tr.addEventListener('keydown',ev=>{if(ev.key==='Enter'||ev.key===' '){ev.preventDefault();tr.click();}});
@@ -276,7 +276,7 @@ function lastYears(typ){
 }
 /* Ø-Wert je Platz über die letzten 3 Jahre, nur Top-80 % je Jahr.
    state.exclEvents (experimentell): einzelne Wettbewerbe können versuchsweise aus der
-   Referenzbasis ausgeblendet werden – wirkt auf ALLE Referenzwerte, Prognosen und Rückstände. */
+   Referenzbasis ausgeblendet werden – wirkt auf ALLE Referenzwerte, Einordnungen und Rückstände. */
 function exclSet(){return new Set(state.exclEvents||[]);}
 function curve(typ,dis,klasse,gender,metric){
   const ex=exclSet();
@@ -501,7 +501,7 @@ function renderBench(){
     const det=el('details');
     det.append(el('summary',null,'Referenzbasis anpassen – einzelne Wettbewerbe versuchsweise ausblenden (experimentell)'));
     const bx=el('div');
-    bx.append(el('p','sec','Abgewählte Wettbewerbe fließen nicht mehr in die Referenzkurven ein. Das wirkt sofort auf ALLE Referenzwerte, Prognosen und Rückstände im gesamten Dashboard und ist als Experiment gedacht (z. B. wenn in einem Jahr mehr Elemente zulässig waren). Standard = alles ausgewählt; ein deutlicher Warnhinweis erscheint, solange etwas ausgeblendet ist.'));
+    bx.append(el('p','sec','Abgewählte Wettbewerbe fließen nicht mehr in die Referenzkurven ein. Das wirkt sofort auf ALLE Referenzwerte, Einordnungen und Rückstände im gesamten Dashboard und ist als Experiment gedacht (z. B. wenn in einem Jahr mehr Elemente zulässig waren). Standard = alles ausgewählt; ein deutlicher Warnhinweis erscheint, solange etwas ausgeblendet ist.'));
     const ex=exclSet();
     const evs=DB.filter(e=>e.herkunft==='international').slice().sort((a,b)=>(a.typ+a.jahr).localeCompare(b.typ+b.jahr));
     const wrap=el('div');wrap.style.columns='2';wrap.style.columnGap='24px';
@@ -526,7 +526,7 @@ function renderBench(){
     const bx=el('div');
     bx.append(el('p','sec','Berechnung: Für jeden Wettbewerbstyp (WM, EM, World Cups, Europa Cup, Interland) wird je Platzierung der Durchschnitt der letzten '+JAHRE_FENSTER+' ausgetragenen Jahre gebildet. Je Jahr fließen nur die ersten '+Math.round(CUT*100)+' % des platzierten Feldes ein, damit dünn besetzte Feldenden die Referenz nicht verzerren. Unvollständige Segment-Summen sind ausgeschlossen.'));
     bx.append(el('p','sec','Warum sinnvoll: Ein einzelnes Jahr schwankt mit Teilnehmerfeld und Tagesform. Der 3-Jahres-Durchschnitt je Platz bildet das stabile Anforderungsniveau eines Wettbewerbs ab – unabhängig davon, wer in einem bestimmten Jahr startete.'));
-    bx.append(el('p','sec','Aussage: „Mit diesem TES ergäbe sich rechnerisch Platz n“ bedeutet: Der eingegebene Wert entspricht dem historischen Durchschnittswert dieses Platzes über die letzten Jahre. Es ist eine rechnerische Prognose auf Basis historischer Referenzwerte – kein Ergebnisversprechen und keine Empfehlung.'));
+    bx.append(el('p','sec','Aussage: „Mit diesem TES ergäbe sich rechnerisch Platz n“ bedeutet: Der eingegebene Wert entspricht dem historischen Durchschnittswert dieses Platzes über die letzten Jahre. Es ist eine rechnerische Einordnung auf Basis historischer Referenzwerte – kein Ergebnisversprechen und keine Empfehlung.'));
     det.append(bx); c.append(det);
   }
   c.append(el('p','sec','Grundlage: Durchschnittswerte je Platzierung über die letzten '+JAHRE_FENSTER+' verfügbaren Jahre. In die Durchschnitte fließen je Wettbewerb nur die ersten '+Math.round(CUT*100)+' % der platzierten Starter ein. Primäre Kennzahl ist die technische Wertung (TES) = Summe der technischen Segment-Wertungen abzüglich der Abzüge; die Components (PCS, Summe aus beiden Programmen) werden ergänzend separat ausgewiesen. Segment-Einzelauswertungen werden bewusst nicht dargestellt (unterschiedliche Faktoren je Programm).'));
@@ -634,8 +634,8 @@ function renderBench(){
       card.append(p);
       {
         const nRef=pr.platz!=null?(cvT.pts.find(q=>q.platz===pr.platz)||{}).n:cvT.pts[cvT.pts.length-1].n;
-        if(nRef!=null&&nRef<3)card.append(el('p','note','Prognose auf kleiner historischer Datenbasis (n = '+nRef+') – vorsichtig interpretieren.'));
-        card.append(el('p','note','Rechnerische Prognose auf Basis historischer Referenzwerte – keine Vorhersage eines tatsächlichen Ergebnisses, keine sportfachliche Bewertung, kein Nominierungskriterium.'));
+        if(nRef!=null&&nRef<3)card.append(el('p','note','Einordnung auf kleiner historischer Datenbasis (n = '+nRef+') – vorsichtig interpretieren.'));
+        card.append(el('p','note','Rechnerische Einordnung auf Basis historischer Referenzwerte – keine Vorhersage eines tatsächlichen Ergebnisses, keine sportfachliche Bewertung, kein Nominierungskriterium.'));
       }
       {
         const v=parseFloat(String(state.tes).replace(',','.'));
@@ -864,7 +864,7 @@ function projText(dis,klasse,gender,tes){
   });
   return parts.join(' · ')||'–';
 }
-/* Basis für internationale Prognosen/Rückstände: vorrangig bester internationaler TES der Saison,
+/* Basis für internationale Einordnungen/Rückstände: vorrangig bester internationaler TES der Saison,
    nur ohne internationalen Start der beste nationale Wert (stets gekennzeichnet). Grund: nationale
    Wertungsgerichte sind nicht einheitlich besetzt – internationale Einordnungen daher vorrangig
    aus internationalen Werten (methodische Festlegung v1.4). */
@@ -1018,7 +1018,7 @@ function renderKader(){
     c2.append(el('h2',null,(dis==='Kürlaufen'?'Kürlaufen (Einzel)':dis)+' ('+es.length+')'));
     const tb=el('table');const th=el('tr');
     tb.className='ovtab';
-    [['Athlet/in',null],['Klasse',null],['2023','starts'],['2024','starts'],['2025','starts'],['2026','starts'],['Basis-TES 2026 (int. vor nat.)','best'],['Prognose (EM · WM · EC · IL)','prog'],['Rückstand Platz 3','gap'],['Trend','trend']].forEach(([x,g])=>th.append(thI(x,g)));tb.append(th);
+    [['Athlet/in',null],['Klasse',null],['2023','starts'],['2024','starts'],['2025','starts'],['2026','starts'],['Basis-TES 2026 (int. vor nat.)','best'],['Einordnung (EM · WM · EC · IL)','prog'],['Rückstand Platz 3','gap'],['Trend','trend']].forEach(([x,g])=>th.append(thI(x,g)));tb.append(th);
     let lastBlock=null;
     es.forEach(e=>{
       const block=OLDER.has(e.klasse)?0:1;
@@ -1096,7 +1096,7 @@ function renderKader(){
     c2.append(tb);
     main.append(c2);
   });
-  main.append(Object.assign(el('p','note'),{textContent:'Reihenfolge: je Disziplin erst die Klassen Senioren–Cadets, danach Espoir/Minis/Tots; Klasse = zuletzt gelaufene Klasse in der Disziplin. Jahres-Spalten: alle Starts chronologisch mit Platzierung und vollständigem TES (Wettbewerbsname blau = international, bernstein = national; blaue fette Platzziffer = beste Platzierung des Jahres; ⏸ = Wettbewerb nicht vollständig beendet; ohne TES-Angabe = Segment-Summe unvollständig; Details per Mauszeiger). Prognose: rechnerische Platzierung des Basis-TES 2026 gegen die 3-Jahres-Referenzkurven; Basis-TES = bester internationaler TES 2026, nur ohne internationalen Start ersatzweise der beste nationale Wert (Kennzeichnung „nat.“ – nationale Wertungsgerichte sind nicht einheitlich besetzt, daher Vorrang internationaler Werte) – EM = Europameisterschaft, WM = Weltmeisterschaft, EC = Europa Cup, IL = Interland Cup; „>n“ = unterhalb des letzten gewerteten Platzes; Prognose = rechnerische Prognose auf Basis historischer Referenzwerte (Details per ⓘ), nur für startberechtigte Wettbewerbe (WM nur Junioren/Senioren, EM ab Cadets, Europa Cup/Interland alle Klassen); maßgeblich ist immer die Startkategorie des jeweiligen Jahres; nationale TES sind formatgleich (Kennzeichnung „nat.“ in der TES-Spalte). Athleten erscheinen nur in den Disziplinen, in denen sie in ihrer letzten aktiven Saison gestartet sind (strikte Trennung; frühere Disziplinen bleiben im Athletenprofil sichtbar). Mehrfachstarter – z. B. Solotanz + Kürlaufen in derselben Saison – erscheinen je Disziplin getrennt ausgewertet, inkl. Einzel/Paar-Trennung. TES-Trend: bester vollständiger TES 2026 vs. 2025 in der Disziplin. Rückstand Platz 3: rechnerische Differenz des besten TES 2026 zum historischen Referenzwert von Platz 3 des höchsten startberechtigten Wettbewerbstyps (WM vor EM vor EC vor IL); „fehlen x“ = x Punkte unter dem Referenzwert, „✓“ = erreicht; Details und Platz 1–2 im Athletenprofil (Details per ⓘ).'}));
+  main.append(Object.assign(el('p','note'),{textContent:'Reihenfolge: je Disziplin erst die Klassen Senioren–Cadets, danach Espoir/Minis/Tots; Klasse = zuletzt gelaufene Klasse in der Disziplin. Jahres-Spalten: alle Starts chronologisch mit Platzierung und vollständigem TES (Wettbewerbsname blau = international, bernstein = national; blaue fette Platzziffer = beste Platzierung des Jahres; ⏸ = Wettbewerb nicht vollständig beendet; ohne TES-Angabe = Segment-Summe unvollständig; Details per Mauszeiger). Einordnung: rechnerische Platzierung des Basis-TES 2026 gegen die 3-Jahres-Referenzkurven; Basis-TES = bester internationaler TES 2026, nur ohne internationalen Start ersatzweise der beste nationale Wert (Kennzeichnung „nat.“ – nationale Wertungsgerichte sind nicht einheitlich besetzt, daher Vorrang internationaler Werte) – EM = Europameisterschaft, WM = Weltmeisterschaft, EC = Europa Cup, IL = Interland Cup; „>n“ = unterhalb des letzten gewerteten Platzes; Spalte „Einordnung“ = rechnerische Einordnung auf Basis historischer Referenzwerte (Details per ⓘ), nur für startberechtigte Wettbewerbe (WM nur Junioren/Senioren, EM ab Cadets, Europa Cup/Interland alle Klassen); maßgeblich ist immer die Startkategorie des jeweiligen Jahres; nationale TES sind formatgleich (Kennzeichnung „nat.“ in der TES-Spalte). Athleten erscheinen nur in den Disziplinen, in denen sie in ihrer letzten aktiven Saison gestartet sind (strikte Trennung; frühere Disziplinen bleiben im Athletenprofil sichtbar). Mehrfachstarter – z. B. Solotanz + Kürlaufen in derselben Saison – erscheinen je Disziplin getrennt ausgewertet, inkl. Einzel/Paar-Trennung. TES-Trend: bester vollständiger TES 2026 vs. 2025 in der Disziplin. Rückstand Platz 3: rechnerische Differenz des besten TES 2026 zum historischen Referenzwert von Platz 3 des höchsten startberechtigten Wettbewerbstyps (WM vor EM vor EC vor IL); „fehlen x“ = x Punkte unter dem Referenzwert, „✓“ = erreicht; Details und Platz 1–2 im Athletenprofil (Details per ⓘ).'}));
 }
 /* ---- Athletenprofil ---- */
 
@@ -1208,7 +1208,8 @@ function classifyEl(e){
   if(e.c==='NJ')return null;                 // Platzhalter „ausgelassener Sprung" in Kombinationen
   const negRate=e.n?e.ng/e.n:0, dgRate=e.n?e.dg/e.n:0;
   let cls;
-  if(e.n<4)cls='few';                         // zu wenige Versuche für ein belastbares Urteil
+  if(e.b!=null&&e.b<=0.05)cls='fail';         // Element ohne Level/ungültig = 0 Punkte – IMMER Baustelle, nie „sicher"
+  else if(e.n<4)cls='few';                    // zu wenige Versuche für ein belastbares Urteil
   else if(dgRate>=0.25||e.q<=-0.4||negRate>=0.6)cls='bad';
   else if(dgRate<0.08&&(e.q==null||e.q>=-0.05)&&negRate<=0.3)cls='ok';
   else cls='mid';
@@ -1220,7 +1221,7 @@ function goeSpan(q){
   return s;
 }
 function statBadge(cls){
-  const map={ok:['estat ok','sicher'],mid:['estat mid','schwankend'],bad:['estat bad','Baustelle'],few:['estat few','wenig Daten']};
+  const map={ok:['estat ok','sicher'],mid:['estat mid','schwankend'],bad:['estat bad','Baustelle'],few:['estat few','wenig Daten'],fail:['estat bad','ohne Level (0 P.)']};
   const m=map[cls]||['estat mid','–']; return el('span',m[0],m[1]);
 }
 function renderKonstanz(name,dis){
@@ -1236,8 +1237,8 @@ function renderKonstanz(name,dis){
   intro.append(document.createTextNode('Aus '+d.starts+' ausgewerteten Programmen (offizielle Judges-Detail-Blätter, 2023–2026, '+d.intN+' international / '+d.natN+' national). Zeigt, welche Elemente sicher sitzen und wo die größten Baustellen liegen. '));
   intro.append(infoI('konstEl'));
   card.append(intro);
-  /* Kurzfazit: sichere Elemente + Baustellen */
-  const bad=meaningful.filter(e=>e.cls==='bad').sort((a,b)=>b.n-a.n);
+  /* Kurzfazit: sichere Elemente + Baustellen (inkl. Elemente ohne Level = 0 Punkte) */
+  const bad=meaningful.filter(e=>e.cls==='bad'||e.cls==='fail').sort((a,b)=>b.n-a.n);
   const ok=meaningful.filter(e=>e.cls==='ok').sort((a,b)=>b.b-a.b);
   const fz=el('div');fz.style.margin='4px 0 12px';
   if(ok.length){
@@ -1251,7 +1252,8 @@ function renderKonstanz(name,dis){
     p.append(el('span','goeneg','⚠ Baustellen: '));
     p.append(document.createTextNode(bad.slice(0,6).map(e=>{
       const rs=[];
-      if(e.dg&&e.dgRate>=0.15)rs.push(Math.round(e.dgRate*100)+' % unterrotiert/ungültig');
+      if(e.cls==='fail')rs.push('ohne Level = 0 Punkte, '+e.n+'×');
+      else if(e.dg&&e.dgRate>=0.15)rs.push(Math.round(e.dgRate*100)+' % unterrotiert/ungültig');
       else if(e.negRate>=0.5)rs.push(Math.round(e.negRate*100)+' % abgewertet');
       else if(e.q<=-0.4)rs.push('Ø GOE '+fmt(Math.round(e.q*100)/100));
       return elName(e.c)+' ('+e.c+(rs.length?', '+rs[0]:'')+')';
@@ -1295,7 +1297,7 @@ function renderKonstanz(name,dis){
     });
   });
   card.append(tb);
-  card.append(el('p','note','Grundlage: alle protokollierten Ausführungen dieses Elements 2023–2026. „Ø GOE" = durchschnittliche Ausführungsnote der Wertungsrichter (positiv = honoriert, negativ = abgewertet). „abgewertet" = Anteil der Versuche mit negativer Ausführungsnote. „unterrot./ungültig" = Sprünge mit fehlender Rotation (<, <<, <<<) oder ungültig (*). σ = Streuung der erreichten Punktwerte (klein = konstant). Status ist eine rein rechnerische Einordnung (sicher / schwankend / Baustelle) und ersetzt nicht die technische Trainer-Einschätzung. Kombinations-Platzhalter „No Jump" (ausgelassene Sprünge) sind ausgeblendet.'));
+  card.append(el('p','note','Grundlage: alle protokollierten Ausführungen dieses Elements 2023–2026. „Ø GOE" = durchschnittliche Ausführungsnote der Wertungsrichter (positiv = honoriert, negativ = abgewertet). „abgewertet" = Anteil der Versuche mit negativer Ausführungsnote. „unterrot./ungültig" = Sprünge mit fehlender Rotation (<, <<, <<<) oder ungültig (*). σ = Streuung der erreichten Punktwerte (klein = konstant). Status ist eine rein rechnerische Einordnung (sicher / schwankend / Baustelle) und ersetzt nicht die technische Trainer-Einschätzung. „ohne Level (0 P.)" = das Element erhielt kein Level bzw. war ungültig und brachte 0 Punkte – es zählt als Baustelle, auch wenn keine Abwertungsnote vorliegt. Kombinations-Platzhalter „No Jump" (ausgelassene Sprünge) sind ausgeblendet.'));
   /* Abzugsmuster je Programmteil */
   const am=abzugsMuster(d);
   if(am)card.append(am);
@@ -1330,6 +1332,9 @@ function podiumVergleich(name,dis,d){
   if(!ownEls.length)return null;
   const yl=Math.max(...ownEls.map(e=>e.yl));
   const own={};ownEls.forEach(e=>{if(e.yl===yl)own[e.c]=e;});
+  /* No-Level-Gegenstücke: NLSit = Sit Spin ohne Level usw. -> "versucht, aber ohne Level" statt "nicht im Programm" */
+  const NLMAP={NLSit:'S',NLUpr:'U',NLInv:'In',NLHBD:'HBD',NLHFD:'HFD',NLCBD:'CBD',NLCFD:'CFD',NLTr:'Tr'};
+  const ownNL={};ownEls.forEach(e=>{if(e.yl===yl&&NLMAP[e.c])ownNL[NLMAP[e.c]]=e;});
   const rows=Object.entries(ref.el).map(([c,v])=>({c,share:v[0],val:v[1],g:v[2],mine:own[c]||null}))
     .filter(x=>x.share>=0.4)
     .sort((a,b)=>(b.share*b.val)-(a.share*a.val));
@@ -1353,6 +1358,9 @@ function podiumVergleich(name,dis,d){
       const tdd=el('td','num');
       tdd.append(el('span',diff>=-0.005?'goepos':'goeneg',(diff>0?'+':'')+fmt(diff)));
       tr.append(tdd);
+    } else if(ownNL[x.c]){
+      const tdm=el('td','sec');tdm.textContent='zuletzt ohne Level (0 Punkte, '+ownNL[x.c].nl+'×)';tdm.style.color='var(--bad)';tdm.style.fontWeight='600';tr.append(tdm);
+      const tdd=el('td','num');tdd.append(el('span','goeneg','−'+fmt(x.val)));tdd.title='Element wurde versucht, erhielt aber kein Level und damit 0 Punkte – Differenz zum Podium-Durchschnitt.';tr.append(tdd);
     } else {
       fehlt++;
       const tdm=el('td','sec');tdm.textContent='nicht im Programm';tdm.style.color='var(--warn)';tdm.style.fontWeight='600';tr.append(tdm);
@@ -1369,8 +1377,8 @@ function konstanzZeile(name,dis){
   const d=DETAILS.det[name+'|'+dis];
   if(!d)return null;
   const els=d.el.map(classifyEl).filter(Boolean).filter(e=>e.n>=4);
-  const ok=els.filter(e=>e.cls==='ok'),mid=els.filter(e=>e.cls==='mid'),bad=els.filter(e=>e.cls==='bad');
-  bad.sort((a,b)=>(b.n*b.negRate)-(a.n*a.negRate));
+  const ok=els.filter(e=>e.cls==='ok'),mid=els.filter(e=>e.cls==='mid'),bad=els.filter(e=>e.cls==='bad'||e.cls==='fail');
+  bad.sort((a,b)=>(b.cls==='fail'?b.n:b.n*b.negRate)-(a.cls==='fail'?a.n:a.n*a.negRate));
   /* Component-Schwäche (nur international) */
   let compTxt='–',compGap=null;
   const ci=d.comps&&d.comps.int;
@@ -1481,8 +1489,13 @@ function compProfile(name,dis){
     gaps.sort((a,b)=>a.gap-b.gap);
     const best=gaps[0], worst=gaps[gaps.length-1];
     const p=el('p','sec');p.style.marginTop='8px';
-    let t='Relativ am stärksten: '+best.de+(best.gap<=0?' (auf/über Podium-Referenz)':' (–'+fmt(best.gap)+' zum Podium)')+'. ';
-    if(worst!==best)t+='Größter Component-Rückstand: '+worst.de+' (–'+fmt(worst.gap)+' zum Podium-Referenzwert der Klasse '+cc.klasse+').';
+    let t;
+    if(worst.gap<=0){
+      t='Alle Components liegen auf oder über dem Podium-Referenzwert der Klasse '+cc.klasse+'. Relativ am stärksten: '+best.de+' (+'+fmt(-best.gap)+'); relativ am wenigsten Vorsprung: '+worst.de+' (+'+fmt(-worst.gap)+').';
+    } else {
+      t='Relativ am stärksten: '+best.de+(best.gap<=0?' (+'+fmt(-best.gap)+' über Podium-Referenz)':' (−'+fmt(best.gap)+' zum Podium)')+'. ';
+      if(worst!==best)t+='Größter Component-Rückstand: '+worst.de+' (−'+fmt(worst.gap)+' zum Podium-Referenzwert der Klasse '+cc.klasse+').';
+    }
     p.textContent=t;
     box.append(p);
   }
@@ -1581,13 +1594,13 @@ function renderProfilA(name){
     const b26=bestIntTes(rel,2026)||bestIntTes(rel,2025);
     if(b26){
       const p=el('p','statline');
-      p.innerHTML='Bester internationaler TES '+b26.datum.slice(0,4)+': <b>'+fmt(b26.tes)+'</b> ('+esc(b26.klasse+(b26.gender?' '+b26.gender:''))+', '+esc(b26.ev)+') – rechnerische Prognose: '+esc(projText(b26.dis,b26.klasse,b26.gender,b26.tes));
+      p.innerHTML='Bester internationaler TES '+b26.datum.slice(0,4)+': <b>'+fmt(b26.tes)+'</b> ('+esc(b26.klasse+(b26.gender?' '+b26.gender:''))+', '+esc(b26.ev)+') – rechnerische Einordnung: '+esc(projText(b26.dis,b26.klasse,b26.gender,b26.tes));
       card.append(p);
       let bAll=null;
       rel.forEach(r=>{if(r.tes!=null&&r.tesOk!==false&&r.datum.startsWith(b26.datum.slice(0,4))&&(bAll==null||r.tes>bAll.tes))bAll=r;});
       if(bAll&&bAll.tes>b26.tes+0.005){
         const p2=el('p','statline');
-        p2.innerHTML='Saison-Höchstwert '+bAll.datum.slice(0,4)+': <b>'+fmt(bAll.tes)+'</b> ('+esc(bAll.ev)+', national, zeitlich nach dem internationalen Start) – rechnerische Prognose dieses Wertes: '+esc(projText(bAll.dis,bAll.klasse,bAll.gender,bAll.tes));
+        p2.innerHTML='Saison-Höchstwert '+bAll.datum.slice(0,4)+': <b>'+fmt(bAll.tes)+'</b> ('+esc(bAll.ev)+', national, zeitlich nach dem internationalen Start) – rechnerische Einordnung dieses Wertes: '+esc(projText(bAll.dis,bAll.klasse,bAll.gender,bAll.tes));
         card.append(p2);
       }
       if(b26.pcs!=null)card.append(el('p','sec','Components dazu (international): '+fmt(b26.pcs)+' – PCS-Vergleich: '+(function(){const cv=curve('EM',b26.dis,b26.klasse,b26.gender,'pcs');const pr=cv?project(cv,String(b26.pcs)):null;return pr&&pr.platz!=null?'entspricht dem historischen EM-Referenzwert (PCS) von Platz '+pr.platz:'–';})()));
@@ -1598,7 +1611,7 @@ function renderProfilA(name){
     const years=[...new Set(rel.map(r=>r.datum.slice(0,4)))].sort();
     if(years.length){
       const tbY=el('table');const thY=el('tr');
-      [['Jahr',null],['Klasse',null],['Basis-TES (int. vor nat.)','best'],['Quelle',null],['Beste Platzierung int.',null],['Beste Platzierung nat.',null],['Rechnerische Prognose (hist. Referenzkurven)','prog']].forEach(([x,g])=>thY.append(thI(x,g)));tbY.append(thY);
+      [['Jahr',null],['Klasse',null],['Basis-TES (int. vor nat.)','best'],['Quelle',null],['Beste Platzierung int.',null],['Beste Platzierung nat.',null],['Rechnerische Einordnung (hist. Referenzkurven)','prog']].forEach(([x,g])=>thY.append(thI(x,g)));tbY.append(thY);
       years.forEach(y=>{
         const best=progBasis(rel,y);
         const yr=rel.filter(r=>r.datum.startsWith(y)&&r.platz!=null);
@@ -1694,7 +1707,7 @@ function renderProfilA(name){
     {
       const tp=el('td','num '+(r.herkunft==='international'?'':'natv'));
       tp.textContent=r.pcs!=null?(fmt(r.pcs)+(r.tesOk===false?' ¹':'')+(r.herkunft==='international'?'':' (nat.)')):'–';
-      if(r.herkunft!=='international'&&r.pcs!=null)tp.title='Nationale Component-Wertung – Wertungsgerichte national nicht einheitlich, Werte häufig höher als international; fließt nicht in Referenzwerte/Prognosen ein.';
+      if(r.herkunft!=='international'&&r.pcs!=null)tp.title='Nationale Component-Wertung – Wertungsgerichte national nicht einheitlich, Werte häufig höher als international; fließt nicht in Referenzwerte/Einordnungen ein.';
       tr.append(tp);
     }
     tr.append(el('td','num',fmt(r.total)));
@@ -1714,7 +1727,7 @@ function renderProfilA(name){
     tr.append(tdD);
     tb.append(tr);});
   card.append(tb);
-  if(disT===disList[disList.length-1])card.append(el('p','note','TES = Summe der technischen Segment-Wertungen abzüglich der Abzüge (Vorgabe Sportkommission); PCS = Summe der Components aus beiden Programmen. Farb-Kennzeichnung: internationale Wettbewerbe blau, nationale bernstein – nationale Component-Werte werden vollständig angezeigt, sind aber wegen nicht einheitlich besetzter Wertungsgerichte häufig höher als international und fließen daher nicht in Referenzwerte/Prognosen ein. „nicht beendet“ = Wettbewerb nicht vollständig absolviert (z. B. Cut/Rückzug nach dem Kurzprogramm). ¹ = unvollständig (nicht alle Segment-Protokolle im Datenbestand) – fließt nicht in Auswertungen ein. Platz „– / n“ = nicht im Endklassement. Programmteil-Kürzel: KP = Kurzprogramm, SD = Style Dance, KT = Kürtanz, PT = Pflichttanz. Disziplinen werden strikt getrennt geführt; bei Klassenwechseln gelten teils unterschiedliche Faktoren.'));
+  if(disT===disList[disList.length-1])card.append(el('p','note','TES = Summe der technischen Segment-Wertungen abzüglich der Abzüge (Vorgabe Sportkommission); PCS = Summe der Components aus beiden Programmen. Farb-Kennzeichnung: internationale Wettbewerbe blau, nationale bernstein – nationale Component-Werte werden vollständig angezeigt, sind aber wegen nicht einheitlich besetzter Wertungsgerichte häufig höher als international und fließen daher nicht in Referenzwerte/Einordnungen ein. „nicht beendet“ = Wettbewerb nicht vollständig absolviert (z. B. Cut/Rückzug nach dem Kurzprogramm). ¹ = unvollständig (nicht alle Segment-Protokolle im Datenbestand) – fließt nicht in Auswertungen ein. Platz „– / n“ = nicht im Endklassement. Programmteil-Kürzel: KP = Kurzprogramm, SD = Style Dance, KT = Kürtanz, PT = Pflichttanz. Disziplinen werden strikt getrennt geführt; bei Klassenwechseln gelten teils unterschiedliche Faktoren.'));
   main.append(card);
   });
   /* Zusammenfassung der Entwicklung */
@@ -1737,7 +1750,7 @@ function renderProfilA(name){
     }
     {
       const pn=el('div','printonly');
-      pn.textContent='DRIV Rollkunstlauf – Leistungsdaten-Analyse v'+VERSION+' · Datenstand '+BUILD+' · Athletenblatt: '+name+' · Statistische Auswertung historischer Wettkampfdaten aus offiziellen RollArt-Protokollen. Enthaltene Prognosen sind rein rechnerische Ableitungen aus historischen Referenzwerten – keine Garantie, keine sportfachliche Bewertung, keine Empfehlung für Kader-, Förder- oder Nominierungsentscheidungen. Methodik: 3-Jahres-Referenzkurven, erste 80 % des Feldes; TES = technische Elemente − Abzüge.';
+      pn.textContent='DRIV Rollkunstlauf – Leistungsdaten-Analyse v'+VERSION+' · Datenstand '+BUILD+' · Athletenblatt: '+name+' · Statistische Auswertung historischer Wettkampfdaten aus offiziellen RollArt-Protokollen. Enthaltene Einordnungen sind rein rechnerische Ableitungen aus historischen Referenzwerten – keine Garantie, keine sportfachliche Bewertung, keine Empfehlung für Kader-, Förder- oder Nominierungsentscheidungen. Methodik: 3-Jahres-Referenzkurven, erste 80 % des Feldes; TES = technische Elemente − Abzüge.';
       cz.append(pn);
     }
     cz.append(el('p','note','Automatisch aus den Jahres-Bestwerten der letzten beiden belegten Jahre abgeleitet (TES, rechnerische EM-Einordnung, DM-Platzierung, internationale Components, Abzüge je Start). ▲/▼ bezeichnen ausschließlich die Richtung der Veränderung der Kennzahl, keine Bewertung. Bei Klassenwechseln gelten teils andere Faktoren; die EM-Einordnung vergleicht deshalb jeweils gegen die Referenzkurve der gelaufenen Klasse.'));
@@ -1828,7 +1841,7 @@ function renderVergleich(){
   addRow('Beste Gesamtwertung',r=>fmt(bestOf(r,x=>x.total)));
   addRow('Podiumsplätze (1–3)',r=>String(r.filter(x=>x.platz!=null&&x.platz<=3).length));
   addRow('Konstanz 2026 (σ TES)',r=>{const v=r.filter(x=>x.tes!=null&&x.tesOk!==false&&x.datum.startsWith('2026')).map(x=>x.tes);if(v.length<3)return '–';const m=v.reduce((a,b)=>a+b,0)/v.length;return fmt(Math.round(Math.sqrt(v.reduce((a,b)=>a+(b-m)*(b-m),0)/v.length)*100)/100);},'num');
-  addRow('Rechnerische Prognose (Basis-TES 2026, int. vor nat.)',r=>{let b=progBasis(r,'2026');if(!b)b=bestIntTes(r);return b?projText(b.dis,b.klasse,b.gender,b.tes)+(b.herkunft==='national'?' (Basis nat.)':''):'–';},'sec');
+  addRow('Rechnerische Einordnung (Basis-TES 2026, int. vor nat.)',r=>{let b=progBasis(r,'2026');if(!b)b=bestIntTes(r);return b?projText(b.dis,b.klasse,b.gender,b.tes)+(b.herkunft==='national'?' (Basis nat.)':''):'–';},'sec');
   addRow('Rückstand auf Referenz Platz 3 (höchster startberechtigter Wettbewerb)',r=>{let b=progBasis(r,'2026');if(!b)b=bestIntTes(r);return b?topGapShort(b.dis,b.klasse,b.gender,b.tes)+(b.herkunft==='national'?' (Basis nat.)':''):'–';},'sec');
   c3.append(tb);
   c3.append(el('p','note','Disziplinen werden strikt getrennt: Athleten mit mehreren Disziplinen erscheinen je Disziplin als eigene Linie und Spalte. Bestwerte über alle Klassen 2023–2026; bei Klassenwechseln Kennzahlen im Kontext des Verlaufs-Charts lesen. Components ausschließlich aus internationalen Wettbewerben. Rein statistische Gegenüberstellung – keine Nominierungsempfehlung.'));
@@ -2006,10 +2019,10 @@ function renderMethodik(){
     'TES = Summe der technischen Element-Wertungen aller Programme abzüglich der Abzüge. Die technische Endpunktzahl wird nicht aus den PDFs übernommen, sondern aus den Programm-Protokollen berechnet und über die Kontrollgleichung TES + PCS = Gesamtwertung gegen den offiziellen Endstand abgesichert.',
     'Beispiel: Kurzprogramm 41,25 − 1,00 = 40,25 · Kür 56,80 − 2,00 = 54,80 → Gesamt-TES 95,05.',
     'Nationale und internationale TES werden nach derselben rechnerischen RollArt-Struktur ermittelt und sind daher formal bzw. formatseitig vergleichbar. Unterschiede bei Wertungsgerichten, Teilnehmerfeldern und Wettbewerbskontexten bleiben davon unberührt; nationale Werte sind im Dashboard stets als „(nat.)“ gekennzeichnet.',
-    'Basis-Regel für internationale Einordnungen (Prognosen, Rückstände) ab Methodik v1.4: Herangezogen wird vorrangig der beste vollständige INTERNATIONALE TES der Saison. Nur wenn kein internationaler Start vorliegt, wird ersatzweise der beste nationale Wert verwendet – deutlich gekennzeichnet. Grund: Nationale Wertungsgerichte sind nicht einheitlich besetzt; national erzielte Punktwerte können systematisch vom internationalen Niveau abweichen und würden Prognosen sonst verzerren.']);
+    'Basis-Regel für internationale Vergleiche (Einordnungen, Rückstände) ab Methodik v1.4: Herangezogen wird vorrangig der beste vollständige INTERNATIONALE TES der Saison. Nur wenn kein internationaler Start vorliegt, wird ersatzweise der beste nationale Wert verwendet – deutlich gekennzeichnet. Grund: Nationale Wertungsgerichte sind nicht einheitlich besetzt; national erzielte Punktwerte können systematisch vom internationalen Niveau abweichen und würden Einordnungn sonst verzerren.']);
   mk('Berechnung der Components (PCS)',[
     'PCS = Component-Wertung Kurzprogramm + Component-Wertung Kür (bzw. Style Dance + Free Dance). Die je Wettbewerb und Programm geltenden RollArt-Faktoren sind in den offiziellen Component-Werten der Protokolle bereits enthalten und werden unverändert übernommen – der Rechenweg weist die Werte je Programm aus.',
-    'Nationale Component-Werte werden im Dashboard vollständig angezeigt und sind farblich (bernstein) von internationalen (blau) unterschieden. Da nationale Wertungsgerichte nicht einheitlich besetzt sind und national häufig höhere Component-Werte vergeben werden, fließen in internationale Referenzwerte und Prognosen ausschließlich internationale Components ein; nationale Components sind nur mit anderen nationalen Werten vergleichbar.']);
+    'Nationale Component-Werte werden im Dashboard vollständig angezeigt und sind farblich (bernstein) von internationalen (blau) unterschieden. Da nationale Wertungsgerichte nicht einheitlich besetzt sind und national häufig höhere Component-Werte vergeben werden, fließen in internationale Referenzwerte und Einordnungen ausschließlich internationale Components ein; nationale Components sind nur mit anderen nationalen Werten vergleichbar.']);
   mk('Internationale Referenzwerte',[
     'Die Referenzwerte je Platzierung sind Durchschnitte der letzten drei ausgetragenen Jahre eines Wettbewerbstyps; je Jahr fließen nur die ersten 80 % des platzierten Feldes ein. Unvollständige Segment-Summen sind ausgeschlossen und im gesamten Dashboard markiert.',
     'Zur 80-Prozent-Grenze: Je Wettbewerb und Jahr werden die ersten 80 % des platzierten Feldes berücksichtigt. Dadurch sollen außergewöhnlich niedrige Werte am Ende großer Teilnehmerfelder die Referenzkurve nicht überproportional beeinflussen. Die 80-Prozent-Grenze ist eine methodische Festlegung dieses Dashboards und kein offizieller RollArt-, World-Skate- oder DRIV-Standard.',
@@ -2020,7 +2033,7 @@ function renderMethodik(){
   mk('Element-Konstanz und Schwächen-Analyse (je Athlet)',[
     'Für jede Athletin/jeden Athleten wertet das Dashboard die offiziellen „Judges-Details-per-Skater“-Blätter der RollArt-Protokolle aus – die programmweise Aufstellung jedes einzelnen Elements mit Grundwert, Ausführungsnote (GOE/QOE) und dem Panel-Score. Grundlage sind alle protokollierten Ausführungen 2023–2026 (international und national). Jede Element-Summe wurde gegen die technische Segment-Wertung des Protokolls gegengerechnet.',
     'Je Element (z. B. „3S“ = dreifacher Salchow, „HFD“ = Heel-Forward-Pirouette) werden zusammengefasst: Zahl der Versuche, durchschnittliche Ausführungsnote (Ø GOE), Anteil der Versuche mit negativer Ausführungsnote, Zahl der Unterrotationen/ungültigen Sprünge (Protokoll-Zeichen „<“ knapp, „<<“ halbe, „<<<“ ganze Umdrehung fehlt, „*“ ungültig) und die Streuung σ der Punktwerte.',
-    'Daraus ergibt sich eine rein rechnerische Einordnung: „sicher“ (im Schnitt positive/neutrale Ausführung, kaum Abwertungen), „schwankend“ (uneinheitlich) oder „Baustelle“ (häufig negative Ausführungsnote, Unterrotationen oder Stürze). Bei weniger als vier Versuchen wird kein Urteil gefällt („wenig Daten“). Der Spalten-Trend „stabiler/wackliger“ vergleicht den Abwertungs-Anteil des letzten belegten Jahres mit dem Gesamtzeitraum.',
+    'Daraus ergibt sich eine rein rechnerische Einordnung: „sicher“ (im Schnitt positive/neutrale Ausführung, kaum Abwertungen), „schwankend“ (uneinheitlich), „Baustelle“ (häufig negative Ausführungsnote, Unterrotationen oder Stürze) oder „ohne Level (0 P.)“ (Element erhielt kein Level bzw. war ungültig und brachte 0 Punkte – zählt stets als Baustelle, auch ohne negative Ausführungsnote). Bei weniger als vier Versuchen wird kein Urteil gefällt („wenig Daten“). Der Spalten-Trend „stabiler/wackliger“ vergleicht den Abwertungs-Anteil des letzten belegten Jahres mit dem Gesamtzeitraum.',
     'Component-Profil: Die vier Programm-Components (Skating Skills = Lauftechnik/Kanten, Transitions = Verbindungselemente, Performance = Präsentation, Choreography = Choreografie) werden im aktuellsten Saison-Durchschnitt gegen die internationalen Referenzwerte der eigenen Klasse (Ø Podium bzw. Top 8) gestellt, um relative Stärken und Schwächen sichtbar zu machen. Es fließen nur internationale Component-Werte in den Vergleich ein.',
     'Programm-Inhalt vs. Podium: Für jede Klasse wird aus den Podiumsprogrammen (Platz 1–3) der internationalen Wettbewerbe der letzten zwei belegten Jahre ermittelt, welche Elemente dort wie häufig gezeigt werden und mit welchem Durchschnittswert. Das Athletenprofil stellt dem den eigenen Elementstand der letzten Saison gegenüber („nicht im Programm" bzw. Wert-Differenz). Dieser Inhalts-Vergleich ist eine Trainings-Orientierung – er berücksichtigt keine Regelvorgaben zur Programmzusammenstellung; die Programmplanung liegt bei den Trainerinnen und Trainern.',
     'Abzugsmuster: Die Abzüge (z. B. Stürze) werden je Programmteil (Kurzprogramm/Kür bzw. Style Dance/Kürtanz) getrennt gemittelt, um zu zeigen, in welchem Teil die Fehler überwiegend passieren.',
@@ -2033,13 +2046,13 @@ function renderMethodik(){
     'Die Nominierung für internationale Meisterschaften (WM/EM) ist ausschließlich Sache des Verbands (DRIV/Sportkommission). Sie kann und darf auch strategische Erwägungen umfassen (z. B. Perspektiv- und Erfahrungsaufbau) – es gibt keine staatlichen Nominierungskriterien.',
     'Das Bundesministerium des Innern entscheidet über die Förderung von Entsendungen aus Bundesmitteln. Maßgeblich ist das Leistungssportprogramm (LSP) des BMI: Förderfähig sind Athletinnen und Athleten, die „im internationalen Vergleich zur Spitzenklasse zählen und deshalb in internationalen Wettbewerben Endkampfchancen haben“ – oder die „als Nachwuchssportlerinnen und Nachwuchssportler eine deutliche Perspektive aufweisen, um den Anschluss an die internationale Spitzenklasse zu erreichen“. Beide Förderwege sind gleichberechtigt; der zweite ist die Grundlage perspektivisch begründeter Entsendungen.',
     'Eine offizielle Platzierungsschwelle (etwa „Endkampf = Platz 8“) ist in keinem der Dokumente festgelegt; die Auslegung liegt bei Verband und Fördergeber. Für nichtolympische Sportarten wie Rollkunstlauf gilt ergänzend das DOSB-Konzept „Förderung Nichtolympischer Spitzensport“: Für World-Games-Sportarten sind die World Games verpflichtender Zielwettkampf, im Übrigen die Weltmeisterschaften. Mit dem geplanten Sportfördergesetz (Entwurf 2026, Spitzensport-Agentur) kann sich die Förderlogik ändern.',
-    'Dieses Dashboard nimmt bewusst keine Endkampf- oder Förderfähigkeits-Einordnung einzelner Athletinnen und Athleten vor: Die enthaltenen Prognosen sind rein rechnerische Ableitungen aus historischen Referenzwerten und weder Nominierungs- noch Förderkriterien.',
+    'Dieses Dashboard nimmt bewusst keine Endkampf- oder Förderfähigkeits-Einordnung einzelner Athletinnen und Athleten vor: Die enthaltenen Einordnungn sind rein rechnerische Ableitungen aus historischen Referenzwerten und weder Nominierungs- noch Förderkriterien.',
     'Quellen: BMI-Leistungssportprogramm (verwaltungsvorschriften-im-internet.de) · DOSB-Konzept Förderung Nichtolympischer Spitzensport 2020 (dosb.de) · BMI-Themenseite Förderung des Spitzensports (bmi.bund.de) · Sportfördergesetz-Entwurf März 2026 (bundesregierung.de).']);
   mk('Kaderliste und Kader-Verwaltung',[
     'Grundlage ist die von der Sportkommission übergebene offizielle Kaderliste (Bundeskader-Gruppen DRIV 1–3 Kür und DRIV Solo, Stand Juli 2026). Weitere Kaderstufen (z. B. NK2) sind nur enthalten, wenn sie über die Kader-Verwaltung (Tab „Daten & Import“) ergänzt wurden.',
     'Über die Kader-Verwaltung können Gruppen/Kaderstufen und Landesverbände geändert, Athletinnen und Athleten entfernt (Kaderwechsel) sowie beliebige Personen aus dem Datenbestand als „Beobachtung“ aufgenommen werden. Solche Änderungen gelten nur im jeweiligen Browser und sind überall deutlich als inoffiziell gekennzeichnet – für offizielle Auswertungen ist ausschließlich die offiziell veröffentlichte Kaderliste maßgeblich (Exporte weisen den Kader-Status je Zeile aus).',
     'Kennzeichnung „nicht beendet“: Athletinnen und Athleten, die einen Wettbewerb nicht vollständig absolviert haben (z. B. Cut oder Rückzug nach dem Kurzprogramm), sind in Profil und Übersicht markiert; solche Ergebnisse fließen nicht in Referenzwerte oder Bestwerte ein.',
-    'Referenzbasis anpassen (experimentell): Im Tab „Internationale Referenzwerte“ können einzelne Wettbewerbe versuchsweise aus den Referenzkurven ausgeblendet werden (z. B. Jahre mit abweichender Elementzahl). Ein aktiver Ausschluss wirkt auf alle Referenzwerte, Prognosen und Rückstände und wird dashboardweit deutlich als experimentell markiert; Standard ist immer die vollständige Basis.']);
+    'Referenzbasis anpassen (experimentell): Im Tab „Internationale Referenzwerte“ können einzelne Wettbewerbe versuchsweise aus den Referenzkurven ausgeblendet werden (z. B. Jahre mit abweichender Elementzahl). Ein aktiver Ausschluss wirkt auf alle Referenzwerte, Einordnungen und Rückstände und wird dashboardweit deutlich als experimentell markiert; Standard ist immer die vollständige Basis.']);
   mk('Grenzen der Datenbasis',[
     'Das Dashboard bildet ausschließlich dokumentierte Wettkampfergebnisse ab. Nicht enthalten sind: Technikqualität im Detail, Trainingsentwicklung, gesundheitliche Umstände, Tagesform-Kontexte sowie taktische oder strategische Erwägungen. Aussagen über künftige Leistungen oder über die Eignung von Athletinnen und Athleten lassen sich aus diesen Daten nicht ableiten.',
     'Bei Klassenwechseln gelten teils unterschiedliche Programm-Faktoren; Jahresvergleiche sind in diesem Kontext zu lesen (Kennzeichnung im Profil).']);
@@ -2213,7 +2226,7 @@ function renderDaten(){
   const fiJ=el('input');fiJ.type='file';fiJ.accept='application/json';fiJ.style.display='none';
   bI.addEventListener('click',()=>fiJ.click());
   fiJ.addEventListener('change',()=>{const f=fiJ.files[0];if(!f)return;const r=new FileReader();
-    r.onload=()=>{try{const d=JSON.parse(r.result);if(Array.isArray(d)){DB=d;render();}else alert('Ungültiges Format.');}catch(e){alert('Datei konnte nicht gelesen werden.');}};
+    r.onload=()=>{try{const d=JSON.parse(r.result);if(Array.isArray(d)){DB=d;render();}else alert('Diese Datei hat nicht das erwartete Format. Bitte eine zuvor über „Datenbestand exportieren“ gespeicherte JSON-Datei dieses Dashboards wählen.');}catch(e){alert('Die Datei konnte nicht gelesen werden – sie ist keine gültige JSON-Sicherung dieses Dashboards. Bitte die Original-Exportdatei verwenden.');}};
     r.readAsText(f);});
   rowB.append(bE,bI,fiJ);c2.append(rowB);
   c2.append(el('p','note','Der Datenbestand lebt im Browser-Speicher der geöffneten Datei. Zum dauerhaften Speichern den Datenbestand als JSON sichern und beim nächsten Öffnen wieder laden. Auswertungsregeln: '+JAHRE_FENSTER+'-Jahres-Fenster, nur die ersten '+Math.round(CUT*100)+' % der Platzierten je Wettbewerb, TES primär, PCS ergänzend und nur international.'));
@@ -2276,7 +2289,10 @@ async function importFiles(files,typ,nameOverride){
         status.textContent=f.name+': keine auswertbaren Ergebnistabellen gefunden (RollArt-Format erwartet).';
         IMPLOG.unshift('<b>'+esc(f.name)+'</b>: übersprungen – keine RollArt-Ergebnistabellen erkannt.');
       }
-    }catch(e){status.textContent=f.name+': Fehler beim Einlesen ('+e.message+').';}
+    }catch(e){
+      status.textContent=f.name+': Datei konnte nicht verarbeitet werden. Bitte prüfen: Ist es ein unbeschädigtes RollArt-Ergebnis-PDF (kein Scan/Foto)? Ggf. neu aus dem Ergebnissystem herunterladen und erneut versuchen.';
+      IMPLOG.unshift('<b>'+esc(f.name)+'</b>: nicht verarbeitet – Datei beschädigt oder kein RollArt-Ergebnis-PDF. (Technischer Hinweis: '+esc(e.message||String(e))+')');
+    }
   }
   render(); state.view='daten'; syncTabs();
 }
@@ -2361,7 +2377,7 @@ document.querySelectorAll('nav.tabs button').forEach(b=>b.addEventListener('clic
 function renderFoot(){
   const f=document.getElementById('foot'); if(!f)return;
   const nRes=DB.reduce((s,e)=>s+e.kategorien.reduce((x,k)=>x+k.rows.length,0),0);
-  f.textContent='DRIV Rollkunstlauf – Leistungsdaten-Analyse · Version '+VERSION+' · Build/Datenimport: '+BUILD+' · Datenzeitraum 2023–2026 · '+DB.length+' Wettbewerbe / '+nRes.toLocaleString('de-DE')+' Einzelergebnisse (offizielle RollArt-Protokolle) · Methodik v'+METHODIK_VERSION+': historische 3-Jahres-Referenzkurven, erste 80 % des Feldes; TES = technische Elemente − Abzüge (Kontrolle TES + PCS = Gesamt) · Prognosen: rein rechnerisch auf Basis historischer Referenzwerte, ohne sportfachliche Aussage · ausschließlich statistische Auswertung historischer Wettkampfdaten.';
+  f.textContent='DRIV Rollkunstlauf – Leistungsdaten-Analyse · Version '+VERSION+' · Build/Datenimport: '+BUILD+' · Datenzeitraum 2023–2026 · '+DB.length+' Wettbewerbe / '+nRes.toLocaleString('de-DE')+' Einzelergebnisse (offizielle RollArt-Protokolle) · Methodik v'+METHODIK_VERSION+': historische 3-Jahres-Referenzkurven, erste 80 % des Feldes; TES = technische Elemente − Abzüge (Kontrolle TES + PCS = Gesamt) · Einordnungn: rein rechnerisch auf Basis historischer Referenzwerte, ohne sportfachliche Aussage · ausschließlich statistische Auswertung historischer Wettkampfdaten.';
 }
 function render(){
   renderMeta(); renderFoot();
@@ -2369,7 +2385,7 @@ function render(){
   if((state.exclEvents||[]).length){
     const w=el('div','card');w.style.borderLeft='4px solid var(--warn)';
     const p=el('p','sec');p.style.margin='0';
-    p.append(document.createTextNode('⚠ Experimentelle Referenzbasis: '+state.exclEvents.length+' Wettbewerb(e) ausgeblendet – alle Referenzwerte, Prognosen und Rückstände beruhen derzeit auf der angepassten Basis (keine offizielle Auswertung). '));
+    p.append(document.createTextNode('⚠ Experimentelle Referenzbasis: '+state.exclEvents.length+' Wettbewerb(e) ausgeblendet – alle Referenzwerte, Einordnungen und Rückstände beruhen derzeit auf der angepassten Basis (keine offizielle Auswertung). '));
     const b=el('button','btn sec2 mini','Zurücksetzen');
     b.addEventListener('click',()=>{state.exclEvents=[];render();});
     p.append(b); w.append(p); main.append(w);
