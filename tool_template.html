@@ -39,6 +39,13 @@ nav.tabs button{appearance:none;background:none;border:none;border-bottom:2px so
 nav.tabs button:hover{color:var(--ink-1);background:var(--surface-2)}
 nav.tabs button.on{color:var(--s1);border-bottom-color:var(--s1)}
 nav.tabs button:focus-visible{outline:2px solid var(--s1);outline-offset:-2px}
+@media(max-width:700px){
+  /* Mobil: eine wischbare Zeile statt 5 umgebrochener Zeilen (Sticky-Leiste sonst 227 px hoch) */
+  nav.tabs{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+  nav.tabs::-webkit-scrollbar{display:none}
+  nav.tabs button{white-space:nowrap;flex:0 0 auto;padding:10px 12px}
+  nav.tabs.scrollfade{-webkit-mask-image:linear-gradient(90deg,#000 calc(100% - 30px),transparent);mask-image:linear-gradient(90deg,#000 calc(100% - 30px),transparent)}
+}
 .card{background:var(--surface-1);border:1px solid var(--border);border-radius:var(--r-lg);padding:18px 20px;margin-bottom:16px;overflow-x:auto;box-shadow:var(--shadow-1);transition:box-shadow .15s}
 .natv{color:var(--natc)}
 .intv{color:var(--intc)}
@@ -2360,7 +2367,7 @@ function parseRollArt(lines,typ,name){
 
 
 /* ================= Router ================= */
-function syncTabs(){document.querySelectorAll('nav.tabs button').forEach(b=>{const on=b.dataset.v===state.view;b.classList.toggle('on',on);b.setAttribute('aria-selected',on?'true':'false');b.tabIndex=on?0:-1;if(on)document.getElementById('main').setAttribute('aria-labelledby',b.id);});}
+function syncTabs(){document.querySelectorAll('nav.tabs button').forEach(b=>{const on=b.dataset.v===state.view;b.classList.toggle('on',on);b.setAttribute('aria-selected',on?'true':'false');b.tabIndex=on?0:-1;if(on){document.getElementById('main').setAttribute('aria-labelledby',b.id);if(b.scrollIntoView)try{b.scrollIntoView({inline:'nearest',block:'nearest'});}catch(e){}}});}
 /* Pfeiltasten-/Home-/End-Navigation für die Tabs (ARIA-Empfehlung) */
 document.querySelector('nav.tabs').addEventListener('keydown',ev=>{
   const tabs=[...document.querySelectorAll('nav.tabs button')];
@@ -2374,6 +2381,12 @@ document.querySelector('nav.tabs').addEventListener('keydown',ev=>{
   if(j!=null){ev.preventDefault();tabs[j].focus();tabs[j].click();}
 });
 document.querySelectorAll('nav.tabs button').forEach(b=>b.addEventListener('click',()=>{state.view=b.dataset.v;syncTabs();render();window.scrollTo({top:0});}));
+/* Wisch-Hinweis der mobilen Tab-Leiste: rechter Rand blendet aus, solange weitere Reiter folgen */
+(function(){
+  const n=document.querySelector('nav.tabs'); if(!n)return;
+  const upd=()=>n.classList.toggle('scrollfade',n.scrollWidth-n.clientWidth-n.scrollLeft>6);
+  n.addEventListener('scroll',upd,{passive:true}); addEventListener('resize',upd); setTimeout(upd,0);
+})();
 function renderFoot(){
   const f=document.getElementById('foot'); if(!f)return;
   const nRes=DB.reduce((s,e)=>s+e.kategorien.reduce((x,k)=>x+k.rows.length,0),0);
