@@ -48,6 +48,7 @@ nav.tabs button:focus-visible{outline:2px solid var(--s1);outline-offset:-2px}
 .estat.mid{background:color-mix(in srgb,var(--warn) 15%,var(--surface-1));color:var(--warn);border:1px solid color-mix(in srgb,var(--warn) 40%,transparent)}
 .estat.bad{background:color-mix(in srgb,var(--bad) 14%,var(--surface-1));color:var(--bad);border:1px solid color-mix(in srgb,var(--bad) 40%,transparent)}
 .estat.few{background:var(--surface-2);color:var(--ink-2);border:1px solid var(--border)}
+.tblwrap{overflow-x:auto;-webkit-overflow-scrolling:touch}
 .goepos{color:var(--good);font-weight:600}
 .goeneg{color:var(--bad);font-weight:600}
 .cbar{position:relative;height:14px;border-radius:4px;background:var(--surface-2);overflow:visible;min-width:120px}
@@ -140,6 +141,7 @@ tr.click:focus-visible{outline:2px solid var(--s1);outline-offset:-2px}
 <nav class="tabs" role="tablist" aria-label="Hauptnavigation">
   <button id="tab-kader" data-v="kader" class="on" role="tab" aria-selected="true" aria-controls="main" tabindex="0">Kaderathleten</button>
   <button id="tab-vergleich" data-v="vergleich" role="tab" aria-selected="false" aria-controls="main" tabindex="-1">Athleten-Vergleich</button>
+  <button id="tab-konstanz" data-v="konstanz" role="tab" aria-selected="false" aria-controls="main" tabindex="-1">Konstanz-Übersicht</button>
   <button id="tab-bench" data-v="bench" role="tab" aria-selected="false" aria-controls="main" tabindex="-1">Internationale Referenzwerte</button>
   <button id="tab-vereine" data-v="vereine" role="tab" aria-selected="false" aria-controls="main" tabindex="-1">Vereine &amp; Verbände</button>
   <button id="tab-methodik" data-v="methodik" role="tab" aria-selected="false" aria-controls="main" tabindex="-1">Methodik</button>
@@ -180,8 +182,8 @@ kaderLoad();
    Component-Profil im Athletenprofil. Nur deutsche Szene + Kaderathleten. */
 const DETAILS = /*__DETAILS__*/;
 const TYPEN=[['WM','Weltmeisterschaft'],['EM','Europameisterschaft'],['WC-EU','World Cup Europa'],['WC-SA','World Cup Südamerika'],['WC-F','World Cup Finale'],['CoE','Europa Cup'],['IGC','Int. Deutschland-Pokal'],['IL','Interland Cup'],['National','National (DM / Ranglistenwettbewerb)'],['Sonstige','Sonstiger Wettbewerb']];
-const VERSION='3.8';
-const METHODIK_VERSION='1.6'; // + Element-Konstanz-/Schwächen-Analyse (Judges-Detail-Blätter) + Component-Profil je Athlet; Segmentdaten aus Detailblättern geheilt
+const VERSION='3.9';
+const METHODIK_VERSION='1.7'; // + Podium-Inhaltsvergleich, Konstanz-Übersicht (alle Kaderathleten), Abzugsmuster je Programmteil
 const BUILD='/*__BUILD__*/';
 const GRUPPE_DIS={ // Gruppen-Anzeige je Disziplin-Bereich (Festlegung Marcel)
  'Anne Sophie Schiefer':{'Kürlaufen':'DRIV 1 Kür'},
@@ -1294,10 +1296,151 @@ function renderKonstanz(name,dis){
   });
   card.append(tb);
   card.append(el('p','note','Grundlage: alle protokollierten Ausführungen dieses Elements 2023–2026. „Ø GOE" = durchschnittliche Ausführungsnote der Wertungsrichter (positiv = honoriert, negativ = abgewertet). „abgewertet" = Anteil der Versuche mit negativer Ausführungsnote. „unterrot./ungültig" = Sprünge mit fehlender Rotation (<, <<, <<<) oder ungültig (*). σ = Streuung der erreichten Punktwerte (klein = konstant). Status ist eine rein rechnerische Einordnung (sicher / schwankend / Baustelle) und ersetzt nicht die technische Trainer-Einschätzung. Kombinations-Platzhalter „No Jump" (ausgelassene Sprünge) sind ausgeblendet.'));
+  /* Abzugsmuster je Programmteil */
+  const am=abzugsMuster(d);
+  if(am)card.append(am);
+  /* Programm-Inhalt vs. internationales Podium */
+  const pv=podiumVergleich(name,dis,d);
+  if(pv)card.append(pv);
   /* Component-Profil */
   const cp=compProfile(name,dis);
   if(cp)card.append(cp);
   return card;
+}
+const SEGLABEL={KP:'Kurzprogramm','Kür':'Kür',SD:'Style Dance',KT:'Kürtanz',PT:'Pflichttanz'};
+function abzugsMuster(d){
+  const sg=d.seg||{};
+  const ks=Object.keys(sg).filter(k=>sg[k][0]>=4);
+  if(ks.length<2)return null;
+  const rows=ks.map(k=>({k,n:sg[k][0],abz:sg[k][1],avg:sg[k][1]/sg[k][0]})).sort((a,b)=>b.avg-a.avg);
+  const p=el('p','statline');p.style.marginTop='10px';
+  const worst=rows[0], best=rows[rows.length-1];
+  let t='Abzugsmuster (Stürze/Abzüge je Programmteil): '+rows.map(r=>(SEGLABEL[r.k]||r.k)+' Ø '+fmt(Math.round(r.avg*100)/100)+' Punkte Abzug pro Programm ('+fmt(r.abz)+' in '+r.n+')').join(' · ')+'.';
+  if(worst.avg>best.avg+0.15&&worst.abz>0)t+=' → Die Fehler passieren überwiegend im Programmteil „'+(SEGLABEL[worst.k]||worst.k)+'".';
+  else if(rows.every(r=>r.avg<=0.1))t+=' → Kaum Abzüge – sturzarmes Wettkampfbild.';
+  p.textContent=t;
+  return p;
+}
+function podiumVergleich(name,dis,d){
+  const cc=currentClassOf(rowsOf(name),dis);
+  if(!cc)return null;
+  const ref=DETAILS.refel&&DETAILS.refel[dis+'|'+cc.klasse+'|'+(cc.gender||'')];
+  if(!ref)return null;
+  const ownEls=d.el.filter(e=>e.c!=='NJ');
+  if(!ownEls.length)return null;
+  const yl=Math.max(...ownEls.map(e=>e.yl));
+  const own={};ownEls.forEach(e=>{if(e.yl===yl)own[e.c]=e;});
+  const rows=Object.entries(ref.el).map(([c,v])=>({c,share:v[0],val:v[1],g:v[2],mine:own[c]||null}))
+    .filter(x=>x.share>=0.4)
+    .sort((a,b)=>(b.share*b.val)-(a.share*a.val));
+  if(!rows.length)return null;
+  const box=el('div');box.style.marginTop='14px';
+  const h=el('p','statline');h.style.margin='2px 0 6px';
+  h.textContent='Programm-Inhalt im Vergleich zum internationalen Podium – Klasse '+cc.klasse+(cc.gender?' '+cc.gender:'')+' ('+ref.n+' Podiumsprogramme, '+ref.jahre.join('/')+')';
+  box.append(h);
+  const tb=el('table');const th=el('tr');
+  ['Element','Podium zeigt es in','Podium Ø Wert','Eigener Stand '+yl,'Differenz'].forEach(x=>th.append(el('th',null,x)));
+  tb.append(th);
+  let fehlt=0;
+  rows.slice(0,12).forEach(x=>{
+    const tr=el('tr');
+    const tdc=el('td');tdc.append(el('span',null,elName(x.c)));const cc2=el('span','sec');cc2.textContent=' '+x.c;tdc.append(cc2);tr.append(tdc);
+    tr.append(el('td','num',Math.round(x.share*100)+' % der Programme'));
+    tr.append(el('td','num',fmt(x.val)));
+    if(x.mine){
+      tr.append(el('td','num',fmt(x.mine.ml)+' (Ø, '+x.mine.nl+' Versuche)'));
+      const diff=Math.round((x.mine.ml-x.val)*100)/100;
+      const tdd=el('td','num');
+      tdd.append(el('span',diff>=-0.005?'goepos':'goeneg',(diff>0?'+':'')+fmt(diff)));
+      tr.append(tdd);
+    } else {
+      fehlt++;
+      const tdm=el('td','sec');tdm.textContent='nicht im Programm';tdm.style.color='var(--warn)';tdm.style.fontWeight='600';tr.append(tdm);
+      const tdd=el('td','num');tdd.append(el('span','goeneg','−'+fmt(x.val)));tdd.title='Rechnerisch entgangener Wert gegenüber dem Podium-Durchschnitt.';tr.append(tdd);
+    }
+    tb.append(tr);
+  });
+  box.append(tb);
+  box.append(el('p','note','Zeigt die Elemente, die in mindestens 40 % der Podiumsprogramme (Platz 1–3) der eigenen Klasse bei internationalen Wettbewerben vorkommen (aktuellster Elementstand: letzte zwei belegte Jahre), mit dem dort erzielten Durchschnittswert (inkl. Ausführungsnote). „Eigener Stand" = eigener Durchschnittswert des Elements in der letzten Saison; „nicht im Programm" = Element wurde zuletzt nicht gezeigt. Rein rechnerischer Inhalts-Vergleich zur Trainings-Orientierung: Er berücksichtigt nicht, welche Elemente regelkonform kombinierbar sind oder trainiert werden – die inhaltliche Programmplanung liegt bei den Trainerinnen und Trainern.'));
+  return box;
+}
+/* ---- Konstanz-Übersicht: Ampel aller Kaderathleten ---- */
+function konstanzZeile(name,dis){
+  const d=DETAILS.det[name+'|'+dis];
+  if(!d)return null;
+  const els=d.el.map(classifyEl).filter(Boolean).filter(e=>e.n>=4);
+  const ok=els.filter(e=>e.cls==='ok'),mid=els.filter(e=>e.cls==='mid'),bad=els.filter(e=>e.cls==='bad');
+  bad.sort((a,b)=>(b.n*b.negRate)-(a.n*a.negRate));
+  /* Component-Schwäche (nur international) */
+  let compTxt='–',compGap=null;
+  const ci=d.comps&&d.comps.int;
+  if(ci&&Object.keys(ci).length){
+    const yr=Math.max(...Object.keys(ci).map(Number));
+    const vals=ci[String(yr)].slice(1);
+    const cc=currentClassOf(rowsOf(name),dis);
+    const ref=cc&&DETAILS.refc[dis+'|'+cc.klasse+'|'+(cc.gender||'')];
+    if(ref){
+      let worst=null;
+      COMPLBL.forEach(([en,de],i)=>{
+        if(vals[i]==null||ref.p[i]==null)return;
+        const gap=ref.p[i]-vals[i];
+        if(worst==null||gap>worst.gap)worst={de,gap};
+      });
+      if(worst){compTxt=worst.de+(worst.gap>0?' (−'+fmt(Math.round(worst.gap*100)/100)+')':' (✓)');compGap=worst.gap;}
+    }
+  }
+  /* Abzüge letzte Saison */
+  let abzTxt='–';
+  const aj=Object.keys(d.abz||{});
+  if(aj.length){
+    const y=Math.max(...aj.map(Number));const a=d.abz[String(y)];
+    abzTxt='Ø '+fmt(Math.round(a[1]/a[0]*100)/100)+' ('+y+')';
+  }
+  return {name,dis,nOk:ok.length,nMid:mid.length,nBad:bad.length,
+          topBad:bad.slice(0,2).map(e=>e.c),topOk:ok.sort((a,b)=>b.b-a.b).slice(0,2).map(e=>e.c),
+          compTxt,compGap,abzTxt,starts:d.starts};
+}
+function renderKonstanzUebersicht(){
+  const card=el('div','card wide');
+  const h=el('h2',null,'Konstanz-Übersicht – alle Kaderathleten auf einen Blick');
+  h.append(infoI('konstEl'));card.append(h);
+  card.append(el('p','sec','Rechnerische Element-Einordnung je Athlet/in aus den offiziellen Judges-Detail-Blättern (2023–2026): Zahl der sicheren / schwankenden / Baustellen-Elemente (mindestens 4 protokollierte Versuche), die größten Baustellen, die relativ schwächste Component (vs. internationales Podium der Klasse) und die Abzüge der letzten Saison. Klick auf den Namen öffnet das vollständige Profil mit allen Details.'));
+  const groups=[...new Set(KADER.map(k=>k.gruppe))];
+  const tb=el('table');tb.className='ovtab';
+  const th=el('tr');
+  ['Athlet/in','Gruppe','Disziplin','sicher','schwankend','Baustellen','größte Baustellen','stärkste Elemente','schwächste Component (int.)','Abzüge/Start'].forEach(x=>th.append(el('th',null,x)));
+  tb.append(th);
+  let rows=0;
+  const wrap=el('div','tblwrap');
+  KADER.forEach(kd=>{
+    const dis=[...new Set(rowsOf(kd.name).map(r=>r.dis))];
+    dis.forEach(ds=>{
+      const z=konstanzZeile(kd.name,ds);
+      if(!z||z.nOk+z.nMid+z.nBad===0)return;
+      rows++;
+      const tr=el('tr');
+      const tdn=el('td');
+      const a=el('a',null,kd.name);a.href='javascript:void(0)';a.style.fontWeight='600';
+      a.addEventListener('click',()=>{state.view='kader';state.athlet=kd.name;syncTabs();render();window.scrollTo({top:0});});
+      tdn.append(a);
+      if(kd.inoffiziell){const bo=el('div','sec','⚠ Beobachtung');bo.style.color='var(--warn)';tdn.append(bo);}
+      tr.append(tdn);
+      tr.append(el('td','sec',(GRUPPE_DIS[kd.name]&&GRUPPE_DIS[kd.name][ds])||kd.gruppe||''));
+      tr.append(el('td','sec',ds));
+      const mkN=(n,cls)=>{const td=el('td','num');if(n>0)td.append(el('span','estat '+cls,String(n)));else td.textContent='–';return td;};
+      tr.append(mkN(z.nOk,'ok'),mkN(z.nMid,'mid'),mkN(z.nBad,'bad'));
+      tr.append(el('td','sec',z.topBad.length?z.topBad.map(c=>elName(c)+' ('+c+')').join(', '):'–'));
+      tr.append(el('td','sec',z.topOk.length?z.topOk.map(c=>elName(c)+' ('+c+')').join(', '):'–'));
+      const tdc=el('td','sec',z.compTxt);
+      if(z.compGap!=null&&z.compGap>0.4)tdc.style.color='var(--bad)';
+      tr.append(tdc);
+      tr.append(el('td','num',z.abzTxt));
+      tb.append(tr);
+    });
+  });
+  wrap.append(tb);card.append(wrap);
+  card.append(el('p','note',rows+' Zeilen (Athlet × Disziplin mit Detail-Daten). Rein rechnerische, deskriptive Einordnung aus den offiziellen Protokollen – „Baustelle" bedeutet: häufig negative Ausführungsnoten, Unterrotationen oder Streuung, KEINE sportfachliche Bewertung und kein Nominierungskriterium. Die Zählung umfasst nur Elemente mit mindestens 4 protokollierten Versuchen. Für Einordnung, Kontext und die vollständigen Element-Tabellen bitte immer das Athletenprofil öffnen.'));
+  main.append(card);
 }
 function compProfile(name,dis){
   const d=DETAILS.det[name+'|'+dis];
@@ -1879,6 +2022,9 @@ function renderMethodik(){
     'Je Element (z. B. „3S“ = dreifacher Salchow, „HFD“ = Heel-Forward-Pirouette) werden zusammengefasst: Zahl der Versuche, durchschnittliche Ausführungsnote (Ø GOE), Anteil der Versuche mit negativer Ausführungsnote, Zahl der Unterrotationen/ungültigen Sprünge (Protokoll-Zeichen „<“ knapp, „<<“ halbe, „<<<“ ganze Umdrehung fehlt, „*“ ungültig) und die Streuung σ der Punktwerte.',
     'Daraus ergibt sich eine rein rechnerische Einordnung: „sicher“ (im Schnitt positive/neutrale Ausführung, kaum Abwertungen), „schwankend“ (uneinheitlich) oder „Baustelle“ (häufig negative Ausführungsnote, Unterrotationen oder Stürze). Bei weniger als vier Versuchen wird kein Urteil gefällt („wenig Daten“). Der Spalten-Trend „stabiler/wackliger“ vergleicht den Abwertungs-Anteil des letzten belegten Jahres mit dem Gesamtzeitraum.',
     'Component-Profil: Die vier Programm-Components (Skating Skills = Lauftechnik/Kanten, Transitions = Verbindungselemente, Performance = Präsentation, Choreography = Choreografie) werden im aktuellsten Saison-Durchschnitt gegen die internationalen Referenzwerte der eigenen Klasse (Ø Podium bzw. Top 8) gestellt, um relative Stärken und Schwächen sichtbar zu machen. Es fließen nur internationale Component-Werte in den Vergleich ein.',
+    'Programm-Inhalt vs. Podium: Für jede Klasse wird aus den Podiumsprogrammen (Platz 1–3) der internationalen Wettbewerbe der letzten zwei belegten Jahre ermittelt, welche Elemente dort wie häufig gezeigt werden und mit welchem Durchschnittswert. Das Athletenprofil stellt dem den eigenen Elementstand der letzten Saison gegenüber („nicht im Programm" bzw. Wert-Differenz). Dieser Inhalts-Vergleich ist eine Trainings-Orientierung – er berücksichtigt keine Regelvorgaben zur Programmzusammenstellung; die Programmplanung liegt bei den Trainerinnen und Trainern.',
+    'Abzugsmuster: Die Abzüge (z. B. Stürze) werden je Programmteil (Kurzprogramm/Kür bzw. Style Dance/Kürtanz) getrennt gemittelt, um zu zeigen, in welchem Teil die Fehler überwiegend passieren.',
+    'Konstanz-Übersicht (eigener Tab): fasst die Element-Einordnung aller Kaderathleten in einer Tabelle zusammen (Anzahl sicherer/schwankender/Baustellen-Elemente, größte Baustellen, schwächste Component, Abzüge der letzten Saison). Sie ist ein Einstieg für die Sportkommission – für jede Bewertung im Einzelfall gilt das vollständige Athletenprofil.',
     'Diese Auswertung ist deskriptiv und rechnerisch: Sie beschreibt, was in den Protokollen steht, und ersetzt nicht die technische Einschätzung der Trainerinnen und Trainer. Sie berücksichtigt keine Trainingsentwicklung, Technikdetails, Verletzungen oder Tagesform. Die Element-Detaildaten dienten zusätzlich dazu, unvollständige Segment-Summen in der Ergebnisdatenbank zu vervollständigen – ausschließlich dann, wenn die Detail-Blätter das Gesamtergebnis exakt ergeben (Kontrollgleichung TES + PCS = Gesamt).']);
   mk('Vereins- und Verbandsauswertung',[
     'Der Tab „Vereine & Verbände“ zählt Starts, Siege (Platz 1) und Podestplätze (Platz 1–3) je Verein aus der Vereins-Spalte der nationalen Ergebnisprotokolle; der Landesverband stammt aus der Verbandsangabe der Protokolle. Internationale Starts und Podestplätze werden einer Person über ihren zuletzt dokumentierten Verein zugeordnet. Paare mit zwei Vereinen zählen für den erstgenannten Verein.',
@@ -2230,6 +2376,7 @@ function render(){
   }
   if(state.view==='kader')renderKader();
   else if(state.view==='vergleich')renderVergleich();
+  else if(state.view==='konstanz')renderKonstanzUebersicht();
   else if(state.view==='bench')renderBench();
   else if(state.view==='vereine')renderVereine();
   else if(state.view==='methodik')renderMethodik();

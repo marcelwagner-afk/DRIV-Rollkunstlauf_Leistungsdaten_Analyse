@@ -7,3 +7,5 @@ tests_local.mjs
 # Benutzerliste der Login-Seite: bleibt IMMER nur lokal (nie hochladen!)
 zugang/
 login/
+# Vom Assistenten aussortierte Dateien (kann Marcel löschen)
+_to_delete/

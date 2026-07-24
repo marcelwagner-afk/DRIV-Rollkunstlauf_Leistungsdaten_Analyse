@@ -17,7 +17,7 @@ await p.goto(FILE);
 await p.waitForFunction(() => document.querySelectorAll('.ovtab').length > 0, { timeout: 30000 });
 
 // 1) Tabs
-for (const v of ['kader','vergleich','bench','vereine','methodik','daten']) {
+for (const v of ['kader','vergleich','konstanz','bench','vereine','methodik','daten']) {
   await p.evaluate(x => { state.view = x; state.athlet=''; render(); syncTabs(); }, v);
   await p.waitForTimeout(120);
   check('Tab '+v, await p.evaluate(() => main.children.length > 0));
@@ -200,6 +200,32 @@ check('v3.8 Stärke erkannt (Schrittfolge St2 positive GOE)', v38.stOk);
 check('v3.8 Kombi-Platzhalter „No Jump" ausgeblendet', v38.njRaw && v38.njShown);
 check('v3.8 Component-Profil mit int. Referenzmarken', v38.cpDa);
 check('v3.8 Element-GOE-Werte plausibel (keine Ausreißer)', v38.qFinite);
+
+// 4f) v3.9: Podium-Inhaltsvergleich, Konstanz-Übersicht, Abzugsmuster
+const v39 = await p.evaluate(() => {
+  const out = {};
+  out.refelDa = !!(DETAILS.refel && Object.keys(DETAILS.refel).length >= 20);
+  // Podium-Referenz plausibel: Junioren-Herren-Kür enthält 2A mit hohem Programm-Anteil
+  const jm = DETAILS.refel['Kürlaufen|Junioren|Herren'];
+  out.refelPlausibel = jm && jm.el['2A'] && jm.el['2A'][0] > 0.8 && jm.n >= 20;
+  // Profil Martino: Podium-Abschnitt + Abzugsmuster + Differenzen
+  state.view='kader'; state.athlet='Tiziano Martino'; render();
+  const txt=document.getElementById('main').textContent;
+  out.podiumSec = txt.includes('Programm-Inhalt im Vergleich zum internationalen Podium');
+  out.abzugSec  = txt.includes('Abzugsmuster');
+  // Übersichts-Tab: Zeilen für alle Kader-Disziplinen, Badges, Klick-Navigation
+  state.view='konstanz'; state.athlet=''; render();
+  const rows=document.querySelectorAll('#main table tr').length-1;
+  out.ovRows = rows >= 60;
+  out.ovBadges = document.querySelectorAll('#main .estat').length >= 100;
+  const link=[...document.querySelectorAll('#main a')].find(a=>a.textContent==='Noah Hirsch');
+  if(link){ link.click(); out.navWorks = state.view==='kader' && state.athlet==='Noah Hirsch'; }
+  state.view='kader'; state.athlet=''; render();
+  return out;
+});
+check('v3.9 Podium-Element-Inventar eingebettet + plausibel (2A Junioren)', v39.refelDa && v39.refelPlausibel);
+check('v3.9 Profil: Podium-Vergleich + Abzugsmuster', v39.podiumSec && v39.abzugSec);
+check('v3.9 Konstanz-Übersicht (Zeilen + Ampel-Badges + Klick öffnet Profil)', v39.ovRows && v39.ovBadges && v39.navWorks, JSON.stringify(v39));
 
 // 5) Exporte (XLSX + CSV)
 let dl = p.waitForEvent('download', { timeout: 15000 }).catch(() => null);

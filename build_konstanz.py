@@ -51,9 +51,12 @@ def grp(kind,code):
     if 'step' in kl and 'dance' not in kl: return 'S'
     return 'D'
 
+SEGKEY={'Short Program':'KP','Free Program':'Kür','Long Program':'Kür','Style Dance':'SD',
+        'Free Dance':'KT','Compulsory 1':'PT','Compulsory 2':'PT','Compulsory Dance':'PT'}
 agg=defaultdict(lambda:{'el':defaultdict(lambda:defaultdict(list)),
                         'comps':defaultdict(lambda:defaultdict(list)),
-                        'abz':defaultdict(lambda:[0,0.0]),'starts':0,'intN':0,'natN':0})
+                        'abz':defaultdict(lambda:[0,0.0]),'starts':0,'intN':0,'natN':0,
+                        'seg':defaultdict(lambda:[0,0.0])})
 for s in det:
     if 'canon' not in s: continue
     key=s['canon']+'|'+s['dis']
@@ -61,6 +64,8 @@ for s in det:
     a['intN' if s['herkunft']=='international' else 'natN']+=1
     jahr=s['jahr']
     ab=a['abz'][jahr]; ab[0]+=1; ab[1]+=abs(s['ded'] or 0)
+    sk=SEGKEY.get((s['cat'] or {}).get('seg') or '','?')
+    sg=a['seg'][sk]; sg[0]+=1; sg[1]+=abs(s['ded'] or 0)
     for e in s['elements']:
         a['el'][(e['code'],grp(e['kind'],e['code']))][jahr].append(e)
     if any(v is not None for v in s['comps']):
@@ -109,7 +114,8 @@ for key,a in agg.items():
             y[jahr]=[len(rowsc)]+[r2(sums[i]/cnts[i]) if cnts[i] else None for i in range(4)]
         comps['int' if hk=='international' else 'nat']=y
     OUT[key]={'el':el,'comps':comps,'starts':a['starts'],'intN':a['intN'],'natN':a['natN'],
-              'abz':{str(j):[v[0],r2(v[1])] for j,v in a['abz'].items()}}
+              'abz':{str(j):[v[0],r2(v[1])] for j,v in a['abz'].items()},
+              'seg':{k:[v[0],r2(v[1])] for k,v in a['seg'].items() if k!='?'}}
 
 # ---------- Referenz: Einzel-Components int. Podium je Klasse+Disziplin+Geschlecht ----------
 refc=defaultdict(lambda:[ [0.0,0]*1 for _ in range(4)])
@@ -132,8 +138,36 @@ for s in det:
 REFC={k:{'p':[r2(x[0]/x[1]) if x[1] else None for x in v['p']],
          't8':[r2(x[0]/x[1]) if x[1] else None for x in v['t8']]} for k,v in refagg.items()}
 
+# ---------- Referenz: Element-Inventar des int. Podiums je Klasse+Disziplin+Geschlecht ----------
+# Welche Elemente zeigen die Podiumsprogramme (Platz 1-3) – Anteil der Programme mit dem Element
+# und durchschnittlicher Panel-Score. Basis: die letzten beiden belegten Jahre je Gruppe (aktueller Stand).
+podprog=defaultdict(list)   # key -> Liste von Programmen (je Programm: dict code->beste panel)
+for s in det:
+    if 'canon' not in s or s['herkunft']!='international': continue
+    pl=rankmap.get((s['event'],s['canon'],s['dis']))
+    if not pl or pl>3: continue
+    key=s['dis']+'|'+s['klasse']+'|'+(s.get('gender') or '')
+    prog={}
+    for e in s['elements']:
+        if e['code']=='NJ': continue
+        c=e['code']
+        if c not in prog or e['panel']>prog[c][0]: prog[c]=[e['panel'],grp(e['kind'],e['code'])]
+    if prog: podprog[key].append({'jahr':s['jahr'],'prog':prog})
+REFEL={}
+for key,progs in podprog.items():
+    jahre=sorted({p['jahr'] for p in progs})[-2:]        # letzte 2 belegte Jahre = aktueller Elementstand
+    cur=[p for p in progs if p['jahr'] in jahre]
+    if len(cur)<4: cur=progs                             # zu wenig aktuell -> alle Jahre
+    n=len(cur)
+    codes=defaultdict(lambda:[0,0.0,''])
+    for p in cur:
+        for c,(panel,g) in p['prog'].items():
+            codes[c][0]+=1; codes[c][1]+=panel; codes[c][2]=g
+    el={c:[r2(v[0]/n),r2(v[1]/v[0]),v[2]] for c,v in codes.items() if v[0]/n>=0.25}
+    if el: REFEL[key]={'n':n,'jahre':jahre,'el':el}
+
 names=json.load(open('data/element_names.json'))
-json.dump({'det':OUT,'refc':REFC,'names':names},open('data/konstanz.json','w'),ensure_ascii=False)
+json.dump({'det':OUT,'refc':REFC,'refel':REFEL,'names':names},open('data/konstanz.json','w'),ensure_ascii=False)
 import os
 print('Athlet|Disziplin-Profile:',len(OUT),'| Referenzgruppen:',len(REFC),
       '| Dateigröße:',round(os.path.getsize('data/konstanz.json')/1024),'KB')
