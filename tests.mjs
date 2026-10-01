@@ -125,11 +125,14 @@ const v37 = await p.evaluate(async () => {
   const resTbl = [...document.querySelectorAll('table')].find(t => t.textContent.includes('Rechenweg'));
   out.segVals = resTbl ? /(KP|Kür|SD|KT|PT) \d/.test(resTbl.textContent) : false;
   state.showSegs = false; state.athlet=''; render();
-  // d) Referenz-Ausschluss (experimentell): EM 2023 ausblenden → EM-Kurvenfenster ändert sich
+  // d) Referenz-Ausschluss (experimentell): neuestes EM ausblenden → EM-Kurvenfenster ändert sich
+  // (dynamisch statt fest "EM 2023": das Kurvenfenster zeigt die JÜNGSTEN Jahre –
+  //  ältere EMs fallen mit wachsendem Datenbestand ohnehin heraus)
+  const emNeu = DB.filter(e=>e.typ==='EM').sort((a,b)=>b.jahr-a.jahr)[0];
   const before = curveG('EM','Kürlaufen','Senioren','Herren','tes').years.join(',');
-  state.exclEvents = ['EM Ponte di Legno 2023']; render();
+  state.exclEvents = [emNeu.name]; render();
   const after = curveG('EM','Kürlaufen','Senioren','Herren','tes').years.join(',');
-  out.exclWirkt = before !== after && !after.includes('2023');
+  out.exclWirkt = before !== after && !after.split(',').includes(String(emNeu.jahr));
   const mainEl = document.getElementById('main');
   out.exclBanner = mainEl.textContent.includes('Experimentelle Referenzbasis');
   state.exclEvents = []; render();
